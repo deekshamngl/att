@@ -1,0 +1,593 @@
+12-Dec-2019 10:19 : TimeIn AID0UserId4904
+12-Dec-2019 10:19 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4904,'2019-12-12',1,'10:19',49,50,18646,159,242,10,'2019-12-12',4904,'2019-12-12 10:19:25',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_12122019_101925.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967511','78.1970469','2019-12-12',' android')
+12-Dec-2019 15:29 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Paridhi Rajawat </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Paridhi Rajawat  <br/>
+                        
+                        Username(Phone#): 52478565<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/97219' target='_blank' >
+                            GenerateParidhi Rajawat ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Dec-2019 15:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Dec-2019 15:46 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Dec-2019 15:46 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Dec-2019 15:46 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Dec-2019 15:46 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Dec-2019 19:23 : <html>
+					<head>
+					<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+					<meta name=Generator content="Microsoft Word 12 (filtered)">
+					<style>
+					</style>
+
+					</head>
+
+					<body lang=EN-US link=blue vlink=purple>
+
+					<div class=Section1>
+
+					<div align=center>
+
+					<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550"
+					 style="550px;border-collapse:collapse" align="center">
+					 <tr style="height:328.85pt">
+					  <td width=917 valign=top style="width:687.75px;padding:0in 0in 0in 0in;
+					  height:328.85px">
+					  <div align=center>
+					  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style="width:100.0%;border-collapse:collapse">
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:21.5pt 0in 21.5pt 0in">
+						  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+						  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+						  12.0pt;font-family:Arial,sans-serif"><img width=200 
+						  id="Picture 1" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/logo.png" alt="ubitech solutions"></span></p>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="100%" style="width:100.0%;border-collapse:collapse">
+						   <tr>
+							<td valign=top style="padding:0in 0in 0in 0in">
+							<div align=center>
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 width="100%" style="width:100.0%;background:white">
+							 <tr>
+							  <td width="550" valign=top style="width:550px;padding:21.5pt 0in 0in 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+							  12.0pt;font-family:Arial,sans-serif">&nbsp;</span></p>
+							  </td>
+							 </tr>
+							</table>
+							</div>
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="padding:0in 0in 0in 0in">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="550" style="width:550px;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="550" style="width:550px;border-collapse:collapse">
+						   <tr>
+							<td width=30 valign=top style="width:22.5pt;padding:0in 0in 0in 0in">
+							<p class=MsoNormal align=right style="margin-bottom:0in;margin-bottom:
+							.0001pt;text-align:right;line-height:normal"><span style="font-size:
+							12.0pt;font-family:Arial,sans-serif"><img width=30 height=59
+							id="Picture 2" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/image002.jpg" alt=" "></span></p>
+							</td>
+							<td width="550" valign=top style="width:550px;padding:0in 37.6pt 0in 21.5pt">
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 align=center width="550" style="550px;border-collapse:collapse">
+							 <tr>
+							  <td valign=top style="padding:0in 0in 21.5pt 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:left;line-height:22.55pt"><b><p style="font-size:20.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">Welcome - now let&#39;s get started!<br/>
+							  </p>  	
+								<p style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUm6o=">Verify now to start your trial</a>
+								</p>
+							
+								<div align=center>
+							  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							   width="550" style="width:550px;border-collapse:collapse">
+							   <tr>
+								<td align="center" style="padding:0in 0in 0in 0in">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUm6o=" target="_blank" style="font-size:20px;font-family:Helvetica,sans-serif;color:white;text-decoration:none">
+								<p class=MsoNormal align=center style="margin-bottom:0in;								margin-bottom:.0001pt;text-align:center;line-height:normal; background:#52bad5;width: 250px;padding: 15px;">Verify your Account</span></b></span></p></a>
+								</td>
+							   </tr>
+							  </table>
+							  </div>
+								<span
+							  style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060">
+							  
+							 <br/> Hello xcg,
+							  
+								</span></b>
+								<p style="text-align: left;" class="paragraph-text">
+								Thanks for trying ubiAttendance. You&#39;re going to love it.<br/><br/>
+								First thing&#39;s first:  <a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUm6o=">Verify your Account</a> to start exploring our world class App.<br/>Enjoy your 15-day trial to your heart&#39;s content!<br/><br/><br/>Need more help?  <a href="mailto:ubiattendance@ubitechsolutions.com">Contact us</a> or <a target="_blank" href="https://www.youtube.com/channel/UCLplA-GWJOKZTwGlAaVKezg">View our Channel</a> and learn about key features and best practices.
+								</p>
+								
+							  </p>
+							  </td>
+
+							 </tr>
+							 <tr>
+							 
+							 </tr>
+							 <tr>
+							  <td valign=top style="padding:0in 0in 2.7pt 0in">
+									Cheers,<br/>Team ubiAttendance<br/><a href="http://www.ubiattendance.com/" target="_blank">www.ubiattendance.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubiattendance@ubitechsolutions.com<br/>Skype: ubitech.solutions
+							  </td>
+							 </tr>
+							 
+							</table>
+
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					  </table>
+					  </div>
+					  </td>
+					 </tr>
+					</table>
+
+					</div>
+
+
+					</div>
+
+
+					</body>
+
+					</html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Dec-2019 19:23 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Dec-2019 19:33 : <html>
+					<head>
+					<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+					<meta name=Generator content="Microsoft Word 12 (filtered)">
+					<style>
+					</style>
+
+					</head>
+
+					<body lang=EN-US link=blue vlink=purple>
+
+					<div class=Section1>
+
+					<div align=center>
+
+					<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550"
+					 style="550px;border-collapse:collapse" align="center">
+					 <tr style="height:328.85pt">
+					  <td width=917 valign=top style="width:687.75px;padding:0in 0in 0in 0in;
+					  height:328.85px">
+					  <div align=center>
+					  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style="width:100.0%;border-collapse:collapse">
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:21.5pt 0in 21.5pt 0in">
+						  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+						  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+						  12.0pt;font-family:Arial,sans-serif"><img width=200 
+						  id="Picture 1" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/logo.png" alt="ubitech solutions"></span></p>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="100%" style="width:100.0%;border-collapse:collapse">
+						   <tr>
+							<td valign=top style="padding:0in 0in 0in 0in">
+							<div align=center>
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 width="100%" style="width:100.0%;background:white">
+							 <tr>
+							  <td width="550" valign=top style="width:550px;padding:21.5pt 0in 0in 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+							  12.0pt;font-family:Arial,sans-serif">&nbsp;</span></p>
+							  </td>
+							 </tr>
+							</table>
+							</div>
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="padding:0in 0in 0in 0in">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="550" style="width:550px;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="550" style="width:550px;border-collapse:collapse">
+						   <tr>
+							<td width=30 valign=top style="width:22.5pt;padding:0in 0in 0in 0in">
+							<p class=MsoNormal align=right style="margin-bottom:0in;margin-bottom:
+							.0001pt;text-align:right;line-height:normal"><span style="font-size:
+							12.0pt;font-family:Arial,sans-serif"><img width=30 height=59
+							id="Picture 2" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/image002.jpg" alt=" "></span></p>
+							</td>
+							<td width="550" valign=top style="width:550px;padding:0in 37.6pt 0in 21.5pt">
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 align=center width="550" style="550px;border-collapse:collapse">
+							 <tr>
+							  <td valign=top style="padding:0in 0in 21.5pt 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:left;line-height:22.55pt"><b><p style="font-size:20.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">Welcome - now let&#39;s get started!<br/>
+							  </p>  	
+								<p style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUm60=">Verify now to start your trial</a>
+								</p>
+							
+								<div align=center>
+							  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							   width="550" style="width:550px;border-collapse:collapse">
+							   <tr>
+								<td align="center" style="padding:0in 0in 0in 0in">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUm60=" target="_blank" style="font-size:20px;font-family:Helvetica,sans-serif;color:white;text-decoration:none">
+								<p class=MsoNormal align=center style="margin-bottom:0in;								margin-bottom:.0001pt;text-align:center;line-height:normal; background:#52bad5;width: 250px;padding: 15px;">Verify your Account</span></b></span></p></a>
+								</td>
+							   </tr>
+							  </table>
+							  </div>
+								<span
+							  style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060">
+							  
+							 <br/> Hello ffc,
+							  
+								</span></b>
+								<p style="text-align: left;" class="paragraph-text">
+								Thanks for trying ubiAttendance. You&#39;re going to love it.<br/><br/>
+								First thing&#39;s first:  <a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUm60=">Verify your Account</a> to start exploring our world class App.<br/>Enjoy your 15-day trial to your heart&#39;s content!<br/><br/><br/>Need more help?  <a href="mailto:ubiattendance@ubitechsolutions.com">Contact us</a> or <a target="_blank" href="https://www.youtube.com/channel/UCLplA-GWJOKZTwGlAaVKezg">View our Channel</a> and learn about key features and best practices.
+								</p>
+								
+							  </p>
+							  </td>
+
+							 </tr>
+							 <tr>
+							 
+							 </tr>
+							 <tr>
+							  <td valign=top style="padding:0in 0in 2.7pt 0in">
+									Cheers,<br/>Team ubiAttendance<br/><a href="http://www.ubiattendance.com/" target="_blank">www.ubiattendance.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubiattendance@ubitechsolutions.com<br/>Skype: ubitech.solutions
+							  </td>
+							 </tr>
+							 
+							</table>
+
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					  </table>
+					  </div>
+					  </td>
+					 </tr>
+					</table>
+
+					</div>
+
+
+					</div>
+
+
+					</body>
+
+					</html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Dec-2019 19:33 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Dec-2019 20:05 : <html>
+					<head>
+					<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+					<meta name=Generator content="Microsoft Word 12 (filtered)">
+					<style>
+					</style>
+
+					</head>
+
+					<body lang=EN-US link=blue vlink=purple>
+
+					<div class=Section1>
+
+					<div align=center>
+
+					<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550"
+					 style="550px;border-collapse:collapse" align="center">
+					 <tr style="height:328.85pt">
+					  <td width=917 valign=top style="width:687.75px;padding:0in 0in 0in 0in;
+					  height:328.85px">
+					  <div align=center>
+					  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style="width:100.0%;border-collapse:collapse">
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:21.5pt 0in 21.5pt 0in">
+						  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+						  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+						  12.0pt;font-family:Arial,sans-serif"><img width=200 
+						  id="Picture 1" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/logo.png" alt="ubitech solutions"></span></p>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="100%" style="width:100.0%;border-collapse:collapse">
+						   <tr>
+							<td valign=top style="padding:0in 0in 0in 0in">
+							<div align=center>
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 width="100%" style="width:100.0%;background:white">
+							 <tr>
+							  <td width="550" valign=top style="width:550px;padding:21.5pt 0in 0in 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+							  12.0pt;font-family:Arial,sans-serif">&nbsp;</span></p>
+							  </td>
+							 </tr>
+							</table>
+							</div>
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="padding:0in 0in 0in 0in">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="550" style="width:550px;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="550" style="width:550px;border-collapse:collapse">
+						   <tr>
+							<td width=30 valign=top style="width:22.5pt;padding:0in 0in 0in 0in">
+							<p class=MsoNormal align=right style="margin-bottom:0in;margin-bottom:
+							.0001pt;text-align:right;line-height:normal"><span style="font-size:
+							12.0pt;font-family:Arial,sans-serif"><img width=30 height=59
+							id="Picture 2" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/image002.jpg" alt=" "></span></p>
+							</td>
+							<td width="550" valign=top style="width:550px;padding:0in 37.6pt 0in 21.5pt">
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 align=center width="550" style="550px;border-collapse:collapse">
+							 <tr>
+							  <td valign=top style="padding:0in 0in 21.5pt 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:left;line-height:22.55pt"><b><p style="font-size:20.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">Welcome - now let&#39;s get started!<br/>
+							  </p>  	
+								<p style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUnKU=">Verify now to start your trial</a>
+								</p>
+							
+								<div align=center>
+							  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							   width="550" style="width:550px;border-collapse:collapse">
+							   <tr>
+								<td align="center" style="padding:0in 0in 0in 0in">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUnKU=" target="_blank" style="font-size:20px;font-family:Helvetica,sans-serif;color:white;text-decoration:none">
+								<p class=MsoNormal align=center style="margin-bottom:0in;								margin-bottom:.0001pt;text-align:center;line-height:normal; background:#52bad5;width: 250px;padding: 15px;">Verify your Account</span></b></span></p></a>
+								</td>
+							   </tr>
+							  </table>
+							  </div>
+								<span
+							  style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060">
+							  
+							 <br/> Hello ccv,
+							  
+								</span></b>
+								<p style="text-align: left;" class="paragraph-text">
+								Thanks for trying ubiAttendance. You&#39;re going to love it.<br/><br/>
+								First thing&#39;s first:  <a href="https://ubiattendance.ubihrm.com/index.php/services/activateAccount?iuser=oayUnKU=">Verify your Account</a> to start exploring our world class App.<br/>Enjoy your 15-day trial to your heart&#39;s content!<br/><br/><br/>Need more help?  <a href="mailto:ubiattendance@ubitechsolutions.com">Contact us</a> or <a target="_blank" href="https://www.youtube.com/channel/UCLplA-GWJOKZTwGlAaVKezg">View our Channel</a> and learn about key features and best practices.
+								</p>
+								
+							  </p>
+							  </td>
+
+							 </tr>
+							 <tr>
+							 
+							 </tr>
+							 <tr>
+							  <td valign=top style="padding:0in 0in 2.7pt 0in">
+									Cheers,<br/>Team ubiAttendance<br/><a href="http://www.ubiattendance.com/" target="_blank">www.ubiattendance.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubiattendance@ubitechsolutions.com<br/>Skype: ubitech.solutions
+							  </td>
+							 </tr>
+							 
+							</table>
+
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					  </table>
+					  </div>
+					  </td>
+					 </tr>
+					</table>
+
+					</div>
+
+
+					</div>
+
+
+					</body>
+
+					</html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Dec-2019 20:05 : The following From address failed: ubiattendance@ubitechsolutions.com

@@ -1,0 +1,33 @@
+15-May-2019 12:14 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-05-15',1,'12:14',48,50,18645,159,0,10,'2019-05-15',4141,'2019-05-15 12:14:49',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_15052019_121449.jpg','New Collectorate Road, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.19661866224016','78.19703419700095','2019-05-15')
+15-May-2019 12:16 : 31628
+15-May-2019 12:16 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 15:56 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 15:56 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:16 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:16 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:17 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:17 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:37 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:37 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:43 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:43 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:46 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:46 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:53 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:53 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:59 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 16:59 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:10 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:10 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+15-May-2019 17:21 : The following From address failed: ubiattendance@ubitechsolutions.com

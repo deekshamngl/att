@@ -1,0 +1,184 @@
+05-Nov-2019 11:47 : TimeIn AID0UserId4904
+05-Nov-2019 11:47 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4904,'2019-11-05',1,'11:47',49,50,18646,159,242,10,'2019-11-05',4904,'2019-11-05 11:47:37',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_05112019_114737.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967608','78.1970409','2019-11-05',' android')
+05-Nov-2019 11:52 : TimeOut AID3301743UserId4904
+05-Nov-2019 13:44 : TimeIn AID0UserId4902
+05-Nov-2019 13:44 : User Attendance: 4902 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4902,'2019-11-05',1,'13:44',52,50,137939,159,21,10,'2019-11-05',4902,'2019-11-05 13:44:41',4902,4902,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967546','78.1969632','2019-11-05',' android')
+05-Nov-2019 13:56 : TimeIn AID0UserId15705
+05-Nov-2019 13:56 : User Attendance: 15705 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,15705,'2019-11-05',1,'13:56',7329,23553,1159,766,0,10,'2019-11-05',15705,'2019-11-05 13:56:20',15705,15705,'00:00:00','http://192.168.0.200/ubiattendance/uploads/15705_05112019_135620.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967584','78.1969823','2019-11-05',' android')
+05-Nov-2019 13:56 : TimeOut AID3301747UserId15705
+05-Nov-2019 15:59 : inelse
+05-Nov-2019 17:56 : TimeIn AID0UserId60050
+05-Nov-2019 17:56 : User Attendance: 60050 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,60050,'2019-11-05',1,'17:56',1127,50,96696,43,0,10,'2019-11-05',60050,'2019-11-05 17:56:28',60050,60050,'00:00:00','http://192.168.0.200/ubiattendance/uploads/60050_05112019_175628.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967696','78.1970239','2019-11-05',' android')
+05-Nov-2019 17:56 : TimeOut AID3301754UserId60050
+05-Nov-2019 18:15 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Arti </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Arti  <br/>
+                        
+                        Username(Phone#): 6265458284<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77202' target='_blank' >
+                            GenerateArti ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Nov-2019 18:15 : The following From address failed: ubiattendance@ubitechsolutions.com
+05-Nov-2019 18:16 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Mohan patel </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Mohan patel  <br/>
+                        
+                        Username(Phone#): 8120317793<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77203' target='_blank' >
+                            GenerateMohan patel ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Nov-2019 18:16 : The following From address failed: ubiattendance@ubitechsolutions.com
+05-Nov-2019 18:20 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Nov-2019 18:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+05-Nov-2019 18:20 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Nov-2019 18:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+05-Nov-2019 18:36 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Nov-2019 18:36 : The following From address failed: ubiattendance@ubitechsolutions.com
+05-Nov-2019 18:36 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Nov-2019 18:36 : The following From address failed: ubiattendance@ubitechsolutions.com

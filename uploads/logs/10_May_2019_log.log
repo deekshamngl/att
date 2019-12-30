@@ -1,0 +1,6 @@
+10-May-2019 16:06 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-05-10',1,'16:06',48,50,18645,159,0,10,'2019-05-10',4141,'2019-05-10 16:06:51',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_10052019_160651.jpg','Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.19670805523749','78.19698340266775','2019-05-10')
+10-May-2019 16:11 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-05-10',1,'16:11',49,50,1170,0,0,10,'2019-05-10',4904,'2019-05-10 16:11:30',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_10052019_161130.jpg','New Collectorate Road, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.196812634608857','78.19717694509076','2019-05-10')

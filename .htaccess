@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^ubiattendance.com$ [OR]
+  RewriteCond %{HTTP_HOST} ^http://www.ubiattendance.com$
+  RewriteRule (.*)$ https://www.ubihrm.com$1 [P]
+</IfModule>

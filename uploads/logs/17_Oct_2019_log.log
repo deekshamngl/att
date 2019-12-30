@@ -1,0 +1,14 @@
+17-Oct-2019 11:30 : TimeIn AID0UserId4904
+17-Oct-2019 11:30 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4904,'2019-10-17',1,'11:30',49,50,18646,159,242,10,'2019-10-17',4904,'2019-10-17 11:30:57',4904,4904,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967684','78.1970297','2019-10-17',' android')
+17-Oct-2019 13:06 : TimeIn AID0UserId4253
+17-Oct-2019 13:06 : User Attendance: 4253 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4253,'2019-10-17',1,'13:06',48,50,861,159,0,10,'2019-10-17',4253,'2019-10-17 13:06:16',4253,4253,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4253_17102019_130616.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967682','78.1970361','2019-10-17',' ')
+17-Oct-2019 13:06 : TimeOut AID3301049UserId4253
+17-Oct-2019 15:07 : TimeIn AID0UserId4141
+17-Oct-2019 15:07 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4141,'2019-10-17',1,'15:07',40747,893,18644,159,0,10,'2019-10-17',4141,'2019-10-17 15:07:20',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_17102019_150720.jpg','New Collectorate Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965486','78.19684','2019-10-17',' ')
+17-Oct-2019 15:22 : TimeOut AID3301046UserId4904

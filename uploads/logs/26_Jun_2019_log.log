@@ -1,0 +1,21 @@
+26-Jun-2019 10:39 : OrgId: 21290
+26-Jun-2019 12:56 : TimeIn AID0UserId4141
+26-Jun-2019 12:56 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-06-26',1,'12:56',48,50,18645,159,0,10,'2019-06-26',4141,'2019-06-26 12:56:38',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_26062019_125638.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966795','78.1969339','2019-06-26')
+26-Jun-2019 16:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 15:08 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 15:08 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 15:08 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 15:08 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Jun-2019 16:48 : The following From address failed: ubiattendance@ubitechsolutions.com

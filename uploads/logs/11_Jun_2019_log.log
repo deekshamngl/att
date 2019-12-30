@@ -1,0 +1,7 @@
+11-Jun-2019 11:13 : TimeIn AID0UserId4904
+11-Jun-2019 11:13 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-06-11',1,'11:13',49,50,1170,0,0,10,'2019-06-11',4904,'2019-06-11 11:13:09',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_11062019_111309.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967191','78.1969593','2019-06-11')
+11-Jun-2019 11:13 : TimeOut AID1972013UserId4904
+11-Jun-2019 11:57 : inelse
+11-Jun-2019 11:57 : The following From address failed: ubiattendance@ubitechsolutions.com

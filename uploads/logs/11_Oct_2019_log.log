@@ -1,0 +1,71 @@
+11-Oct-2019 12:12 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Test ui </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Test ui  <br/>
+                        
+                        Username(Phone#): 6985698430<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/69547' target='_blank' >
+                            GenerateTest ui ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Oct-2019 12:12 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Oct-2019 12:15 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Aa bby  </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Aa bby   <br/>
+                        
+                        Username(Phone#): 8579643580<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/69548' target='_blank' >
+                            GenerateAa bby  ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Oct-2019 12:15 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Oct-2019 12:39 : TimeIn AID0UserId4141
+11-Oct-2019 12:39 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4141,'2019-10-11',1,'12:39',48,893,18644,159,0,10,'2019-10-11',4141,'2019-10-11 12:39:55',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_11102019_123955.jpg','Unnamed Road, Kailash Nagar, Ramanuj Nagar, Gwalior, Madhya Pradesh 474011, India','mobile','26.2012919','78.2018743','2019-10-11')
+11-Oct-2019 12:40 : inelse
+11-Oct-2019 13:17 : TimeIn AID0UserId69548
+11-Oct-2019 13:17 : User Attendance: 69548 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,69548,'2019-10-11',1,'13:17',40742,143263,3219,0,0,10,'2019-10-11',69548,'2019-10-11 13:17:03',69548,69548,'00:00:00','http://192.168.0.200/ubiattendance/uploads/69548_11102019_131703.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967905','78.1969124','2019-10-11')
+11-Oct-2019 17:48 :  Dear Sohan <br/>
+				You have requested for reset your ubiAttendance login password, please click on the following link to reset your password https://ubiattendance.ubihrm.com/index.php/services/HastaLaVistaUbi?hasta=nK6SnQ==&vista=maU=&ctrpvt=mg== <br/><br/>
+				Thanks<br/>
+				UBITECH TEAM
+				<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Oct-2019 17:48 : The following From address failed: ubiattendance@ubitechsolutions.com

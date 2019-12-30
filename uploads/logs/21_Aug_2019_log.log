@@ -1,0 +1,93 @@
+21-Aug-2019 12:07 : TimeOut AID2782056UserId4253
+21-Aug-2019 12:09 : TimeIn AID0UserId11674
+21-Aug-2019 12:09 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-08-21',1,'12:09',49,50,91897,159,1,10,'2019-08-21',11674,'2019-08-21 12:09:39',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_21082019_120939.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967576','78.19702','2019-08-21')
+21-Aug-2019 13:14 : TimeIn AID0UserId26332
+21-Aug-2019 13:14 : User Attendance: 26332 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,26332,'2019-08-21',1,'13:14',48,50,91897,159,0,10,'2019-08-21',26332,'2019-08-21 13:14:07',26332,26332,'00:00:00','http://192.168.0.200/ubiattendance/uploads/26332_21082019_131407.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967423','78.1970331','2019-08-21')
+21-Aug-2019 13:49 : TimeIn AID0UserId4171
+21-Aug-2019 13:49 : User Attendance: 4171 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4171,'2019-08-21',1,'13:49',48,50,869,159,21,10,'2019-08-21',4171,'2019-08-21 13:49:13',4171,4171,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4171_21082019_134913.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966391','78.1969279','2019-08-21')
+21-Aug-2019 13:53 : TimeIn AID0UserId4904
+21-Aug-2019 13:53 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-08-21',1,'13:53',34305,50,151137,159,242,10,'2019-08-21',4904,'2019-08-21 13:53:13',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_21082019_135313.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966721','78.1969757','2019-08-21')
+21-Aug-2019 13:56 : TimeIn AID0UserId11678
+21-Aug-2019 13:56 : User Attendance: 11678 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11678,'2019-08-21',1,'13:56',48,50,137950,159,0,10,'2019-08-21',11678,'2019-08-21 13:56:45',11678,11678,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11678_21082019_135645.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967576','78.19702','2019-08-21')
+21-Aug-2019 14:00 : inelse
+21-Aug-2019 14:54 : inelse
+21-Aug-2019 14:54 : Anant Sharma has punched Time in at 00:52 from Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+21-Aug-2019 14:54 : The following From address failed: ubiattendance@ubitechsolutions.com
+21-Aug-2019 14:54 : inelse
+21-Aug-2019 14:54 : Anant Sharma has punched Time in at 02:00 from Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+21-Aug-2019 14:54 : The following From address failed: ubiattendance@ubitechsolutions.com
+21-Aug-2019 15:26 : inelse
+21-Aug-2019 15:26 : Anita Saboo has punched Time in at 15:14 from Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+21-Aug-2019 15:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+21-Aug-2019 15:27 : inelse
+21-Aug-2019 15:27 : Ankita Sachdeva has punched Time in at 12:25 from Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+21-Aug-2019 15:27 : The following From address failed: ubiattendance@ubitechsolutions.com
+21-Aug-2019 16:38 : Senior not zero
+21-Aug-2019 16:38 : 4904
+21-Aug-2019 16:38 : 0 0
+21-Aug-2019 16:38 : sernioer emailsohan@ubitechsolutions.com
+21-Aug-2019 16:38 : sohan@ubitechsolutions.com <table>
+														<tr><td>Requested by: Pulkit</td></tr>
+														<tr><td>Applied on:  Aug 21, 2019 04:38 PM </td></tr>
+														<tr><td>Reason for timeoff: test
+</td></tr>
+														<tr><td>Date: 2019-08-23</td></tr>
+														<tr><td>Duration: from 04:37 pm to 05:31 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4904/10/12550/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4904/10/12550/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+21-Aug-2019 16:38 : <table>
+														<tr><td>Requested by: Pulkit</td></tr>
+														<tr><td>Applied on:  Aug 21, 2019 04:38 PM </td></tr>
+														<tr><td>Reason for timeoff: test
+</td></tr>
+														<tr><td>Date: 2019-08-23</td></tr>
+														<tr><td>Duration: from 04:37 pm to 05:31 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4904/10/12550/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4904/10/12550/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+21-Aug-2019 16:38 : The following From address failed: hr@ubitechsolutions.com
+21-Aug-2019 16:38 : 4143
+21-Aug-2019 16:38 : 1 1
+21-Aug-2019 16:38 : i!=0 1
+21-Aug-2019 19:04 : TimeOut AID2782060UserId4904

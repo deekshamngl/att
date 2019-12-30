@@ -1,0 +1,123 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+    /* text-align: center; */
+}
+
+
+@media print {
+    #dytaa_topSide {
+        background-color: #272727 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+
+@media print {
+    #dytaa_qrCard {
+        background-color: #ececec !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+@media print {
+#dytaa_company_name label b{
+    font-size: 15px;
+    margin-top: 5%;
+    font-weight: 700;
+    color: #ffffff!important;
+    
+}
+}
+
+
+#dytaa_qrCard{
+    text-align: center !important;
+    width: 204.096px !important;
+    height: 330.344px !important; 
+    border: 1px solid #dfdfdf !important;
+    background-color: #ffffff !important;
+
+    
+}
+#dytaa_topSide{
+    width: 205px;
+    height: 100px;
+    background-color: #272727;
+    position: absolute;
+    
+}
+
+#profile2{
+    margin-top: 15%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border-width: 5px;
+    border: 3px solid #ffffff;
+    position: static;
+    
+}
+#dytaa_company_name label b{
+    font-size: 15px;
+    margin-top: 5%;
+    font-weight: 700;
+    color: #ffffff!important;
+    
+}
+
+label{
+    margin-bottom: 0%; 
+}
+#dytaa_user_name label span{
+    margin-top: 5% !important;
+    font-size: 12px !important;
+    letter-spacing: 1px !important;
+    color:#000!important;
+    
+}
+#dytaa_designation label span{
+    font-size: 12px !important;
+    letter-spacing: 1px !important;
+    color:#000!important;
+}
+
+#dytaa_empid label span{
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+    color:#000!important;
+}
+
+/* qr code background rectangle */
+#dytaa_qrcode_rectangle_dotted{
+    margin-top: 8% !important;
+    margin-left: 25% !important;
+    width: 100px !important;
+    height: 100px !important;
+    border: 2px dashed rgb(19, 19, 19) !important;
+    
+}
+#dytaa_qrcode_rectangle_line{
+    margin: 8% !important;
+    width: 80px !important;
+    height: 80px !important;
+    border: 2px solid rgb(19, 19, 19) !important;
+    
+}
+#qrcode123{
+    margin: 10%;
+    width: 60px;
+    height: 60px;
+}
+
+
+#dytaa_company_website label span{
+    padding-bottom: 10% !important;
+    font-size: 8px !important;
+    margin-top: 11% !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+}
+#dytaa_prntbtn{
+    top:350px;
+    position: absolute;
+    left: 75px;
+}

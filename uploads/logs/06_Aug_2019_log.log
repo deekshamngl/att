@@ -1,0 +1,23 @@
+06-Aug-2019 12:43 : TimeIn AID0UserId11674
+06-Aug-2019 12:43 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-08-06',1,'12:43',49,50,860,159,1,10,'2019-08-06',11674,'2019-08-06 12:43:23',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_06082019_124323.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1968059','78.1967868','2019-08-06')
+06-Aug-2019 12:50 : TimeOut AID2384318UserId11674
+06-Aug-2019 12:53 : TimeIn AID0UserId40371
+06-Aug-2019 12:53 : User Attendance: 40371 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,40371,'2019-08-06',1,'12:53',48,50,91897,236,0,10,'2019-08-06',40371,'2019-08-06 12:53:06',40371,40371,'00:00:00','http://192.168.0.200/ubiattendance/uploads/40371_06082019_125306.jpg','New Collectorate Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966725','78.1968288','2019-08-06')
+06-Aug-2019 12:53 : TimeOut AID2384319UserId40371
+06-Aug-2019 12:55 : TimeIn AID0UserId4902
+06-Aug-2019 12:55 : User Attendance: 4902 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4902,'2019-08-06',1,'12:55',52,50,859,159,26,10,'2019-08-06',4902,'2019-08-06 12:55:02',4902,4902,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4902_06082019_125502.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967077','78.1969689','2019-08-06')
+06-Aug-2019 13:38 : TimeOut AID2384320UserId4902
+06-Aug-2019 13:57 : TimeIn AID0UserId4904
+06-Aug-2019 13:57 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-08-06',1,'13:57',49,50,859,43,0,10,'2019-08-06',4904,'2019-08-06 13:57:55',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_06082019_135755.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967411','78.1969949','2019-08-06')
+06-Aug-2019 15:45 : TimeIn AID0UserId26332
+06-Aug-2019 15:45 : User Attendance: 26332 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,26332,'2019-08-06',1,'15:45',48,50,860,159,0,10,'2019-08-06',26332,'2019-08-06 15:45:12',26332,26332,'00:00:00','http://192.168.0.200/ubiattendance/uploads/26332_06082019_154512.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967369','78.1969971','2019-08-06')

@@ -1,0 +1,146 @@
+22-Aug-2019 10:54 : TimeIn AID0UserId4141
+22-Aug-2019 10:54 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4141,'2019-08-22',1,'10:54',48,50,18644,159,0,10,'2019-08-22',4141,'2019-08-22 10:54:14',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_22082019_105414.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967498','78.1970236','2019-08-22')
+22-Aug-2019 12:13 : Senior not zero
+22-Aug-2019 12:13 : 4141
+22-Aug-2019 12:13 : 0 0
+22-Aug-2019 12:13 : sernioer emaildeeksha@ubitechsolutions.com
+22-Aug-2019 12:13 : deeksha@ubitechsolutions.com <table>
+														<tr><td>Requested by: Sohan</td></tr>
+														<tr><td>Applied on:  Aug 22, 2019 12:13 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: 2019-08-22</td></tr>
+														<tr><td>Duration: from 01:11 pm to 02:11 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12703/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12703/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+22-Aug-2019 12:13 : <table>
+														<tr><td>Requested by: Sohan</td></tr>
+														<tr><td>Applied on:  Aug 22, 2019 12:13 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: 2019-08-22</td></tr>
+														<tr><td>Duration: from 01:11 pm to 02:11 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12703/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12703/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+22-Aug-2019 12:13 : The following From address failed: hr@ubitechsolutions.com
+22-Aug-2019 12:13 : 4143
+22-Aug-2019 12:13 : 1 1
+22-Aug-2019 12:13 : i!=0 1
+22-Aug-2019 12:14 : Senior not zero
+22-Aug-2019 12:14 : 4141
+22-Aug-2019 12:14 : 0 0
+22-Aug-2019 12:14 : sernioer emaildeeksha@ubitechsolutions.com
+22-Aug-2019 12:14 : deeksha@ubitechsolutions.com <table>
+														<tr><td>Requested by: Sohan</td></tr>
+														<tr><td>Applied on:  Aug 22, 2019 12:14 PM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-08-22</td></tr>
+														<tr><td>Duration: from 01:12 pm to 02:12 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12704/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12704/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+22-Aug-2019 12:14 : <table>
+														<tr><td>Requested by: Sohan</td></tr>
+														<tr><td>Applied on:  Aug 22, 2019 12:14 PM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-08-22</td></tr>
+														<tr><td>Duration: from 01:12 pm to 02:12 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12704/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4141/10/12704/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+22-Aug-2019 12:14 : The following From address failed: hr@ubitechsolutions.com
+22-Aug-2019 12:14 : 4143
+22-Aug-2019 12:14 : 1 1
+22-Aug-2019 12:14 : i!=0 1
+22-Aug-2019 16:23 : inelse
+22-Aug-2019 16:23 : Adam12 Glichrist has punched Time in at 10:21 from Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+22-Aug-2019 16:23 : The following From address failed: ubiattendance@ubitechsolutions.com
+22-Aug-2019 16:23 : inelse
+22-Aug-2019 16:23 : Adam12 Glichrist has punched Time in at 10:22 from Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India<br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+22-Aug-2019 16:23 : The following From address failed: ubiattendance@ubitechsolutions.com
+22-Aug-2019 17:56 : TimeOut AID2879261UserId4253
+22-Aug-2019 19:02 : <html>
+  						<head>
+  						<title>ubiAttendance</title>
+  						</head>
+						<body>
+						<p>Please send the below message through text or Email to the Employees to get them started.</p>
+						<p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+						<ol>
+						<li>
+							Download the Android App by clicking 
+							<a  href='https://play.google.com/store/apps/details?id=org.ubitech.attendance'>https://play.google.com/store/apps/details?id=org.ubitech.attendance</a> 
+							iPhone users can download through 
+							<a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+						</li>
+						<li>Install the App. It will be added to the home screen</li>
+						<li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+						<li>Initial Sign in Password is 3</li>
+						<li>You can now start punching the attendance.</li>
+						<li>Download the detailed Employee guide</li>
+						</ol>
+						</body>
+						</html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+22-Aug-2019 19:02 : The following From address failed: ubiattendance@ubitechsolutions.com

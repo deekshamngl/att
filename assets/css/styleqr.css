@@ -1,0 +1,166 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+@media print {
+    #dayt-leftSide {
+        background-color: #008EB6 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+@media print {
+    #dayt-rightSide {
+        background-color: #ececec !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+@media print {
+    #dayt-qrcode_rectangle_dotted {
+        border: 2px dashed #008EB6 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+@media print {
+    #dayt-qrcode_rectangle_line {
+        border: 2px solid #008EB6 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+#dayt_qrCard1{
+    text-align: center;
+    width: 325.056px; 
+    background-color: #313131;
+    position: absolute;
+    
+}
+
+#dayt-leftSide{
+    width: 183px;
+    height: 235px;
+    background-color: #008EB6;
+    text-align: center;
+    position: absolute;
+}
+#dayt-rightSide{
+    margin-left: 183px;
+    text-align: center;
+    width: 175px;
+    height: 235px;
+    position: absolute;
+    background-color: #ececec;
+}
+
+#profile1{
+    margin-top: 15%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border-width: 5px;
+    border: 2px solid #ffffff;
+    
+}
+#dayt-company_name label{
+    font-size: 12px;
+    margin-top: 10%;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#dayt-company_website label span{
+    padding-bottom: 10%;
+    font-size: 8px;
+    margin-top: 20%;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+label{
+    margin-bottom: 0%; 
+}
+#dayt-user_name label span{
+    margin-top: 5%!important;
+    font-size: 10px!important;
+    color: #ffffff!important;
+    letter-spacing: 1px!important;
+    
+}
+#dayt-designation label span{
+    font-size: 12px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+#dayt-empid label span{
+    font-size: 12px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+
+/* user details svgs */
+#dayt-email_icon{
+    width: 10px;
+    height: 10px;
+}
+#dayt-phone_no_icon{
+    width: 10px;
+    height: 10px;
+}
+#dayt-address_icon{
+    width: 10px;
+    height: 10px;
+}
+
+/* user details */
+#dayt-email_id label span{
+    margin-top: 20%;
+    margin-bottom: 2%;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+#dayt-phone_no label span{
+    font-size: 6px;
+    margin-bottom: 2%;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+#dayt-address label span{
+    padding-bottom: 10%;
+    font-size: 10px;
+    margin-bottom: 2%;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+
+/* qr code background rectangle */
+#dayt-qrcode_rectangle_dotted{
+    margin-top: 15%;
+    margin-left: 18%;
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #008EB6;
+    
+}
+#dayt-qrcode_rectangle_line{
+    margin: 9%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #008EB6;
+    
+}
+#dayt-qrcode111{
+    margin: 10%;
+    width: 60px;
+    height: 60px;
+}
+#dayt-image-print-btn{
+    top:250px;
+    position: absolute;
+    left: 180px;
+}
+

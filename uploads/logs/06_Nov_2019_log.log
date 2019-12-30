@@ -1,0 +1,257 @@
+06-Nov-2019 10:45 : TimeIn AID0UserId4904
+06-Nov-2019 10:45 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4904,'2019-11-06',1,'10:45',49,50,18646,159,242,10,'2019-11-06',4904,'2019-11-06 10:45:22',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_06112019_104522.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967693','78.1970236','2019-11-06',' android')
+06-Nov-2019 10:47 : TimeIn AID0UserId37346
+06-Nov-2019 10:47 : User Attendance: 37346 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,37346,'2019-11-06',1,'10:47',48,50,91213,159,0,10,'2019-11-06',37346,'2019-11-06 10:47:52',37346,37346,'00:00:00','http://192.168.0.200/ubiattendance/uploads/37346_06112019_104752.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967669','78.1970223','2019-11-06',' android')
+06-Nov-2019 10:49 : TimeOut AID3301757UserId37346
+06-Nov-2019 10:52 : TimeOut AID3301756UserId4904
+06-Nov-2019 11:00 : Senior not zero
+06-Nov-2019 11:00 : 4171
+06-Nov-2019 11:00 : 0 0
+06-Nov-2019 11:00 : sernioer emailpragati@ubitechsolutions.com
+06-Nov-2019 11:00 : pragati@ubitechsolutions.com <table>
+														<tr><td>Requested by: Priyanka</td></tr>
+														<tr><td>Applied on:  Nov 06, 2019 11:00 AM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-11-06</td></tr>
+														<tr><td>Duration: from 11:56 am to 11:56 am</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4171/10/13435/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4171/10/13435/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+06-Nov-2019 11:00 : <table>
+														<tr><td>Requested by: Priyanka</td></tr>
+														<tr><td>Applied on:  Nov 06, 2019 11:00 AM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-11-06</td></tr>
+														<tr><td>Duration: from 11:56 am to 11:56 am</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4171/10/13435/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/4171/10/13435/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 11:00 : The following From address failed: hr@ubitechsolutions.com
+06-Nov-2019 11:00 : 4143
+06-Nov-2019 11:00 : 1 1
+06-Nov-2019 11:00 : i!=0 1
+06-Nov-2019 11:05 : UPDATE TimeoffApproval  SET ApproverSts = ? WHERE  	TimeofId = ?  13435
+06-Nov-2019 11:05 : 
+				<table>
+				<tr><td>Dear Pragati  Gade,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>Priyanka  Dubey withdrawn her request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: test</td></tr>
+				<tr><td>Date: 2019-11-06</td></tr>
+				<tr><td>Duration: from 11:56:00 to 11:56:00</td></tr>
+				
+					
+				</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 11:05 : The following From address failed: ubiattendance@ubitechsolutions.com
+06-Nov-2019 11:05 :  pragati@ubitechsolutions.com Withdraw timeoff by Priyanka  Dubey 
+				<table>
+				<tr><td>Dear Pragati  Gade,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>Priyanka  Dubey withdrawn her request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: test</td></tr>
+				<tr><td>Date: 2019-11-06</td></tr>
+				<tr><td>Duration: from 11:56:00 to 11:56:00</td></tr>
+				
+					
+				</table>
+06-Nov-2019 11:09 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Deependra </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Deependra  <br/>
+                        
+                        Username(Phone#): 7773085874<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77206' target='_blank' >
+                            GenerateDeependra ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 11:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+06-Nov-2019 11:24 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Ganesh Sawake </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Ganesh Sawake  <br/>
+                        
+                        Username(Phone#): 8308064460<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77207' target='_blank' >
+                            GenerateGanesh Sawake ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 11:24 : The following From address failed: ubiattendance@ubitechsolutions.com
+06-Nov-2019 11:26 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Aakash New </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Aakash New  <br/>
+                        
+                        Username(Phone#): 8433408926<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77208' target='_blank' >
+                            GenerateAakash New ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 11:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+06-Nov-2019 11:32 : inelse
+06-Nov-2019 12:22 : TimeIn AID0UserId4141
+06-Nov-2019 12:22 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4141,'2019-11-06',1,'12:22',48,50,18644,159,0,10,'2019-11-06',4141,'2019-11-06 12:22:44',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_06112019_122244.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967437','78.1970385','2019-11-06',' android')
+06-Nov-2019 13:31 : TimeOut AID3301759UserId4141
+06-Nov-2019 15:03 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Kishan </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Kishan  <br/>
+                        
+                        Username(Phone#): 7800526002<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77209' target='_blank' >
+                            GenerateKishan ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 15:03 : The following From address failed: ubiattendance@ubitechsolutions.com
+06-Nov-2019 15:06 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Himani </b> has been added to the Employees’ List of<b> Ubitech Solutions Pvt. Ltd.</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Himani  <br/>
+                        
+                        Username(Phone#): 8698387886<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/77210' target='_blank' >
+                            GenerateHimani ’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 15:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+06-Nov-2019 15:17 : <html>
+                              <head>
+                              <title>ubiAttendance</title>
+                              </head>
+                              <body> Hello i am Priyanka Dubey  from Ubitech Solutions Pvt. Ltd. ,<br/>
+                              <p>
+                              <p>Facing issue
+</p>
+                              <br/><br/>
+                              <b>My Login Details are:</b><br>
+                              Username(Phone#): 9527104955<br/>
+                              Password: 123456<br/>
+                              </b>
+                              </p>
+                              <h5>Regards,</br>
+                              Team ubiAttendance </h5>
+                          </body>
+                          </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+06-Nov-2019 15:17 : The following From address failed: ubiattendance@ubitechsolutions.com

@@ -1,0 +1,70 @@
+/* help file custom css code*/
+ .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+   margin-top:0px;
+   
+  border: 1px solid gray;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+   
+	z-index: 10000;
+	
+}
+.sidenavData{
+	margin:2%;
+}
+
+.sidenav a {
+   
+    text-decoration: none;
+    color: #818181;
+    transition: 0.3s;
+}
+.closebtn{
+	position: absolute;
+	right:0;
+	 font-size: 20px;
+	color:white !important;
+}
+.sidenav a:hover, .offcanvas a:focus{
+    color: gray;
+	
+	
+}
+.sidenav a{
+    color: #ffffffff;
+	
+	
+}
+.divbox{
+	background-color:#fff;
+	margin:1%;
+	
+}
+
+.horizontal { display: inline; margin-right: 25px;}
+
+.helpHeader{
+	padding:10px;
+	 font-size: 26px;
+	background-color:#222d32;
+	color:white;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {}
+}
+
+.navbar-nav>.notifications-menu>.dropdown-menu>li .menu, .navbar-nav>.messages-menu>.dropdown-menu>li .menu, .navbar-nav>.tasks-menu>.dropdown-menu>li .menu {
+    max-height: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: hidden;
+}
+ /* help file custom css code*/

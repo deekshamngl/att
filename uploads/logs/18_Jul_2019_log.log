@@ -1,0 +1,15 @@
+18-Jul-2019 11:38 : TimeIn AID0UserId4904
+18-Jul-2019 11:38 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-07-18',1,'11:38',49,50,859,43,0,10,'2019-07-18',4904,'2019-07-18 11:38:05',4904,4904,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967983','78.1969949','2019-07-18')
+18-Jul-2019 11:47 : TimeOut AID2367768UserId4904
+18-Jul-2019 11:52 : TimeIn AID0UserId4904
+18-Jul-2019 11:52 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-07-18',1,'11:52',49,50,859,43,0,10,'2019-07-18',4904,'2019-07-18 11:52:49',4904,4904,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','D-4, New Collectorate Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965708','78.1970763','2019-07-18')
+18-Jul-2019 11:52 : TimeOut AID2367769UserId4904
+18-Jul-2019 13:07 : TimeIn AID0UserId4904
+18-Jul-2019 13:07 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-07-18',1,'13:07',49,50,859,43,0,10,'2019-07-18',4904,'2019-07-18 13:07:19',4904,4904,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.196762','78.1970079','2019-07-18')
+18-Jul-2019 13:15 : TimeOut AID2367770UserId4904

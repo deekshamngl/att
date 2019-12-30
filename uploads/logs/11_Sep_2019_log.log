@@ -1,0 +1,183 @@
+11-Sep-2019 11:35 : TimeIn AID0UserId4904
+11-Sep-2019 11:35 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-09-11',1,'11:35',49,50,18646,159,242,10,'2019-09-11',4904,'2019-09-11 11:35:55',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_11092019_113555.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966825','78.1969889','2019-09-11')
+11-Sep-2019 12:09 : TimeOut AID2879358UserId4904
+11-Sep-2019 13:55 : <html>
+  						<head>
+							<title></title>
+  						</head>
+						<body>
+						<h3>Dear Admin,</h3>
+						<p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+						<p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+						<ol>
+						<li> 
+							Download the Android App by clicking <a  
+							href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+							iPhone users can download through 
+							<a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+						</li>
+						<li>Install the App.  It will be added to the home screen</li>
+						<li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+						<li>Initial Sign in Password is 123456</li>
+						<li>You can now start punching the attendance.</li>
+						<li>Download the detailed Employee guide</li>
+						</ol>
+						<p>For further assistance, kindly contact your system administrator.</p>
+						<h5>Cheers,</h5>
+						<h5>ubiAttendance Team</h5>
+						</body>
+						</html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Sep-2019 13:55 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Sep-2019 13:55 : <html>
+  						<head>
+							<title></title>
+  						</head>
+						<body>
+						<h3>Dear Admin,</h3>
+						<p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+						<p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+						<ol>
+						<li> 
+							Download the Android App by clicking <a  
+							href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+							iPhone users can download through 
+							<a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+						</li>
+						<li>Install the App.  It will be added to the home screen</li>
+						<li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+						<li>Initial Sign in Password is 123456</li>
+						<li>You can now start punching the attendance.</li>
+						<li>Download the detailed Employee guide</li>
+						</ol>
+						<p>For further assistance, kindly contact your system administrator.</p>
+						<h5>Cheers,</h5>
+						<h5>ubiAttendance Team</h5>
+						</body>
+						</html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Sep-2019 13:55 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Sep-2019 16:05 : <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+			<title>ubiAttendance</title>
+			<style type="text/css">
+			body 
+			{
+			  margin-left: 0px;
+			  margin-top: 0px;
+			  margin-right: 0px;
+			  margin-bottom: 0px;
+			 -webkit-text-size-adjust:none; -ms-text-size-adjust:none;
+			  background: white;
+			} 
+			table{border-collapse: collapse;}  
+			.icon-row{
+			  border-bottom: 2px solid #00aad4;
+			}
+			.icons{
+			  padding: 50px;
+			}
+			.icons img{
+			  width:100px;
+			  height: auto;
+			}
+			</style></head>
+			<body>
+			<table  width="650" align="center" >
+			  <tr>
+				<td  valign="center" align="center" >
+				  <a href="http://www.ubihrm.com/attendance-app/" "><img style="width: 150px;padding-top: 50px;" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/Clock_time_in_with_4_easy_steps/logo.png"></a>
+				</td>
+			  </tr>
+			   <tr>
+				<td  valign="center" align="center">
+				  <h1 style="font-family: Arial">
+					You are invited to join ubiAttendance
+				  </h1>
+				</td>
+			  </tr>
+			  <tr>
+				<td  valign="center" align="center">
+				  <p style="font-family: Arial;">
+					ROGER FEDERER from Ubitech solutions PVT LTD has invited you to use ubiAttendance for easy marking of Time In & Time Out from your mobile device! 
+				  </p>   
+				</td>
+			  </tr>
+			   <tr>
+				<td  valign="center" align="center" style="padding-top: 50px;padding-bottom: 50px;  ">
+					<a href="http://192.168.0.200/ubiattendance/index.php/services/regInvEmp?tocken===AUVZ0VWtGZXJFbaNVTWJVU&tocken1==AVVGdkVuhmSWxGZxMGRGVVYWp1RaRVSwIlVaxkYEpkWSNjQWZlMG9mVWFFeNZkVpRVMwlkVu50UWFDbPpVRWxWTHJ1RWtGZPFWMahVZGRGbhZlWGdVb5ckUwEDaVxGaY1keGVVVB1TP" style="padding:20px 50px;font-family: Arial;background-color: #22be2a;color: white;text-decoration: none;border-radius: 5px;">Accept</a>
+				</td> 
+				</tr>
+			<tr>
+				<td  valign="center" align="center" style="padding-top: 50px; display:none">
+				   <p style="font-family: Arial;color: grey;"> You may copy/paste this link into your browser:http://192.168.0.200/ubiattendance/index.php/services/regInvEmp?tocken===AUVZ0VWtGZXJFbaNVTWJVU&tocken1==AVVGdkVuhmSWxGZxMGRGVVYWp1RaRVSwIlVaxkYEpkWSNjQWZlMG9mVWFFeNZkVpRVMwlkVu50UWFDbPpVRWxWTHJ1RWtGZPFWMahVZGRGbhZlWGdVb5ckUwEDaVxGaY1keGVVVB1TP</p>
+				</td> 
+			</tr>
+			  </table>
+			</body>
+			</html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Sep-2019 16:05 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Sep-2019 16:11 : <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+			<title>ubiAttendance</title>
+			<style type="text/css">
+			body 
+			{
+			  margin-left: 0px;
+			  margin-top: 0px;
+			  margin-right: 0px;
+			  margin-bottom: 0px;
+			 -webkit-text-size-adjust:none; -ms-text-size-adjust:none;
+			  background: white;
+			} 
+			table{border-collapse: collapse;}  
+			.icon-row{
+			  border-bottom: 2px solid #00aad4;
+			}
+			.icons{
+			  padding: 50px;
+			}
+			.icons img{
+			  width:100px;
+			  height: auto;
+			}
+			</style></head>
+			<body>
+			<table  width="650" align="center" >
+			  <tr>
+				<td  valign="center" align="center" >
+				  <a href="http://www.ubihrm.com/attendance-app/" "><img style="width: 150px;padding-top: 50px;" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/Clock_time_in_with_4_easy_steps/logo.png"></a>
+				</td>
+			  </tr>
+			   <tr>
+				<td  valign="center" align="center">
+				  <h1 style="font-family: Arial">
+					You are invited to join ubiAttendance
+				  </h1>
+				</td>
+			  </tr>
+			  <tr>
+				<td  valign="center" align="center">
+				  <p style="font-family: Arial;">
+					ROGER FEDERER from Ubitech solutions PVT LTD has invited you to use ubiAttendance for easy marking of Time In & Time Out from your mobile device! 
+				  </p>   
+				</td>
+			  </tr>
+			   <tr>
+				<td  valign="center" align="center" style="padding-top: 50px;padding-bottom: 50px;  ">
+					<a href="http://192.168.0.200/ubiattendance/index.php/services/regInvEmp?tocken===AUVZ0VWtGZXJFbaNVTWJVU&tocken1==AVVGdkVuhmSWxGZxMGRGVVYWp1RaRVSwIlVaxkYEpkWSNjQWZlMG9mVWFFeNZkVpRVMwlkVu50UWFDbPpVRWxWTHJ1RWtGZPFWMahVZGRGbhZlWGdVb5ckUwEDaVxGaY1keGVVVB1TP" style="padding:20px 50px;font-family: Arial;background-color: #22be2a;color: white;text-decoration: none;border-radius: 5px;">Accept</a>
+				</td> 
+				</tr>
+			<tr>
+				<td  valign="center" align="center" style="padding-top: 50px; display:none">
+				   <p style="font-family: Arial;color: grey;"> You may copy/paste this link into your browser:http://192.168.0.200/ubiattendance/index.php/services/regInvEmp?tocken===AUVZ0VWtGZXJFbaNVTWJVU&tocken1==AVVGdkVuhmSWxGZxMGRGVVYWp1RaRVSwIlVaxkYEpkWSNjQWZlMG9mVWFFeNZkVpRVMwlkVu50UWFDbPpVRWxWTHJ1RWtGZPFWMahVZGRGbhZlWGdVb5ckUwEDaVxGaY1keGVVVB1TP</p>
+				</td> 
+			</tr>
+			  </table>
+			</body>
+			</html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Sep-2019 16:11 : The following From address failed: ubiattendance@ubitechsolutions.com

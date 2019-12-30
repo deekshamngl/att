@@ -1,0 +1,136 @@
+23-Sep-2019 15:07 : TimeIn AID0UserId59832
+23-Sep-2019 15:07 : User Attendance: 59832 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,59832,'2019-09-23',1,'15:07',48,118799,1170,0,0,10,'2019-09-23',59832,'2019-09-23 15:07:27',59832,59832,'00:00:00','http://192.168.0.200/ubiattendance/uploads/59832_23092019_150727.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965534','78.197943','2019-09-23')
+23-Sep-2019 15:13 : TimeIn AID0UserId4904
+23-Sep-2019 15:13 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-09-23',1,'15:13',49,50,18646,159,242,10,'2019-09-23',4904,'2019-09-23 15:13:51',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_23092019_151351.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965534','78.197943','2019-09-23')
+23-Sep-2019 15:24 : TimeIn AID0UserId4904
+23-Sep-2019 15:24 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-09-23',1,'15:24',49,50,18646,159,242,10,'2019-09-23',4904,'2019-09-23 15:24:53',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_23092019_152453.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965534','78.197943','2019-09-23')
+23-Sep-2019 15:37 : <html><body>Dear super admin<br/>,
+							TestCompany has paid amount INR 510 to upgrade ubiAttendance premium plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+35@gmail.com <br/>
+							Transaction Id: 349591466 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Taxes paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buying ubiAttendance services.<br/><br/>
+							To generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ5NTkxNDY2' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 15:37 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 15:37 : <html><body>Dear super admin<br/>,
+							TestCompany has paid amount INR 510 to upgrade ubiAttendance premium plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+35@gmail.com <br/>
+							Transaction Id: 349591466 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Taxes paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buying ubiAttendance services.<br/><br/>
+							To generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ5NTkxNDY2' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 15:37 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 15:37 : <html><body>Dear super admin<br/>,
+							TestCompany has paid amount INR 510 to upgrade ubiAttendance premium plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+35@gmail.com <br/>
+							Transaction Id: 349591466 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Taxes paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buying ubiAttendance services.<br/><br/>
+							To generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ5NTkxNDY2' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 15:37 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 15:37 : <html><body>Dear TestCompany<br/><br/>
+							You have paid amount INR 510 to upgrade ubiAttendance Premium Plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+35@gmail.com <br/>
+							Transaction Id: 349591466 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Tax paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buy ubiAttendance services.<br/><br/>
+							TO generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ5NTkxNDY2' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 15:37 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 16:25 : TimeIn AID0UserId4904
+23-Sep-2019 16:25 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-09-23',1,'16:25',49,50,18646,159,242,10,'2019-09-23',4904,'2019-09-23 16:25:56',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_23092019_162556.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1970928','78.1975734','2019-09-23')
+23-Sep-2019 17:14 : <html><body>Dear super admin<br/>,
+							vanshikaOrganizationubitech has paid amount INR 510 to upgrade ubiAttendance premium plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+52525@ubitechsolutions.com <br/>
+							Transaction Id: 347631467 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Taxes paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buying ubiAttendance services.<br/><br/>
+							To generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ3NjMxNDY3' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 17:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 17:14 : <html><body>Dear super admin<br/>,
+							vanshikaOrganizationubitech has paid amount INR 510 to upgrade ubiAttendance premium plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+52525@ubitechsolutions.com <br/>
+							Transaction Id: 347631467 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Taxes paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buying ubiAttendance services.<br/><br/>
+							To generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ3NjMxNDY3' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 17:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 17:14 : <html><body>Dear super admin<br/>,
+							vanshikaOrganizationubitech has paid amount INR 510 to upgrade ubiAttendance premium plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+52525@ubitechsolutions.com <br/>
+							Transaction Id: 347631467 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Taxes paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buying ubiAttendance services.<br/><br/>
+							To generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ3NjMxNDY3' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 17:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+23-Sep-2019 17:14 : <html><body>Dear vanshikaOrganizationubitech<br/><br/>
+							You have paid amount INR 510 to upgrade ubiAttendance Premium Plan. <br/><br/>
+							<b>Payment summary:</b> <br/><br/>
+							Email ID: 	vanshika+52525@ubitechsolutions.com <br/>
+							Transaction Id: 347631467 <br/>
+							Amount paid: INR 601 (tax included) <br/>
+							Tax paid:    INR 91 <br/>
+							Discount:    INR 0 <br/>
+							No. of users extended: 5 <br/>
+							Plan periods extends: 1 month(s) <br/><br/>
+							Thanks for buy ubiAttendance services.<br/><br/>
+							TO generate the Invoice <a href='http://192.168.0.200/ubiattendance/index.php/cron/generateInvoice?id=MzQ3NjMxNDY3' target='_blank'> Click here</a>.<br/><br/>
+							Regards<br/>
+							Team ubiAttendance</body></html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+23-Sep-2019 17:14 : The following From address failed: ubiattendance@ubitechsolutions.com

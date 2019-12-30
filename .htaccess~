@@ -1,0 +1,2 @@
+RewriteCond %{HTTP_HOST} ^ubiattendance.com
+RewriteRule ^(.*) https://ubihrm.com/attendance-app [P]

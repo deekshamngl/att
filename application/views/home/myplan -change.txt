@@ -1,0 +1,690 @@
+<?php
+	$paypalUrl='https://www.sandbox.paypal.com/cgi-bin/webscr';
+	$paypalId='abhinavsengar.cs@gmail.com';
+   /*
+   *  @author   Gopal Joshi
+   *  @wesite   www.sgeek.org
+   *  @about    PayUMoney Payment Gateway integration in PHP
+   */
+	$merchant_key  = "gtKFFx";
+	$salt          = "eCwWELxi";
+	$payu_base_url = "https://test.payu.in"; // For Test environment
+	$action        = '';
+	$currentDir	   = 'http://localhost/creative/payment/payumoney/';
+	$posted = array();
+	if(!empty($_POST)) {
+	  foreach($_POST as $key => $value) {    
+	    $posted[$key] = $value; 
+	  }
+	}
+
+	$formError = 0;
+	if(empty($posted['txnid'])) {
+	  $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+	} else {
+	  $txnid = $posted['txnid'];
+	}
+
+	$hash         = '';
+	$hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
+
+	if(empty($posted['hash']) && sizeof($posted) > 0) {
+	  if(
+          empty($posted['key'])
+          || empty($posted['txnid'])
+          || empty($posted['amount'])
+          || empty($posted['firstname'])
+          || empty($posted['email'])
+          || empty($posted['phone'])
+          || empty($posted['productinfo'])
+          || empty($posted['surl'])
+          || empty($posted['furl'])
+	  ){
+	    $formError = 1;
+
+	  } else {
+	   	$hashVarsSeq = explode('|', $hashSequence);
+	    $hash_string = '';	
+		foreach($hashVarsSeq as $hash_var) {
+	      $hash_string .= isset($posted[$hash_var]) ? $posted[$hash_var] : '';
+	      $hash_string .= '|';
+	    }
+	    $hash_string .= $salt;
+	    $hash = strtolower(hash('sha512', $hash_string));
+	    $action = $payu_base_url . '/_payment';
+	  }
+	} elseif(!empty($posted['hash'])) {
+	  $hash = $posted['hash'];
+	  $action = $payu_base_url . '/_payment';
+	}
+?>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>ubiAttendance</title>
+	<style type="text/css">
+.hover{background-color: #cc0000}
+.authorBlock{border-top:1px solid #cc0000;}
+
+.accordion_container {
+  width: 100%;
+  padding: 1em;
+}
+
+.accordion_head {
+  background-color: #9c27b0;
+  color: white;
+  cursor: pointer;
+  font-family: arial;
+  font-size: 14px;
+  margin: 10px 0 0px 0px;
+  padding: 10px 11px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+
+.accordion_body {
+  background: white;
+  padding: 1em;
+}
+
+.accordion_body p {
+  padding: 18px 5px;
+  margin: 0px;
+}
+
+.check-mark, .question-mark {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  float: right;
+  height: 28px;
+  line-height: 16px;
+  padding: 5px;
+  position: relative;
+  width: 28px;
+  text-align: center;
+  top: -4px;
+}
+
+.check-mark {
+  border-color: #c4db30;
+  color: #c4db30;
+}
+
+.question-mark {
+  border-color: #086cff;
+  color: #086cff;
+  font-size: 1.3em;
+}
+
+.plusminus {
+  float: left;
+  margin-right: 10px;
+}
+
+.next-button {
+/* display: none; */
+}
+
+
+</style>
+<script>
+    var hash = '<?php echo $hash ?>';
+    function submitPayuForm() {
+      if(hash == '') {
+        return;
+      }
+      var payuForm = document.forms.payuForm;
+      payuForm.submit();
+    }
+  </script>
+</head>
+<body onload="submitPayuForm()" >
+
+	<div class="wrapper">
+		<?php
+			$data['pageid']=12.1;
+			$this->load->view('menubar/sidebar');
+		?>
+	    <div class="main-panel">
+			<?php
+				$this->load->view('menubar/navbar');
+			?>
+			<div class="content ">
+				<div class="container-fluid center">
+					<div class="row">
+						<div class="col-lg-6 col-md-12">	
+						</div>
+						<div class="col-md-11">
+							<div class="card valign">
+	                            <div class="card-header" data-background-color="orange">
+									<div class="nav-tabs-navigation">
+										<div class="nav-tabs-wrapper">
+											<h6 class="nav-tabs-title">My Plan</h6>
+										</div>
+									</div>
+	                         
+	                            </div>
+	                            <div class="card-content table-responsive">
+									<div class="row">
+									   <form action="demo_form.aspx" method="get">
+  <div class="accordion_container">
+    
+    <div class="row">
+      <div class="col-xs-12 col-md-12 col-lg-12">
+       
+		<div class="accordion_main">
+            <div class="accordion_head">Buyer info.</div>
+          <div class="accordion_body1" >
+			  <div class="row" >
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label for="inputsm"> Starting Date</label>
+							<input class="form-control input-sm" id="puname"  type="text" value="<?php if(isset($myplan['start_date'])){ echo $myplan['start_date']; } ?>" readonly >
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label for="inputsm"> Ending Date</label>
+							<input class="form-control input-sm" id="puname"  type="text" value="<?php if(isset($myplan['end_date'])){ echo $myplan['end_date']; } ?>" readonly >
+						</div>
+					</div>
+			  </div>
+		  
+			  <div class="row" >
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label for="inputsm"> User Limit</label>
+							<input class="form-control input-sm" id="puname"  type="text" value="<?php if(isset($myplan['user_limit'])){ echo $myplan['user_limit']; } ?>" readonly >
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label for="inputsm">Total User</label>
+							<input class="form-control input-sm" id="puname"  type="text" value="<?php if(isset($myplan['totalUser'])){ echo $myplan['totalUser']; } ?>" readonly >
+						</div>
+					</div>
+			  </div>
+		  
+			  <div class="row" >
+				    <div class="col-xs-6">
+						<div class="form-group">
+							<label for="inputsm">Active User</label>
+							<input class="form-control input-sm" id="puname"  type="text" value="<?php if(isset($myplan['activeUser'])){ echo $myplan['activeUser']; } ?>" readonly >
+						</div>
+					</div>
+				
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label for="inputsm">Inactive User</label>
+							<input class="form-control input-sm" id="puname"  type="text" value="<?php if(isset($myplan['inactiveUser'])){ echo $myplan['inactiveUser']; } ?>" readonly >
+						</div>
+					</div>
+				
+			  </div>
+		  
+               <button type="button" class="btn btn-primary next-button1" data-toggle="dropdown" aria-expanded="false">Upgrade Plan</button>
+          </div>
+        </div>
+		
+		<div class="accordion_main">
+          <div class="accordion_head">Item Details</div>
+          <div class="accordion_body2" style="display: none;">
+				<div class="row" >
+				    <div class="col-md-3" ></div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="form-group">
+								<select class="form-control" id="currency" >
+								   <option value="">Select Currency</option>
+								   <option value="USD" >USD</option>
+								   <option value="RS" >RS</option>
+								</select>
+                            </div>
+						</div>
+					</div>
+					<div class="col-md-3" ></div>
+			    </div>
+            <button type="button" class="btn btn-primary" id="continue"  data-toggle="dropdown" aria-expanded="false">Continue</button>
+          </div>
+        </div>
+		
+		<div class="accordion_main">
+          <div class="accordion_head">Select Currency</div>
+			  <div class="accordion_body3" style="display: none;">
+					<div class="row" id="forRs" >
+					  <div class="col-md-1" ></div>
+					  <div class="col-md-10" >
+						<table class="table table-bordereds">
+							<thead>
+							  <tr>
+								<th><b>#</b></th>
+								<th><b>Item</b></th>
+								<th><b>Price</b></th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr>
+								<td>1</td>
+								<td>Annual subscription for Basic package</td>
+								<td><?php if(isset($myplan['package_price_inr_yr'])){ echo $myplan['package_price_inr_yr']; } ?></td>
+							  </tr>
+							</tbody>
+					   </table>
+					  </div>
+					  <div class="col-md-1" ></div>
+					</div>
+					
+					<div class="row" id="forUsd" >
+					  <div class="col-md-1" ></div>
+					  <div class="col-md-10" >
+						<table class="table table-bordereds">
+							<thead>
+							  <tr>
+								<th><b>#</b></th>
+								<th><b>Item</b></th>
+								<th><b>Price</b></th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr>
+								<td>1</td>
+								<td>Annual subscription for Basic package</td>
+								<td><?php if(isset($myplan['package_price_usd_yr'])){ echo $myplan['package_price_usd_yr']; } ?></td>
+							  </tr>
+							</tbody>
+					   </table>
+					  </div>
+					  <div class="col-md-1" ></div>
+					</div>
+				 <button type="button" class="btn btn-primary" id="continue2"  data-toggle="dropdown" aria-expanded="false">Continue</button>
+			  </div>	
+        </div>
+        
+		<div class="accordion_main">
+          <div class="accordion_head">Reviw Order</div>
+          <div class="accordion_body4" style="display: none;">
+				<div class="row" id="TotalUsd" >
+					  <div class="col-md-1" ></div>
+					  <div class="col-md-10" >
+						<table class="table table-bordereds">
+							<thead>
+							  <tr>
+								<th><b>Item</b></th>
+								<th><b>Month</b></th>
+								<th><b>Units</b></th>
+								<th><b>Total</b></th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr>
+								<td>Basic Package</td>
+								<td id="PriceOfBasicPackageForUsd" ><?php if(isset($myplan['package_price_usd_yr'])){ echo round($myplan['package_price_usd_yr']/12); } ?></td>
+								<td>
+								   <select id="UnitsOfBasicPackageForUsd">
+									   <option value="">Select Months</option>
+									   <option value="3"> 3  Months</option>
+									   <option value="6"> 6  Months</option>
+									   <option value="12">12 Months</option>
+									   <option value="24">24 Months</option>
+									</select>
+								</td>
+								<td id="TotalOfBasicPackageForUsd" ><?php if(isset($myplan['package_price_usd_yr'])){ echo round($myplan['package_price_usd_yr']/12); } ?></td>
+							  </tr>
+							  
+							   <tr>
+								<td>Price for one user per for 1 year</td>
+								<td id="UserPrizeInUsd" style="display:none;"  ><?php if(isset($myplan['PerUserPlan'])){ echo $myplan['PerUserPlan']/12; } ?></td>
+								<td>
+								   <input type="text" id="UsersUsd" />
+								</td>
+								<td>
+									<select id="UserMonthsForUsd">
+										   <option value="">Select Months</option>
+										   <option value="3"> 3  Months</option>
+										   <option value="6"> 6  Months</option>
+										   <option value="12">12 Months</option>
+										   <option value="24">24 Months</option>
+									</select>
+								</td>
+								<td id="TotalUserPrizeInUsd" ><?php if(isset($myplan['PerUserPlan'])){ echo $myplan['PerUserPlan']/12; } ?></td>
+							  </tr>
+							  
+							  
+							   <tr>
+								<td></td>
+								<td></td>
+								<td><b>Total</b></td>
+								<td id="TotalUsd1" ><?php if(isset($myplan['package_price_usd_yr'])){ echo $myplan['package_price_usd_yr']; } ?></td>
+							  </tr>
+							 
+							</tbody>
+					   </table>
+					  </div>
+					  <div class="col-md-1" ></div>
+					</div>
+					
+					<div class="row" id="TotalRs" >
+					  <div class="col-md-1" ></div>
+					  <div class="col-md-10" >
+						<table class="table table-bordereds">
+							<thead>
+							  <tr>
+								<th><b>Item</b></th>
+								<th><b>Month</b></th>
+								<th><b>Units</b></th>
+								<th><b>Total</b></th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr>
+								<td>Basic Package</td>
+								<td id="PriceOfBasicPackage" ><?php if(isset($myplan['package_price_inr_yr'])){ echo $myplan['package_price_inr_yr']/12; } ?></td>
+								<td>
+									<select id="UnitsOfBasicPackage">
+									   <option value="">Select Months</option>
+									   <option value="3"> 3  Months</option>
+									   <option value="6"> 6  Months</option>
+									   <option value="12">12 Months</option>
+									   <option value="24">24 Months</option>
+									</select>
+								</td>
+								<td id="TotalOfBasicPackage"><?php if(isset($myplan['package_price_inr_yr'])){ echo $myplan['package_price_inr_yr']/12; } ?></td>
+							  </tr>
+							  
+							  <tr>
+								<td>Price for one user per for 1 year</td>
+								<td id="PriceOfUser" style="display:none;" ><?php if(isset($myplan['per_user_inr'])){ echo $myplan['per_user_inr']/12; } ?></td>
+								<td>
+								   <input type="text" id="UsersRs" />
+								</td>
+								<td>
+								  <select id="UserMonths">
+									   <option value="">Select Months</option>
+									   <option value="3"> 3  Months</option>
+									   <option value="6"> 6  Months</option>
+									   <option value="12">12 Months</option>
+									   <option value="24">24 Months</option>
+									</select>
+								</td>
+								<td id="TotalUserPrize" ><?php if(isset($myplan['per_user_inr'])){ echo $myplan['per_user_inr']/12; } ?></td>
+							  </tr>
+							  
+							 <tr>
+								<td></td>
+								<td></td>
+								<td><b>Total</b></td>
+								<td id="TotalRupee" ></td>
+							 </tr>
+							 
+							</tbody>
+					   </table>
+					  </div>
+					  <div class="col-md-1" ></div>
+					</div>
+            <button type="button" class="btn btn-primary" id="continue"  data-toggle="dropdown" aria-expanded="false">Continue</button>
+          </div>
+        </div>
+		
+		
+      </div>
+      
+    </div>
+    <!-- end .accordion_container -->
+</form>
+									</div>								
+	                            </div>
+								
+								
+	                        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<nav class="pull-left">
+						
+					</nav>
+					<p class="copyright pull-right">
+						&copy; <script>document.write(new Date().getFullYear())</script> <a href="#">DESIGNED BY</a> ubitech solutions pvt. ltd.
+					</p>
+				</div>
+			</footer>
+		</div>
+	</div>
+</body>
+<script>
+$(document).ready(function () {
+    $(".accordion_head").click(function () {
+        if ($('.accordion_body').is(':visible')) {
+            $(".accordion_body").slideUp(300);
+            $(".updown").text('\u25BC');
+        }
+        if ($(this).next(".accordion_body").is(':visible')) {
+            $(this).next(".accordion_body").slideUp(300);
+            $(this).children(".updown").text('\u25BC');
+        } else {
+            $(this).next(".accordion_body").slideDown(300);
+            $(this).children(".updown").text('\u25B2');
+        }
+    });
+    $(".next-button").click(function () {
+        if ($('.accordion_body').is(':visible')) {
+            $(".accordion_body").slideUp(300);
+            $(".updown").text('\u25BC');
+        } else {
+            $(this).next(".accordion_body").slideDown(300);
+            $(this).children(".updown").text('\u25B2');
+        }
+    });  
+    $(".accordion_body select").change(function () {
+        nextQuestion($(this));
+    });
+    $(".accordion_body input").change(function () {
+        nextQuestion($(this));
+    });
+	
+	$(".next-button1").click(function () {
+            $(".accordion_body1").slideUp(300);
+            $(".accordion_body2").slideDown(300);
+    }); 
+	
+	$("#continue").click(function(){
+		if($('#currency').val() == ""){
+		  	alert("Please select currency");
+			return false;
+		}
+		if($('#currency').val() == 'RS'){
+			$('#forUsd').hide();
+			$('#TotalUsd').hide();
+			var TotalOfBasicPackage = $('#TotalOfBasicPackage').text();
+			var TotalUserPrize = $('#TotalUserPrize').text();
+			TotalRupee = parseInt(TotalOfBasicPackage)+parseInt(TotalUserPrize);
+			$('#TotalRupee').html(TotalRupee);
+		}else{
+			$('#forRs').hide();
+		    $('#TotalRs').hide();
+		var TotalOfBasicPackageForUsd = $('#TotalOfBasicPackageForUsd').text();
+		var TotalUserPrizeInUsd = $('#TotalUserPrizeInUsd').text();
+		var TotalUsd = parseInt(TotalOfBasicPackageForUsd)+parseInt(TotalUserPrizeInUsd);
+		$('#TotalUsd1').html(TotalUsd);
+		}	
+		$(".accordion_body2").slideUp(300);
+        $(".accordion_body3").slideDown(300);
+	})
+	
+	$("#continue2").click(function(){
+		$(".accordion_body3").slideUp(300);
+        $(".accordion_body4").slideDown(300);
+	})
+	
+	$("#monthsofRs").change(function(){
+		    var addmonth = $(this).val();
+            var addmonth = parseInt(addmonth);
+		    var d = new Date();
+            d.setMonth(d.getMonth() + addmonth);
+		    var d1 = d.getDate()+'-'+(d.getMonth())+'-'+d.getFullYear();
+		    var currendate = new Date();
+            var currendate1 = currendate.getDate()+'-'+(currendate.getMonth())+'-'+currendate.getFullYear();		   
+		    var currendate2 = currendate1.split("-");
+		    var lastdate = d1.split("-");
+		    var dateone = new Date(currendate2[2],currendate2[1],currendate2[0]); 
+            var datetwo = new Date(lastdate[2],lastdate[1],lastdate[0]);
+            var dayDif = (datetwo - dateone)  / 1000 / 60 / 60 / 24;
+	})
+	
+	 $("#user").keyup(function(){
+		if($('#monthsofRs').val() == ""){
+			alert('Plz Select Months Before User');
+			 return false;
+		}
+		<!-- No. of days (start) -->
+		var addmonth = $('#monthsofRs').val();
+        var addmonth = parseInt(addmonth);
+		var d = new Date();
+         d.setMonth(d.getMonth() + addmonth);
+		var d1 = d.getDate()+'-'+(d.getMonth())+'-'+d.getFullYear();   
+		var currendate = new Date();
+        var currendate1 = currendate.getDate()+'-'+(currendate.getMonth())+'-'+currendate.getFullYear();		   
+		var currendate2 = currendate1.split("-");
+		var lastdate = d1.split("-");
+		var dateone = new Date(currendate2[2],currendate2[1],currendate2[0]); 
+        var datetwo = new Date(lastdate[2],lastdate[1],lastdate[0]);
+        var dayDif = (datetwo - dateone)  / 1000 / 60 / 60 / 24;
+		<!-- No. of days (End) -->
+		var users = $(this).val();
+		var rupee = $('#rupee').text();
+		var UserPrize = $('#UserPrize').text();
+		var UserPrize = UserPrize/365
+		var TotalAmountRs = Math.round(UserPrize*users*dayDif);
+		$('#UserRs').html(TotalAmountRs);
+		var TotalRupee = TotalAmountRs+parseInt(rupee);
+		$('#TotalRupee').html(TotalRupee);
+    });
+	
+	
+	$("#user1").keyup(function(){
+		if($('#monthsofUsd').val() == ""){
+			alert('Plz Select Months Before User');
+			 return false;
+		}
+		<!-- No. of days (start) -->
+		var addmonth = $('#monthsofUsd').val();
+        var addmonth = parseInt(addmonth);
+		var d = new Date();
+         d.setMonth(d.getMonth() + addmonth);
+		var d1 = d.getDate()+'-'+(d.getMonth())+'-'+d.getFullYear();   
+		var currendate = new Date();
+        var currendate1 = currendate.getDate()+'-'+(currendate.getMonth())+'-'+currendate.getFullYear();		   
+		var currendate2 = currendate1.split("-");
+		var lastdate = d1.split("-");
+		var dateone = new Date(currendate2[2],currendate2[1],currendate2[0]); 
+        var datetwo = new Date(lastdate[2],lastdate[1],lastdate[0]);
+        var dayDif = (datetwo - dateone)  / 1000 / 60 / 60 / 24;
+		<!-- No. of days (End) -->
+		var users = $(this).val();
+		var usd = $('#usd').text();
+		var UserPrizeInUsd = $('#UserPrizeInUsd').text();
+		var UserPrizeInUsd = UserPrizeInUsd/365
+		var TotalAmountUsd = Math.round(UserPrizeInUsd*users*dayDif);
+		$('#UserUsd').html(TotalAmountUsd);
+		var TotalUsd = TotalAmountUsd+parseInt(usd);
+		$('#TotalUsd1').html(TotalUsd);
+    });
+	
+	$('#UnitsOfBasicPackage').change(function(){
+		var UnitsOfBasicPackage = $(this).val();
+		var PriceOfBasicPackage = $('#PriceOfBasicPackage').text();
+		var BasicPackage = UnitsOfBasicPackage*PriceOfBasicPackage;
+		$('#TotalOfBasicPackage').html(BasicPackage);
+		var TotalUserPrize = $('#TotalUserPrize').text();
+		var TotalRupee = parseInt(TotalUserPrize)+parseInt(BasicPackage);
+		$('#TotalRupee').html(TotalRupee);
+	})
+	$('#UserMonths').change(function(){
+		var UnitsOfUserPrize = $(this).val();
+		var UsersRs = $('#UsersRs').val();
+		var PriceOfUser = $('#PriceOfUser').text();
+		var UserPrize = UnitsOfUserPrize*UsersRs*PriceOfUser;
+		$('#TotalUserPrize').html(UserPrize);
+		var TotalOfBasicPackage = $('#TotalOfBasicPackage').text();
+		var TotalUserPrize = $('#TotalUserPrize').text();
+		var TotalRupee = parseInt(TotalOfBasicPackage)+parseInt(TotalUserPrize);
+		$('#TotalRupee').html(TotalRupee);
+	})
+	
+	$('#UsersRs').keyup(function(){
+		var UsersRs = $(this).val();
+		var PriceOfUser = $('#PriceOfUser').text();
+		var UserPrize = UsersRs*PriceOfUser;
+		$('#TotalUserPrize').html(UserPrize);
+		var TotalOfBasicPackage = $('#TotalOfBasicPackage').text();
+		var TotalUserPrize = $('#TotalUserPrize').text();
+		var TotalRupee = parseInt(TotalOfBasicPackage)+parseInt(TotalUserPrize);
+		$('#TotalRupee').html(TotalRupee);
+	})
+	
+	$('#UnitsOfBasicPackageForUsd').change(function(){
+		var UnitsOfBasicPackageForUsd = $(this).val();
+		var PriceOfBasicPackageForUsd = $('#PriceOfBasicPackageForUsd').text();
+		var BasicPackage = UnitsOfBasicPackageForUsd*PriceOfBasicPackageForUsd;
+		$('#TotalOfBasicPackageForUsd').html(BasicPackage);
+		var TotalOfBasicPackageForUsd = $('#TotalOfBasicPackageForUsd').text();
+		var TotalUserPrizeInUsd = $('#TotalUserPrizeInUsd').text();
+		var TotalUsd = parseInt(TotalOfBasicPackageForUsd)+parseInt(TotalUserPrizeInUsd);
+		$('#TotalUsd1').html(TotalUsd);
+	})
+	
+	$('#UsersUsd').keyup(function(){
+		var UsersUsd = $(this).val();
+		var PriceOfUser = $('#UserPrizeInUsd').text();
+		var UserPrize = UsersUsd*PriceOfUser;
+		$('#TotalUserPrizeInUsd').html(UserPrize);
+		var TotalOfBasicPackageForUsd = $('#TotalOfBasicPackageForUsd').text();
+		var TotalUserPrizeInUsd = $('#TotalUserPrizeInUsd').text();
+		var TotalUsd = parseInt(TotalOfBasicPackageForUsd)+parseInt(TotalUserPrizeInUsd);
+		$('#TotalUsd1').html(TotalUsd);
+	})
+	
+	$('#UserMonthsForUsd').change(function(){
+		var UnitsOfUserPrize = $(this).val();
+		var UsersUsd = $('#UsersUsd').val();
+		var PriceOfUser = $('#UserPrizeInUsd').text();
+		var UserPrize = UnitsOfUserPrize*UsersUsd*PriceOfUser;
+		$('#TotalUserPrizeInUsd').html(UserPrize);
+		var TotalOfBasicPackageForUsd = $('#TotalOfBasicPackageForUsd').text();
+		var TotalUserPrizeInUsd = $('#TotalUserPrizeInUsd').text();
+		var TotalUsd = parseInt(TotalOfBasicPackageForUsd)+parseInt(TotalUserPrizeInUsd);
+		$('#TotalUsd1').html(TotalUsd);
+	})
+	
+	
+	
+	
+});
+
+function nextQuestion(currentQuestion) {
+    var parentEle = currentQuestion.parents(".accordion_main");
+    if (parentEle.next()) {
+        parentEle.find(".question-mark").addClass("glyphicon glyphicon-ok check-mark").removeClass("question-mark").text("");
+       if (currentQuestion.attr('type')!='checkbox'){
+        if (parentEle.next().find(".accordion_head").length>0){
+        parentEle.next().find(".accordion_head").click();
+        }
+         else {
+        //there is no next--> try to go to the next colum
+        parentEle.parent("div").next("div").find(".accordion_head").first().click();
+    }
+         }
+    }
+}
+</script>
+</html>

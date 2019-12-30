@@ -1,0 +1,10 @@
+08-Jul-2019 12:23 : TimeIn AID0UserId37346
+08-Jul-2019 12:23 : User Attendance: 37346 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (37346,'2019-07-08',1,'12:23',48,50,91213,159,0,10,'2019-07-08',37346,'2019-07-08 12:23:13',37346,37346,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','26.1967588,78.1970393','mobile','26.1967588','78.1970393','2019-07-08')
+08-Jul-2019 12:23 : TimeOut AID2367722UserId37346
+08-Jul-2019 12:31 : TimeIn AID0UserId4141
+08-Jul-2019 12:31 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-07-08',1,'12:31',48,50,18645,159,0,10,'2019-07-08',4141,'2019-07-08 12:31:42',4141,4141,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','26.1967622,78.1970141','mobile','26.1967622','78.1970141','2019-07-08')
+08-Jul-2019 12:32 : TimeOut AID2367723UserId4141

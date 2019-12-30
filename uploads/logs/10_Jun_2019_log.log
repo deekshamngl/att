@@ -1,0 +1,25 @@
+10-Jun-2019 11:16 : TimeIn AID0UserId4904
+10-Jun-2019 11:16 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-06-10',1,'11:16',49,50,1170,0,0,10,'2019-06-10',4904,'2019-06-10 11:16:38',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_10062019_111638.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967493','78.1969802','2019-06-10')
+10-Jun-2019 12:42 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 12:42 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 13:32 : TimeIn AID0UserId4141
+10-Jun-2019 13:32 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-06-10',1,'13:32',48,50,18645,159,0,10,'2019-06-10',4141,'2019-06-10 13:32:38',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_10062019_133238.jpg','26.19689006826486,78.19688717841935','mobile','26.19683240077104','78.19690570242535','2019-06-10')
+10-Jun-2019 15:41 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 15:41 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 15:49 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 15:49 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:27 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:27 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:28 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:28 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 07:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+10-Jun-2019 16:32 : TimeOut AID1972012UserId4141

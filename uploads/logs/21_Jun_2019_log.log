@@ -1,0 +1,9 @@
+21-Jun-2019 12:59 : TimeIn AID0UserId46247
+21-Jun-2019 12:59 : User Attendance: 46247 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (46247,'2019-06-21',1,'12:59',49,50,1170,0,0,10,'2019-06-21',46247,'2019-06-21 12:59:55',46247,46247,'00:00:00','http://192.168.0.200/ubiattendance/uploads/46247_21062019_125955.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1968266','78.1971281','2019-06-21')
+21-Jun-2019 13:00 : TimeOut AID2121202UserId46247
+21-Jun-2019 13:01 : Get senior id
+21-Jun-2019 13:01 : else i!=0
+21-Jun-2019 13:01 : Get senior id
+21-Jun-2019 13:01 : else i!=0

@@ -1,0 +1,299 @@
+11-Nov-2019 09:20 : TimeOut AID3301774UserId4141
+11-Nov-2019 09:21 : TimeIn AID0UserId4141
+11-Nov-2019 09:21 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4141,'2019-11-11',1,'09:21',48,50,18644,159,0,10,'2019-11-11',4141,'2019-11-11 09:21:09',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_11112019_092109.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967496','78.1970089','2019-11-11',' android')
+11-Nov-2019 12:08 : TimeOut AID3301941UserId4141
+11-Nov-2019 13:51 : TimeIn AID0UserId4904
+11-Nov-2019 13:51 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4904,'2019-11-11',1,'13:51',49,50,18646,159,242,10,'2019-11-11',4904,'2019-11-11 13:51:08',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_11112019_135108.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.196751','78.197','2019-11-11',' android')
+11-Nov-2019 13:53 : TimeIn AID0UserId77208
+11-Nov-2019 13:53 : User Attendance: 77208 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,77208,'2019-11-11',1,'13:53',35801,51,36476,0,0,10,'2019-11-11',77208,'2019-11-11 13:53:19',77208,77208,'00:00:00','http://192.168.0.200/ubiattendance/uploads/77208_11112019_135319.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.196759','78.1970144','2019-11-11',' android')
+11-Nov-2019 13:53 : TimeOut AID3301943UserId77208
+11-Nov-2019 13:57 : TimeIn AID0UserId62580
+11-Nov-2019 13:57 : User Attendance: 62580 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,62580,'2019-11-11',1,'13:57',35840,125547,158101,0,0,30669,'2019-11-11',62580,'2019-11-11 13:57:28',62580,62580,'00:00:00','http://192.168.0.200/ubiattendance/uploads/62580_11112019_135728.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.196759','78.1970144','2019-11-11',' android')
+11-Nov-2019 15:23 : Senior not zero
+11-Nov-2019 15:23 : 5615
+11-Nov-2019 15:23 : 0 0
+11-Nov-2019 15:23 : sernioer emailparth@ubitechsolutions.com
+11-Nov-2019 15:23 : parth@ubitechsolutions.com <table>
+														<tr><td>Requested by: Deeksha</td></tr>
+														<tr><td>Applied on:  Nov 11, 2019 03:23 PM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-11-11</td></tr>
+														<tr><td>Duration: from 01:18 pm to 02:18 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13441/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13441/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+11-Nov-2019 15:23 : <table>
+														<tr><td>Requested by: Deeksha</td></tr>
+														<tr><td>Applied on:  Nov 11, 2019 03:23 PM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-11-11</td></tr>
+														<tr><td>Duration: from 01:18 pm to 02:18 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13441/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13441/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:23 : The following From address failed: hr@ubitechsolutions.com
+11-Nov-2019 15:23 : 4143
+11-Nov-2019 15:23 : 1 1
+11-Nov-2019 15:23 : i!=0 1
+11-Nov-2019 15:24 : Senior not zero
+11-Nov-2019 15:24 : 5615
+11-Nov-2019 15:24 : 0 0
+11-Nov-2019 15:24 : sernioer emailparth@ubitechsolutions.com
+11-Nov-2019 15:24 : parth@ubitechsolutions.com <table>
+														<tr><td>Requested by: Deeksha</td></tr>
+														<tr><td>Applied on:  Nov 11, 2019 03:24 PM </td></tr>
+														<tr><td>Reason for timeoff: test
+</td></tr>
+														<tr><td>Date: 2019-11-11</td></tr>
+														<tr><td>Duration: from 12:20 pm to 12:25 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13442/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13442/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+11-Nov-2019 15:24 : <table>
+														<tr><td>Requested by: Deeksha</td></tr>
+														<tr><td>Applied on:  Nov 11, 2019 03:24 PM </td></tr>
+														<tr><td>Reason for timeoff: test
+</td></tr>
+														<tr><td>Date: 2019-11-11</td></tr>
+														<tr><td>Duration: from 12:20 pm to 12:25 pm</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13442/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13442/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:24 : The following From address failed: hr@ubitechsolutions.com
+11-Nov-2019 15:24 : 4143
+11-Nov-2019 15:24 : 1 1
+11-Nov-2019 15:24 : i!=0 1
+11-Nov-2019 15:25 : Senior not zero
+11-Nov-2019 15:25 : 5615
+11-Nov-2019 15:25 : 0 0
+11-Nov-2019 15:25 : sernioer emailparth@ubitechsolutions.com
+11-Nov-2019 15:25 : parth@ubitechsolutions.com <table>
+														<tr><td>Requested by: Deeksha</td></tr>
+														<tr><td>Applied on:  Nov 11, 2019 03:25 PM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-11-11</td></tr>
+														<tr><td>Duration: from 11:20 am to 11:45 am</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13443/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13443/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+11-Nov-2019 15:25 : <table>
+														<tr><td>Requested by: Deeksha</td></tr>
+														<tr><td>Applied on:  Nov 11, 2019 03:25 PM </td></tr>
+														<tr><td>Reason for timeoff: test</td></tr>
+														<tr><td>Date: 2019-11-11</td></tr>
+														<tr><td>Duration: from 11:20 am to 11:45 am</td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13443/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/5615/10/13443/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:25 : The following From address failed: hr@ubitechsolutions.com
+11-Nov-2019 15:25 : 4143
+11-Nov-2019 15:25 : 1 1
+11-Nov-2019 15:25 : i!=0 1
+11-Nov-2019 15:25 : UPDATE TimeoffApproval  SET ApproverSts = ? WHERE  	TimeofId = ?  13441
+11-Nov-2019 15:25 : 
+				<table>
+				<tr><td>Dear Urvashi   Agrawal,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>Deeksha  Mangal withdrawn  request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: test</td></tr>
+				<tr><td>Date: 2019-11-11</td></tr>
+				<tr><td>Duration: from 13:18:00 to 14:18:00</td></tr>
+				
+					
+				</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Nov-2019 15:25 :  parth@ubitechsolutions.com Withdraw timeoff by Deeksha  Mangal 
+				<table>
+				<tr><td>Dear Urvashi   Agrawal,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>Deeksha  Mangal withdrawn  request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: test</td></tr>
+				<tr><td>Date: 2019-11-11</td></tr>
+				<tr><td>Duration: from 13:18:00 to 14:18:00</td></tr>
+				
+					
+				</table>
+11-Nov-2019 15:25 : UPDATE TimeoffApproval  SET ApproverSts = ? WHERE  	TimeofId = ?  13442
+11-Nov-2019 15:25 : 
+				<table>
+				<tr><td>Dear Urvashi   Agrawal,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>Deeksha  Mangal withdrawn  request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: test
+</td></tr>
+				<tr><td>Date: 2019-11-11</td></tr>
+				<tr><td>Duration: from 12:20:00 to 12:25:00</td></tr>
+				
+					
+				</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:25 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Nov-2019 15:25 :  parth@ubitechsolutions.com Withdraw timeoff by Deeksha  Mangal 
+				<table>
+				<tr><td>Dear Urvashi   Agrawal,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>Deeksha  Mangal withdrawn  request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: test
+</td></tr>
+				<tr><td>Date: 2019-11-11</td></tr>
+				<tr><td>Duration: from 12:20:00 to 12:25:00</td></tr>
+				
+					
+				</table>
+11-Nov-2019 12:04 : TimeOut AID3301945UserId4141
+11-Nov-2019 15:51 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:51 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Nov-2019 15:51 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+11-Nov-2019 15:51 : The following From address failed: ubiattendance@ubitechsolutions.com
+11-Nov-2019 16:03 : TimeOut AID3906595UserId4141

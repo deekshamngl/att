@@ -1,0 +1,59 @@
+26-Dec-2019 12:48 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+26-Dec-2019 12:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Dec-2019 12:48 : <html>
+              <head>
+              <title></title>
+              </head>
+            <body>
+            <h3>Dear Admin,</h3>
+            <p>Please send the below message through text or Email to the Employee to get him started. The message below is already sent to the Employees with valid Email ID</p>
+            <p>You are registered in ubiAttendance App for “ Ubitech Solutions”. Kindly punch your attendance through the following steps.</p>
+            <ol>
+            <li> 
+              Download the Android App by clicking <a  
+              href='https://play.google.com/store/apps/details?id=org.ubitech.attendance.'>https://play.google.com/store/apps/details?id=org.ubitech.attendance.</a> 
+              iPhone users can download through 
+              <a href='https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8 '>https://itunes.apple.com/us/app/ubiattendance-ubitech/id1375252261?mt=8</a>
+            </li>
+            <li>Install the App.  It will be added to the home screen</li>
+            <li>Open the App & sign in. User name will be the registered Email/Phone no.</li>
+            <li>Initial Sign in Password is 123456</li>
+            <li>You can now start punching the attendance.</li>
+            <li>Download the detailed Employee guide</li>
+            </ol>
+            <p>For further assistance, kindly contact your system administrator.</p>
+            <h5>Cheers,</h5>
+            <h5>ubiAttendance Team</h5>
+            </body>
+            </html><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+26-Dec-2019 12:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+26-Dec-2019 15:43 : TimeIn AID0UserId4253
+26-Dec-2019 15:43 : User Attendance: 4253 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate,Platform)
+      VALUES (0,0,4253,'2019-12-26',1,'15:43',48,50,861,159,0,10,'2019-12-26',4253,'2019-12-26 15:43:21',4253,4253,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4253_26122019_154321.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.19668284','78.19691331','2019-12-26',' android')
+26-Dec-2019 15:49 : TimeOut AID111112060UserId4253

@@ -1,0 +1,866 @@
+05-Sep-2019 11:19 : TimeIn AID0UserId4904
+05-Sep-2019 11:19 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-09-05',1,'11:19',49,50,18646,159,242,10,'2019-09-05',4904,'2019-09-05 11:19:44',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_05092019_111944.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965239','78.1975869','2019-09-05')
+05-Sep-2019 11:20 : TimeOut AID2879322UserId4904
+05-Sep-2019 11:20 : TimeIn AID0UserId59832
+05-Sep-2019 11:20 : User Attendance: 59832 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,59832,'2019-09-05',1,'11:20',48,118799,149678,0,0,10,'2019-09-05',59832,'2019-09-05 11:20:30',59832,59832,'00:00:00','http://192.168.0.200/ubiattendance/uploads/59832_05092019_112030.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967447','78.196921','2019-09-05')
+05-Sep-2019 11:20 : TimeOut AID2879323UserId59832
+05-Sep-2019 11:27 : Senior zero
+05-Sep-2019 11:27 : 0
+05-Sep-2019 11:27 : 0 0
+05-Sep-2019 11:27 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 11:27 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 11:27 AM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12775/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12775/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 11:27 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 11:27 AM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12775/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12775/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 11:27 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 11:27 : 4143
+05-Sep-2019 11:27 : Senior zero
+05-Sep-2019 11:27 : 0
+05-Sep-2019 11:27 : 0 0
+05-Sep-2019 11:27 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 11:27 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 11:27 AM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12776/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12776/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 11:27 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 11:27 AM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12776/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12776/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 11:27 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 11:27 : 4143
+05-Sep-2019 11:37 : TimeIn AID0UserId15705
+05-Sep-2019 11:37 : User Attendance: 15705 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,15705,'2019-09-04',1,'11:37',35647,23553,1159,766,0,10,'2019-09-04',15705,'2019-09-05 11:37:44',15705,15705,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967502','78.1969991','2019-09-05')
+05-Sep-2019 11:37 : TimeOut AID2879324UserId15705
+05-Sep-2019 11:39 : TimeIn AID0UserId15705
+05-Sep-2019 11:39 : User Attendance: 15705 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,15705,'2019-09-05',1,'11:39',35647,23553,1159,766,0,10,'2019-09-05',15705,'2019-09-05 11:39:28',15705,15705,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967502','78.1969991','2019-09-05')
+05-Sep-2019 11:39 : TimeOut AID2879325UserId15705
+05-Sep-2019 11:43 : TimeIn AID0UserId60050
+05-Sep-2019 11:43 : User Attendance: 60050 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,60050,'2019-09-05',1,'11:43',1127,115008,96696,43,0,10,'2019-09-05',60050,'2019-09-05 11:43:34',60050,60050,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.19674','78.1969415','2019-09-05')
+05-Sep-2019 11:54 : TimeIn AID0UserId7982
+05-Sep-2019 11:54 : User Attendance: 7982 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,7982,'2019-09-05',1,'11:54',48,893,864,159,0,10,'2019-09-05',7982,'2019-09-05 11:54:45',7982,7982,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','','mobile','0.0','0.0','2019-09-05')
+05-Sep-2019 11:58 : TimeOut AID2879327UserId7982
+05-Sep-2019 12:00 : TimeIn AID0UserId4141
+05-Sep-2019 12:00 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4141,'2019-09-05',1,'12:00',48,50,18644,159,0,10,'2019-09-05',4141,'2019-09-05 12:00:20',4141,4141,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967905','78.1969884','2019-09-05')
+05-Sep-2019 12:00 : TimeOut AID2879328UserId4141
+05-Sep-2019 12:04 : TimeIn AID0UserId4252
+05-Sep-2019 12:04 : User Attendance: 4252 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4252,'2019-09-05',1,'12:04',1159,50,862,159,0,10,'2019-09-05',4252,'2019-09-05 12:04:21',4252,4252,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1965239','78.1975869','2019-09-05')
+05-Sep-2019 12:04 : TimeOut AID2879329UserId4252
+05-Sep-2019 12:04 : TimeIn AID0UserId62221
+05-Sep-2019 12:04 : User Attendance: 62221 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,62221,'2019-09-05',1,'12:04',35642,50,157162,0,0,10,'2019-09-05',62221,'2019-09-05 12:04:42',62221,62221,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967416','78.1969862','2019-09-05')
+05-Sep-2019 12:11 : UPDATE TimeoffApproval SET ApproverSts =0, ApprovalDate ='2019-09-05 12:11:05', ApproverComment='' WHERE TimeofId =1 AND ApproverId=0  and OrganizationId=10 and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:12 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:12:27', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:13 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:13:00', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:13 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:13:35', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:17 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:17:52', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:18 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:18:33', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:19 : TimeIn AID0UserId57659
+05-Sep-2019 12:19 : User Attendance: 57659 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,57659,'2019-09-05',1,'12:19',48,893,96680,159,0,10,'2019-09-05',57659,'2019-09-05 12:19:00',57659,57659,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966749','78.1969657','2019-09-05')
+05-Sep-2019 12:19 : TimeOut AID2879331UserId57659
+05-Sep-2019 12:19 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:19:09', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:19 : image not uploaded--54183
+05-Sep-2019 12:20 : image not uploaded--54183
+05-Sep-2019 12:20 : UPDATE TimeoffApproval SET ApproverSts =1, ApprovalDate ='2019-09-05 12:20:49', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:21 : image not uploaded--15213
+05-Sep-2019 12:22 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:22:20', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 3 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:22 : image not uploaded--15213
+05-Sep-2019 12:22 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:22:44', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 1 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:23 : UPDATE TimeoffApproval SET ApproverSts =, ApprovalDate ='2019-09-05 12:23:00', ApproverComment='' WHERE TimeofId = AND ApproverId=  and OrganizationId= and  ApproverSts = 1 and ApprovalDate='0000-00-00 00:00:00'
+05-Sep-2019 12:27 : Array
+05-Sep-2019 12:27 : Array
+05-Sep-2019 12:27 : image not uploaded--15213
+05-Sep-2019 12:28 : 
+05-Sep-2019 12:30 : image not uploaded--15213
+05-Sep-2019 12:32 : 
+05-Sep-2019 12:32 : 
+05-Sep-2019 12:32 : 
+05-Sep-2019 12:33 : image not uploaded--15213
+05-Sep-2019 12:33 : TimeOut AID2879330UserId62221
+05-Sep-2019 12:34 : image not uploaded--37346
+05-Sep-2019 12:34 : image not uploaded--37346
+05-Sep-2019 12:36 : TimeIn AID0UserId37346
+05-Sep-2019 12:36 : User Attendance: 37346 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,37346,'2019-09-05',1,'12:36',48,50,91213,159,0,10,'2019-09-05',37346,'2019-09-05 12:36:24',37346,37346,'00:00:00','http://192.168.0.200/ubiattendance/uploads/37346_05092019_123624.jpg','','mobile','0.0','0.0','2019-09-05')
+05-Sep-2019 12:38 : 
+05-Sep-2019 12:40 : image not uploaded--37346
+05-Sep-2019 12:43 : TimeIn AID0UserId40371
+05-Sep-2019 12:43 : User Attendance: 40371 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,40371,'2019-09-05',1,'12:43',48,50,91897,159,0,10,'2019-09-05',40371,'2019-09-05 12:43:38',40371,40371,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.196719','78.1969239','2019-09-05')
+05-Sep-2019 13:09 : TimeIn AID0UserId11674
+05-Sep-2019 13:09 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-09-05',1,'13:09',49,50,91897,159,1,10,'2019-09-05',11674,'2019-09-05 13:09:44',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_05092019_130944.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967183','78.1969346','2019-09-05')
+05-Sep-2019 13:10 : TimeIn AID0UserId4253
+05-Sep-2019 13:10 : User Attendance: 4253 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4253,'2019-09-05',1,'13:10',35644,50,861,159,0,10,'2019-09-05',4253,'2019-09-05 13:10:55',4253,4253,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4253_05092019_131055.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967183','78.1969346','2019-09-05')
+05-Sep-2019 13:11 : TimeOut AID2879335UserId4253
+05-Sep-2019 13:52 : 0
+05-Sep-2019 13:54 : 0
+05-Sep-2019 13:54 : 0
+05-Sep-2019 15:02 : 1234
+05-Sep-2019 15:15 : 0
+05-Sep-2019 16:39 : 1234
+05-Sep-2019 16:39 : 0
+05-Sep-2019 16:39 : 0
+05-Sep-2019 16:52 : 0
+05-Sep-2019 16:52 : 0
+05-Sep-2019 16:53 : 0
+05-Sep-2019 16:54 : 0
+05-Sep-2019 16:58 : 0
+05-Sep-2019 16:59 : 0
+05-Sep-2019 17:02 : 0
+05-Sep-2019 17:04 : 
+05-Sep-2019 17:35 : Senior zero
+05-Sep-2019 17:35 : 0
+05-Sep-2019 17:35 : 0 0
+05-Sep-2019 17:35 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:35 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:35 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12780/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12780/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:35 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:35 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12780/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12780/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:35 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:35 : 4143
+05-Sep-2019 17:41 : Senior zero
+05-Sep-2019 17:41 : 0
+05-Sep-2019 17:41 : 0 0
+05-Sep-2019 17:41 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:41 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:41 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12781/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12781/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:41 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:41 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12781/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12781/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:41 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:41 : 4143
+05-Sep-2019 17:47 : Senior zero
+05-Sep-2019 17:47 : 0
+05-Sep-2019 17:47 : 0 0
+05-Sep-2019 17:47 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:47 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:47 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12782/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12782/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:47 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:47 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12782/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12782/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:47 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:47 : 4143
+05-Sep-2019 17:49 : Senior zero
+05-Sep-2019 17:49 : 0
+05-Sep-2019 17:49 : 0 0
+05-Sep-2019 17:49 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:49 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:49 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12783/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12783/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:49 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:49 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12783/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12783/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:49 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:49 : 4143
+05-Sep-2019 17:52 : Senior zero
+05-Sep-2019 17:52 : 0
+05-Sep-2019 17:52 : 0 0
+05-Sep-2019 17:52 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:52 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:52 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12784/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12784/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:52 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:52 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12784/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12784/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:52 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:52 : 4143
+05-Sep-2019 17:54 : Senior zero
+05-Sep-2019 17:54 : 0
+05-Sep-2019 17:54 : 0 0
+05-Sep-2019 17:54 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:54 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:54 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12785/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12785/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:54 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:54 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12785/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12785/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:54 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:54 : 4143
+05-Sep-2019 17:56 : Senior zero
+05-Sep-2019 17:56 : 0
+05-Sep-2019 17:56 : 0 0
+05-Sep-2019 17:56 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:56 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:56 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12786/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12786/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:56 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:56 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12786/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12786/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:56 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:56 : 4143
+05-Sep-2019 17:58 : Senior zero
+05-Sep-2019 17:58 : 0
+05-Sep-2019 17:58 : 0 0
+05-Sep-2019 17:58 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 17:58 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:58 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12787/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12787/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 17:58 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 05:58 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12787/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12787/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 17:58 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 17:58 : 4143
+05-Sep-2019 18:02 : Senior zero
+05-Sep-2019 18:02 : 0
+05-Sep-2019 18:02 : 0 0
+05-Sep-2019 18:02 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 18:02 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:02 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12788/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12788/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 18:02 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:02 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12788/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12788/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 18:02 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 18:02 : 4143
+05-Sep-2019 18:08 : Senior zero
+05-Sep-2019 18:08 : 0
+05-Sep-2019 18:08 : 0 0
+05-Sep-2019 18:08 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 18:08 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:08 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12789/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12789/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 18:08 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:08 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12789/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12789/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 18:08 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 18:08 : 4143
+05-Sep-2019 18:12 : Senior zero
+05-Sep-2019 18:12 : 0
+05-Sep-2019 18:12 : 0 0
+05-Sep-2019 18:12 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 18:12 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:12 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12790/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12790/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 18:12 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:12 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12790/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12790/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 18:12 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 18:12 : 4143
+05-Sep-2019 18:19 : Senior zero
+05-Sep-2019 18:19 : 0
+05-Sep-2019 18:19 : 0 0
+05-Sep-2019 18:19 : admin emailhr@ubitechsolutions.com
+05-Sep-2019 18:19 : hr@ubitechsolutions.com <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:19 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12791/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12791/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>
+05-Sep-2019 18:19 : <table>
+														<tr><td>Requested by: patel</td></tr>
+														<tr><td>Applied on:  Sep 05, 2019 06:19 PM </td></tr>
+														<tr><td>Reason for timeoff: testing</td></tr>
+														<tr><td>Date: </td></tr>
+														<tr><td>Duration: from  to </td></tr>
+														
+														</table>
+														
+															
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12791/2'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='https://ubiattendance.ubihrm.com/Login/approvetimeoffbymail/0/10/12791/1'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table><br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+05-Sep-2019 18:19 : The following From address failed: hr@ubitechsolutions.com
+05-Sep-2019 18:19 : 4143

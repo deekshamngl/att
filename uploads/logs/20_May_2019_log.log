@@ -1,0 +1,8 @@
+20-May-2019 14:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+20-May-2019 14:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+20-May-2019 14:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+20-May-2019 14:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+20-May-2019 18:36 : TimeIn AID0UserId4904
+20-May-2019 18:36 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-05-20',1,'18:36',49,50,1170,0,0,10,'2019-05-20',4904,'2019-05-20 18:36:44',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_20052019_183644.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966264','78.1969987','2019-05-20')

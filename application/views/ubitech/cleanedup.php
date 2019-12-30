@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+	<link rel="stylesheet" href="<?=URL?>../assets/css/buttons.dataTables.min.css"/>
+	<link rel="stylesheet" href="<?=URL?>../assets/css/fixedColumns.dataTables.min.css"/>
+	<link rel="stylesheet" href="<?=URL?>../assets/css/jquery.dataTables.min.css"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" type="text/css" media="all" href="<?=URL?>../assets/css/daterangepicker.css" />
+	<title>ubiAttendance</title>
+</head>
+<body>
+     <!-----delete org start--...///its js code is in navbar.php////-->
+<div id="delOrg_p" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+		<i class="material-icons">close</i></button>
+        <h4 class="modal-title">Delete Company</h4>
+      </div>
+      <div class="modal-body">		
+		<form>
+			<input type="hidden" id="del_did_p" />
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Delete the Company data "<span id="dna_p"></span>"?</h4>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="delete_p"  class="btn btn-danger">Delete<i class=" fa fa-circle-o-notch fa-spin wait" style="display:none;"></i></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+<!-----delete org close---> 
+<!------Unarchive--------->
+<div id="archOrg" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><i class="material-icons">close</i></button>
+        <h4 class="modal-title" id="title">Unarchive Company</h4>
+      </div>
+      <div class="modal-body">		
+		<form>
+			<input type="hidden" id="del_did_U" />
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Unarchive the Company data "<span id="dna_U"></span>"?</h4>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="unarchive"  class="btn btn-danger">Unarchive</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div> 
+  </div> 
+</div>
+<!--------------->
+<div id="modaldelete" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><i class="material-icons">close</i></button>
+        <h4 class="modal-title" id="title">Delete Company</h4>
+      </div>
+      <div class="modal-body">		
+		<form>
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Delete the Company data?</h4>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deleteall"  class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div> 
+  </div> 
+</div>
+
+
+ 
+	<div class="wrapper">
+		<?php
+			$data['pageid']=3.13;
+			$this->load->view('ubitech/sidebar',$data);
+		?>
+	    <div class="main-panel">
+			<?php
+				$this->load->view('ubitech/navbar');
+			?>
+			<div class="content">
+	            <div class="container-fluid">
+	                <div class="row">
+	                    <div class="col-md-12">
+						<!-- this message for success or error start-->
+						<?php if($this->session->flashdata('success') == 'Organization registered successfully'){ 
+	                     ?><script>
+							doNotify('top','center',2,'Organization registered successfully.');
+						 </script>
+							
+                        <?php 
+						}if($this->session->flashdata('success') == 'Organization updated successfully'){ ?>
+						  <script>
+							doNotify('top','center',2,'Organization updated successfully.');
+						 </script>
+						<?php }
+						if($this->session->flashdata('error')){ ?>
+						<script>
+							doNotify('top','center',2,'Email id is already exists.');
+						 </script>
+						<?php
+						}
+						 ?>
+					   	<!-- this message for success or error end-->
+	                        <div class="card">
+	                            <div class="card-header" data-background-color="purple">
+	                                <h4 class="title">Cleaned up Organizations</h4>
+	                                <p class="category">Organization Settings</p>
+	                            </div>
+	                            <div class="card-content">
+									<div id="typography">
+										<div class="title">
+											<div class="row">
+												<div class="col-md-3" style="margin-top:10px" >
+													<div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 6px; 10px; border: 1px solid #acadaf; width: 104%">
+													<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+													<span></span> <b class="caret"></b>
+													</div>
+												</div>
+											
+											<div class="col-sm-2" style="margin-top:10px" >
+												<select id="getval" style=" width:100%; height:35px; position:relative;" class="">
+												<option value="">All Countries</option>
+												<option value="1">International</option>
+												<option value="2">National</option>
+												</select>
+											</div>
+											
+											<div class="col-md-1" style="margin-top:14px" >
+											  <button class="btn btn-success pull-left" style="position:relative;margin-top:-3px;" id="getAtt" >
+											  <i class="fa fa-search"></i></button>
+											</div>
+										  <div class="col-sm-2">
+								      </div>
+									<div class="col-md-1" ></div>
+										  
+										  
+												<div class="col-md-2 text-right">
+													<button class="btn btn-sm btn-primary" data-toggle="modal"  type="button"	onclick="Alldelete();" style="margin-right: -89px"><i class="fa fa-trash"> Delete</i>
+													</button>	
+												</div>
+												
+												
+												
+											<!--<div class="col-sm-2 text-right">
+												<select id="getval" class="form-control">
+													<option value="">All Countries</option>
+													<option value="1">International</option>
+													<option value="2">National</option>
+												</select>
+											</div>-->
+											
+											
+											</div>
+										</div>
+										<div class="row">
+											<table id="example" class="display table" cellspacing="0" width="100%">
+											<thead>
+												<tr>
+											<th style="background-image:none"!important><input type="checkbox" id="select_all" value=""/> </th>
+													<th width="15%">Organization</th>
+													<th>Contact Name</th>
+													<th>Email</th>
+													<th>Phone </th>
+													<th>City</td>
+													<th>Country</th>
+													<th width="80" >plan Start</th>
+													<th width="80" >plan End</th>
+													<th>Employees</td>
+													<!--<th>Subscription status</th> -->
+												
+													<th>Password</th>
+													<th>CRN</th>
+													<th>Remarks</th>
+													
+												  <!--  <th>Email Verification</th>-->
+													<th>Action</th>
+												</tr>
+											</thead>
+										</table>
+										</div>
+									</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<p class="copyright pull-right">
+						&copy; <script>document.write(new Date().getFullYear())</script> <a href="#">DESIGNED BY </a>Ubitech Solutions Pvt. Ltd.
+					</p>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+</body>
+   
+  
+  <script src="<?=URL?>../assets/js/dataTables.buttons.min.js"></script>
+   <script type="text/javascript" src="<?=URL?>../assets/js/moment.js"></script>
+		<script type="text/javascript" src="<?=URL?>../assets/js/buttons.print.min.js"></script>
+	 <script src="<?=URL?>../assets/js/buttons.colVis.min.js"></script>
+	   <script type="text/javascript" src="<?=URL?>../assets/js/pdfmake.min.js"></script>
+	  <script type="text/javascript" src="<?=URL?>../assets/js/buttons.html5.min.js"></script>
+	 <script type="text/javascript" src="<?=URL?>../assets/js/dataTables.fixedColumns.min.js"></script>
+	  
+   <script type="text/javascript" src="<?=URL?>../assets/js/daterangepicker.js"></script>
+   <script>
+  // $(function{
+  var favorite = [];
+function Alldelete()
+{
+	if($('.checkbox:checked').length > 0)
+	{
+		$('#modaldelete').modal('show');
+		 favorite = [];
+			$.each($("input[name='chk']:checked"), function(e)
+			{
+			favorite.push($(this).val());
+			});
+	}
+	else
+	{
+		doNotify('top','center',3,'select atleast 1 employee to unarchive');
+		return false;
+	}
+}
+
+	
+	$(document).on("click", "#deleteall", function (e)
+				{
+				$.ajax({url: "<?php echo URL;?>ubitech/DeleteAllOrg",
+						data: {"favorite":favorite},
+						success: function(result){
+						//alert(result);
+							if(result == 1)
+							{
+								$('#modaldelete').modal('hide');
+								doNotify('top','center',2,'Company delete successfully.'); 
+								var table=$('#example').DataTable();
+								 table.ajax.reload();
+							}
+						else
+							doNotify('top','center',3,'Error occured, Try later.'); 
+								},
+						error: function(result)	
+						{
+							alert("error");
+							doNotify('top','center',4,'Unable to connect API');
+						}								
+						});
+				
+			});
+   //});
+	
+</script>
+
+<script type="text/javascript" >
+
+   $(document).on("click", "#select_all", function (){
+				
+					if(this.checked){
+						$('.checkbox').each(function(){
+							this.checked = true;
+						});
+						
+					}else{
+						 $('.checkbox').each(function()
+						 {
+							this.checked = false;
+							//this.checked = true;
+							});
+						}
+						
+				});
+
+		
+		$(document).on("click", ".checkbox", function (){
+			
+						if($('.checkbox:checked').length == $('.checkbox').length)	
+						{
+							//alert($('.checkbox').length);
+							//alert($('.checkbox:checked').length);
+							$('#select_all').prop('checked',true);
+						}
+						else
+						{
+							$('#select_all').prop('checked',false);
+						}
+						});
+			
+			
+		
+
+     
+   </script>
+   
+	<script type="text/javascript">
+	  $(document).ready(function() {	
+	       var table;
+			 table=$('#example').DataTable({
+						"scrollY":"400px",
+        				"scrollX":true,
+        				 "scrollCollapse":true,
+        				"fixedColumns":   
+						{
+            			 leftColumns: 2,
+            			 rightColumns:1
+        				},
+						//"pagingType": "full_numbers",
+        			'columnDefs': [
+       					{ targets: [10,11], visible :false }
+    					            ],
+						"contentType": "application/json",
+						"order": [[ 7, "desc" ]],
+						"lengthMenu": [[10, 25, 50,100,500,1000,-1],[10,25,50,100,500,1000,"All"]],
+						dom: 'Bfrtip',
+						"stateSave": true,
+						// "stateDuration": 10,
+
+						buttons: 
+								[
+							'pageLength','csv', 'excel','copy','print','pdfHtml5',
+							{ 
+							 "extend":'colvis', 
+							 "columns":':not(:last-child)', 
+							} 
+								],
+						"ajax": "<?php echo URL;?>ubitech/cleanedup",
+						"columns": [
+							{ "data": "change"},
+							{ "data": "orgName"},
+							{ "data": "c_nmae" },
+							{ "data": "email" },
+							{ "data": "PhoneNumber"},
+							{ "data": "address"},
+							{ "data": "country"},
+							{ "data": "rdate"},
+							//{ "data": "sdate"},
+							{ "data": "edate"},
+							{ "data": "noemp"},
+							//{ "data": "sstts"},
+							{ "data": "ref_no" },
+							{ "data": "pass" },
+							{ "data": "note" },
+							//{ "data": "emailstatus"},
+							{ "data": "action"}
+						]
+					});
+					
+					
+		
+					
+						
+						
+			//$("#getval").change(function(){
+			$("#getAtt").click(function() {
+			//var conttype = $(this).children(":selected").attr("value");	
+			var conttype = $('#getval').val();
+			var range=$('#reportrange').text();
+			
+			//$("#example").dataTable().fnDestroy();
+			 table=$('#example').DataTable({
+							// "autoWidth": false,
+							"scrollY":"400px",
+							"scrollX":true,
+							"scrollCollapse":true,
+						   
+						"fixedColumns":   
+						{
+            			 leftColumns: 2,
+            			 rightColumns:1
+        				},
+						"contentType": "application/json",
+						"order": [[ 6, "desc" ]],
+						"lengthMenu": [[10, 25, 50,100,500,1000,-1],[10,25,50,100,500,1000,"All"]],
+						dom: 'Bfrtip',
+						"stateSave": true,
+						// "stateDuration": 10,
+						"bDestroy": true,
+						'columnDefs': [
+       					{ targets: [9,10], visible :false }
+									],
+						buttons: [
+							'pageLength','csv', 'excel','copy','print','pdfHtml5',
+								{ 
+								 "extend":'colvis', 
+								 "columns":':not(:last-child)', 
+								} 
+								],
+						"ajax": "<?php echo URL;?>ubitech/cleanedup?conttype="+conttype+"&date="+range,
+						"columns": [
+							{ "data": "change"},
+							{ "data": "orgName"},
+							{ "data": "c_nmae" },
+							{ "data": "email" },
+							{ "data": "PhoneNumber"},
+							{ "data": "address"},
+							{ "data": "country"},
+							{ "data": "rdate"},
+							//{ "data": "sdate"},
+							{ "data": "edate"},
+							{ "data": "noemp"},
+							//{ "data": "sstts"},
+							{ "data": "ref_no" },
+							{ "data": "pass" },
+							{ "data": "note" },
+							//{ "data": "emailstatus"},
+							{ "data": "action"}
+									]
+					});
+			
+			});	
+			
+			////---------date picker
+			var minDate = moment();
+			var start = moment().subtract(2,'months');
+			var end = moment().subtract(0,'days');
+			function cb(start, end) 
+			{
+			 $('#reportrange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+			}
+			
+			$('#reportrange').daterangepicker({
+				//maxDate:minDate,
+				startDate: start,
+				endDate: end,
+				ranges: {
+				   'Today': [moment(), moment()],
+				   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+				   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+				   'This Month': [moment().startOf('month'), moment().endOf('month')],
+				   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+						}
+			}, cb);
+			cb(start, end);
+					
+					
+			
+			//////////del org permanently
+			$(document).on("click", ".delete_p", function () 
+			{
+				$('#del_did_p').val($(this).data('id'));
+				$('#dna_p').text($(this).data('orgname'));
+				$('#delOrg_p').modal('show');
+			});
+			$(document).on("click", "#delete_p", function () {
+				var id=$('#del_did_p').val();
+				$('.wait').show();
+				$.ajax({url: "<?php echo URL;?>ubitech/archiveOrg_del",
+						data: {"did":id},
+						success: function(result){
+							result=JSON.parse(result);
+							if(result.afft){
+								$('.wait').hide();
+								$('#delOrg_p').modal('hide');
+								doNotify('top','center',2,'Company Deleted successfully.');
+								var table=$('#example').DataTable();
+								 table.ajax.reload();
+							}else{
+								$('.wait').hide();
+								$('#delOrg_p').modal('hide');
+								doNotify('top','center',4,'Unable to delete this company');
+								}
+						
+						 },
+						error: function(result){
+							$('.wait').hide();
+							doNotify('top','center',4,'Unable to connect API');
+						 }
+				   });
+			});
+			//////////unarchieve org permanently
+			
+		
+				$(document).on("click", ".delete_a", function () {
+				$('#del_did_U').val($(this).data('id'));
+				$('#dna_U').text($(this).data('orgname'));
+				$('#archOrg').modal('show');
+																  });
+			/*$(document).on("click", "#unarchive", function () {
+				var id=$('#del_did_U').val();
+				$.ajax({url: "<?php echo URL;?>ubitech/unarchiveOrg",
+						data: {"did":id},
+						success: function(result){
+							
+							result=JSON.parse(result);
+							
+							if(result.afft){
+									$('#archOrg').modal('hide');
+								doNotify('top','center',2,'Company unarchived successfully.');
+							
+								var table=$('#example').DataTable();
+								 table.ajax.reload();
+							}else{
+								$('#unarchive').modal('hide');
+								doNotify('top','center',4,'Unable to unarchive this company');
+							}
+						
+						 },
+						error: function(result){
+							doNotify('top','center',4,'Unable to connect API');
+						 }
+				   });
+			});*/
+		
+			
+			
+			
+			
+			
+			
+			
+		});
+	</script>
+</html>

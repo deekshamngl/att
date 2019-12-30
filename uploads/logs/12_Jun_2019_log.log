@@ -1,0 +1,27 @@
+12-Jun-2019 10:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Jun-2019 10:21 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Jun-2019 11:16 : TimeIn AID0UserId4141
+12-Jun-2019 11:16 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-06-12',1,'11:16',48,50,18645,159,0,10,'2019-06-12',4141,'2019-06-12 11:16:15',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_12062019_111615.jpg','New Collectorate Road, Mahalgaon, Gwalior, 474011, Madhya Pradesh, India','mobile','26.19659058286454','78.19694903686475','2019-06-12')
+12-Jun-2019 11:16 : TimeOut AID1972015UserId4141
+12-Jun-2019 13:32 : TimeIn AID0UserId4904
+12-Jun-2019 13:32 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4904,'2019-06-12',1,'13:32',49,50,1170,0,0,10,'2019-06-12',4904,'2019-06-12 13:32:21',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_12062019_133221.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967326','78.1969614','2019-06-12')
+12-Jun-2019 13:32 : TimeOut AID1972016UserId4904
+12-Jun-2019 13:35 : TimeIn AID0UserId4253
+12-Jun-2019 13:35 : User Attendance: 4253 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4253,'2019-06-12',1,'13:35',48,50,861,159,0,10,'2019-06-12',4253,'2019-06-12 13:35:42',4253,4253,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4253_12062019_133542.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967574','78.1970191','2019-06-12')
+12-Jun-2019 13:35 : TimeOut AID1972017UserId4253
+12-Jun-2019 13:41 : TimeIn AID0UserId14803
+12-Jun-2019 13:41 : User Attendance: 14803 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (14803,'2019-06-12',1,'13:41',6658,21101,27577,0,0,5404,'2019-06-12',14803,'2019-06-12 13:41:07',14803,14803,'00:00:00','http://192.168.0.200/ubiattendance/uploads/14803_12062019_134107.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967429','78.1969887','2019-06-12')
+12-Jun-2019 13:41 : TimeOut AID1972018UserId14803
+12-Jun-2019 13:46 : TimeIn AID0UserId5615
+12-Jun-2019 13:46 : User Attendance: 5615 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (5615,'2019-06-12',1,'13:46',48,51,36476,159,0,10,'2019-06-12',5615,'2019-06-12 13:46:06',5615,5615,'00:00:00','http://192.168.0.200/ubiattendance/uploads/5615_12062019_134606.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967594','78.1970065','2019-06-12')
+12-Jun-2019 13:46 : TimeOut AID1972019UserId5615

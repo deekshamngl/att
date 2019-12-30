@@ -1,0 +1,11 @@
+14-May-2019 10:51 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-05-14',1,'10:51',48,50,18645,159,0,10,'2019-05-14',4141,'2019-05-14 10:51:21',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_14052019_105121.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967269','78.1969031','2019-05-14')
+14-May-2019 12:50 : 31628
+14-May-2019 12:50 : The following From address failed: ubiattendance@ubitechsolutions.com
+14-May-2019 16:27 : 31630
+14-May-2019 16:49 : 31180
+14-May-2019 16:50 : 4902
+14-May-2019 16:50 : The following From address failed: ubiattendance@ubitechsolutions.com
+14-May-2019 17:06 : 4169
+14-May-2019 17:06 : The following From address failed: ubiattendance@ubitechsolutions.com

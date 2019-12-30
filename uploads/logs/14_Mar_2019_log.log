@@ -1,0 +1,88 @@
+14-Mar-2019 12:36 : This is background 12:36:16 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:36 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:36:16","isOutSideFence":0}
+14-Mar-2019 12:36 : This is background 12:36:35 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:36 :  Update 
+14-Mar-2019 12:36 : 2019-03-14 12:36:16
+14-Mar-2019 12:36 : 1552523580
+14-Mar-2019 12:36 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:36:35","isOutSideFence":0},
+14-Mar-2019 12:37 : This is background 12:37:18 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:37 :  Update 
+14-Mar-2019 12:37 : 2019-03-14 12:36:35
+14-Mar-2019 12:37 : 1552547160
+14-Mar-2019 12:37 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:37:18","isOutSideFence":0},
+14-Mar-2019 12:37 : This is background 12:37:20 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:37 :  Update 
+14-Mar-2019 12:37 : 2019-03-14 12:37:18
+14-Mar-2019 12:37 : 1552547220
+14-Mar-2019 12:37 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:37:20","isOutSideFence":0},
+14-Mar-2019 12:40 : This is background 12:40:05 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:40 :  Update 
+14-Mar-2019 12:40 : 2019-03-14 12:37:20
+14-Mar-2019 12:40 : olddatetime: 1552547220
+14-Mar-2019 12:40 : UpdatedDatetime: 1552547400
+14-Mar-2019 12:40 : Difference: 180
+14-Mar-2019 12:40 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:40:05","isOutSideFence":0},
+14-Mar-2019 12:40 : This is background 12:40:08 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:40 :  Update 
+14-Mar-2019 12:40 : 2019-03-14 12:40:05
+14-Mar-2019 12:40 : olddatetime: 1552547400
+14-Mar-2019 12:40 : UpdatedDatetime: 1552547400
+14-Mar-2019 12:40 : Difference: 0
+14-Mar-2019 12:40 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:40:08","isOutSideFence":0},
+14-Mar-2019 12:41 : This is background 12:41:07 Latitude 342 Longitude 23423 Address 423 Empid 342
+14-Mar-2019 12:41 :  Update 
+14-Mar-2019 12:41 : Old Date2019-03-14 12:40:08
+14-Mar-2019 12:41 : olddatetime: 1552547400
+14-Mar-2019 12:41 : New Date2019-03-14 12:41:07
+14-Mar-2019 12:41 : UpdatedDatetime: 1552547460
+14-Mar-2019 12:41 : Difference: 60
+14-Mar-2019 12:41 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:41:07","isOutSideFence":0},
+14-Mar-2019 12:44 : This is background 12:44:15 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:44 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:44:15","isOutSideFence":1}
+14-Mar-2019 12:44 : This is background 12:44:22 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:44 :  Update 
+14-Mar-2019 12:44 : Old Date2019-03-14 12:44:15
+14-Mar-2019 12:44 : olddatetime: 1552547640
+14-Mar-2019 12:44 : New Date2019-03-14 12:44:22
+14-Mar-2019 12:44 : UpdatedDatetime: 1552547640
+14-Mar-2019 12:44 : Difference: 0
+14-Mar-2019 12:44 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:44:22","isOutSideFence":1}
+14-Mar-2019 12:44 : This is background 12:44:42 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:44 :  Update 
+14-Mar-2019 12:44 : Old Date2019-03-14 12:44:15
+14-Mar-2019 12:44 : olddatetime: 1552547640
+14-Mar-2019 12:44 : New Date2019-03-14 12:44:42
+14-Mar-2019 12:44 : UpdatedDatetime: 1552547640
+14-Mar-2019 12:44 : Difference: 0
+14-Mar-2019 12:44 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:44:42","isOutSideFence":1}
+14-Mar-2019 12:45 : This is background 12:45:27 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:45 :  Update 
+14-Mar-2019 12:45 : Old Date2019-03-14 12:44:15
+14-Mar-2019 12:45 : olddatetime: 1552547640
+14-Mar-2019 12:45 : New Date2019-03-14 12:45:27
+14-Mar-2019 12:45 : UpdatedDatetime: 1552547700
+14-Mar-2019 12:45 : Difference: 1
+14-Mar-2019 12:45 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:45:27","isOutSideFence":1}
+14-Mar-2019 12:46 : This is background 12:46:15 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:46 :  Update 
+14-Mar-2019 12:46 : Old Date2019-03-14 12:44:15
+14-Mar-2019 12:46 : olddatetime: 1552547640
+14-Mar-2019 12:46 : New Date2019-03-14 12:46:15
+14-Mar-2019 12:46 : UpdatedDatetime: 1552547760
+14-Mar-2019 12:46 : Difference: 2
+14-Mar-2019 12:46 :  Update Done
+14-Mar-2019 12:46 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:46:15","isOutSideFence":1},
+14-Mar-2019 12:46 : This is background 12:46:35 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:46 :  Update 
+14-Mar-2019 12:46 : Old Date2019-03-14 12:46:15
+14-Mar-2019 12:46 : olddatetime: 1552547760
+14-Mar-2019 12:46 : New Date2019-03-14 12:46:35
+14-Mar-2019 12:46 : UpdatedDatetime: 1552547760
+14-Mar-2019 12:46 : Difference: 0
+14-Mar-2019 12:46 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:46:35","isOutSideFence":1}
+14-Mar-2019 12:48 : This is background 12:48:14 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:48 :  Update 
+14-Mar-2019 12:48 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:48:14","isOutSideFence":1}
+14-Mar-2019 12:51 : This is background 12:51:25 Latitude 342 Longitude 23423 Address 423 Empid 4140
+14-Mar-2019 12:51 :  Update 
+14-Mar-2019 12:51 : {"latitude":"342","longitude":"23423","address":"423","time":"2019-03-14 12:51:25","isOutSideFence":1}

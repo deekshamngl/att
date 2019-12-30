@@ -1,0 +1,58 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+.delete{
+	color:red;
+}
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+   margin-top:15px;
+   
+  border: 1px solid gray;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+   
+	z-index: 10000;
+	
+}
+.sidenavData{
+	margin:2%;
+}
+
+.sidenav a {
+   
+    text-decoration: none;
+    color: #818181;
+    transition: 0.3s;
+}
+.closebtn{
+	position: absolute;
+	right:0;
+	 font-size: 20px;
+	color:white !important;
+}
+.sidenav a:hover, .offcanvas a:focus{
+    color: gray;
+	
+	
+}
+.sidenav a{
+    color: #ffffffff;
+	
+	
+}

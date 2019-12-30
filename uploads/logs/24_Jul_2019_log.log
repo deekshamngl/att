@@ -1,0 +1,27 @@
+24-Jul-2019 12:55 : TimeIn AID0UserId4904
+24-Jul-2019 12:55 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-07-24',1,'12:55',49,50,859,43,0,10,'2019-07-24',4904,'2019-07-24 12:55:19',4904,4904,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966814','78.197025','2019-07-24')
+24-Jul-2019 12:56 : TimeOut AID2367780UserId4904
+24-Jul-2019 13:15 : TimeIn AID0UserId4141
+24-Jul-2019 13:15 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4141,'2019-07-24',1,'13:15',48,50,859,159,0,10,'2019-07-24',4141,'2019-07-24 13:15:25',4141,4141,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967666','78.1970256','2019-07-24')
+24-Jul-2019 13:15 : image not uploaded--4141
+24-Jul-2019 13:16 : image not uploaded--4141
+24-Jul-2019 13:21 : TimeIn AID0UserId11674
+24-Jul-2019 13:21 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-07-24',1,'13:21',49,50,860,159,1,10,'2019-07-24',11674,'2019-07-24 13:21:11',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_24072019_132111.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967666','78.1970256','2019-07-24')
+24-Jul-2019 13:22 : TimeOut AID2367781UserId4141
+24-Jul-2019 13:28 : TimeIn AID0UserId4253
+24-Jul-2019 13:28 : User Attendance: 4253 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4253,'2019-07-24',1,'13:28',48,50,861,159,0,10,'2019-07-24',4253,'2019-07-24 13:28:39',4253,4253,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4253_24072019_132839.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967666','78.1970256','2019-07-24')
+24-Jul-2019 15:00 : TimeIn AID0UserId4169
+24-Jul-2019 15:00 : User Attendance: 4169 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4169,'2019-07-24',1,'15:00',51,50,868,159,0,10,'2019-07-24',4169,'2019-07-24 15:00:56',4169,4169,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4169_24072019_150056.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967402','78.1970026','2019-07-24')
+24-Jul-2019 15:01 : TimeOut AID2367784UserId4169
+24-Jul-2019 15:13 : TimeOut AID2367783UserId4253
+24-Jul-2019 15:15 : TimeOut AID2367785UserId40371

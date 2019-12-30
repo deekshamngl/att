@@ -1,0 +1,110 @@
+12-Aug-2019 12:53 : TimeIn AID0UserId11674
+12-Aug-2019 12:53 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-08-12',1,'12:53',49,50,91897,159,1,10,'2019-08-12',11674,'2019-08-12 12:53:26',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_12082019_125326.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967564','78.1970126','2019-08-12')
+12-Aug-2019 13:58 : TimeOut AID2740020UserId11674
+12-Aug-2019 15:10 : TimeIn AID0UserId26332
+12-Aug-2019 15:10 : User Attendance: 26332 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,26332,'2019-08-12',1,'15:10',48,50,91897,159,0,10,'2019-08-12',26332,'2019-08-12 15:10:33',26332,26332,'00:00:00','http://192.168.0.200/ubiattendance/uploads/26332_12082019_151033.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967548','78.19702','2019-08-12')
+12-Aug-2019 15:10 : TimeOut AID2740021UserId26332
+12-Aug-2019 15:11 : TimeIn AID0UserId4904
+12-Aug-2019 15:11 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-08-12',1,'15:11',49,50,18646,159,242,10,'2019-08-12',4904,'2019-08-12 15:11:52',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_12082019_151152.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967548','78.19702','2019-08-12')
+12-Aug-2019 15:12 : TimeOut AID2740022UserId4904
+12-Aug-2019 15:12 : TimeIn AID0UserId4141
+12-Aug-2019 15:12 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4141,'2019-08-12',1,'15:12',48,50,18644,159,0,10,'2019-08-12',4141,'2019-08-12 15:12:34',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_12082019_151234.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1966963','78.1969184','2019-08-12')
+12-Aug-2019 15:12 : TimeOut AID2740023UserId4141
+12-Aug-2019 15:19 : TimeIn AID0UserId4902
+12-Aug-2019 15:19 : User Attendance: 4902 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4902,'2019-08-12',1,'15:19',52,50,137939,159,21,10,'2019-08-12',4902,'2019-08-12 15:19:15',4902,4902,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4902_12082019_151915.jpg','26.1967548,78.19702','mobile','26.1967548','78.19702','2019-08-12')
+12-Aug-2019 15:19 : TimeOut AID2740024UserId4902
+12-Aug-2019 15:20 : TimeIn AID0UserId40371
+12-Aug-2019 15:20 : User Attendance: 40371 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,40371,'2019-08-12',1,'15:20',48,50,91897,159,0,10,'2019-08-12',40371,'2019-08-12 15:20:16',40371,40371,'00:00:00','http://192.168.0.200/ubiattendance/uploads/40371_12082019_152016.jpg','26.1967548,78.19702','mobile','26.1967548','78.19702','2019-08-12')
+12-Aug-2019 15:32 : TimeIn AID0UserId11674
+12-Aug-2019 15:32 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-08-12',1,'15:32',49,50,91897,159,1,10,'2019-08-12',11674,'2019-08-12 15:32:35',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_12082019_153235.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967169','78.1969803','2019-08-12')
+12-Aug-2019 15:32 : TimeOut AID2740026UserId11674
+12-Aug-2019 15:35 : TimeIn AID0UserId40371
+12-Aug-2019 15:35 : User Attendance: 40371 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,40371,'2019-08-12',1,'15:35',48,50,91897,159,0,10,'2019-08-12',40371,'2019-08-12 15:35:04',40371,40371,'00:00:00','http://192.168.0.200/ubiattendance/uploads/40371_12082019_153504.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1968624','78.1970102','2019-08-12')
+12-Aug-2019 15:35 : TimeOut AID2740027UserId40371
+12-Aug-2019 15:46 : TimeIn AID0UserId5615
+12-Aug-2019 15:46 : User Attendance: 5615 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,5615,'2019-08-12',1,'15:46',48,51,36476,159,0,10,'2019-08-12',5615,'2019-08-12 15:46:40',5615,5615,'00:00:00','http://192.168.0.200/ubiattendance/uploads/5615_12082019_154640.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967587','78.1969033','2019-08-12')
+12-Aug-2019 15:48 : TimeOut AID2740028UserId5615
+12-Aug-2019 16:48 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Aditi Second</b> has been added to the Employees’ List of<b> Ubitech solutions PVT LTD</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Aditi Second <br/>
+                        
+                        Username(Phone#): 7440404040<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/59469' target='_blank' >
+                            GenerateAditi Second’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Aug-2019 16:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Aug-2019 16:59 : <html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>Deeksh Test</b> has been added to the Employees’ List of<b> Ubitech solutions PVT LTD</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: Deeksh Test <br/>
+                        
+                        Username(Phone#): 7440519090<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubiattendance.ubihrm.com/index.php/services/useridcard/10/59469' target='_blank' >
+                            GenerateDeeksh Test’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiAttendance </h5>
+                    </body>
+                    </html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+12-Aug-2019 16:59 : The following From address failed: ubiattendance@ubitechsolutions.com
+12-Aug-2019 17:26 : TimeIn AID0UserId4143
+12-Aug-2019 17:26 : User Attendance: 4143 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4143,'2019-08-12',1,'17:26',49,51,858,159,25,10,'2019-08-12',4143,'2019-08-12 17:26:22',4143,4143,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4143_12082019_172622.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967455','78.1970557','2019-08-12')
+12-Aug-2019 17:26 : TimeOut AID2740029UserId4143
+12-Aug-2019 08:59 : TimeIn AID0UserId59433
+12-Aug-2019 08:59 : User Attendance: 59433 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,59433,'2019-08-12',1,'08:59',33617,117555,148115,0,0,28708,'2019-08-12',59433,'2019-08-12 08:59:50',59433,59433,'00:00:00','http://192.168.0.200/ubiattendance/uploads/59433_12082019_085950.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','0.0','0.0','2019-08-12')
+12-Aug-2019 09:02 : TimeOut AID2740030UserId59433

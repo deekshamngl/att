@@ -1,0 +1,5 @@
+04-Oct-2019 12:01 : TimeIn AID0UserId4904
+04-Oct-2019 12:01 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-10-04',1,'12:01',49,50,18646,159,242,10,'2019-10-04',4904,'2019-10-04 12:01:04',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_04102019_120104.jpg','Ubitech Rd, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967543','78.1970037','2019-10-04')
+04-Oct-2019 12:01 : TimeOut AID3300983UserId4904

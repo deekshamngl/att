@@ -1,0 +1,204 @@
+30-Jul-2019 13:23 : TimeIn AID0UserId11678
+30-Jul-2019 13:23 : User Attendance: 11678 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11678,'2019-07-30',1,'13:23',48,50,860,159,0,10,'2019-07-30',11678,'2019-07-30 13:23:42',11678,11678,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11678_30072019_132342.jpg','26.1967313,78.1969733','mobile','26.1967313','78.1969733','2019-07-30')
+30-Jul-2019 13:25 : TimeOut AID2384290UserId11678
+30-Jul-2019 13:26 : TimeIn AID0UserId16942
+30-Jul-2019 13:26 : User Attendance: 16942 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,16942,'2019-07-30',1,'13:26',8284,26918,34821,0,0,6801,'2019-07-30',16942,'2019-07-30 13:26:20',16942,16942,'00:00:00','http://192.168.0.200/ubiattendance/uploads/16942_30072019_132620.jpg','26.1967461,78.197008','mobile','26.1967461','78.197008','2019-07-30')
+30-Jul-2019 13:26 : TimeIn AID0UserId4141
+30-Jul-2019 13:26 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4141,'2019-07-30',1,'13:26',48,50,859,159,0,10,'2019-07-30',4141,'2019-07-30 13:26:43',4141,4141,'00:00:00','https://ubitech.ubihrm.com/public/avatars/male.png','26.1967464,78.197009','mobile','26.1967464','78.197009','2019-07-30')
+30-Jul-2019 13:26 : image not uploaded--4141
+30-Jul-2019 13:27 : TimeOut AID2384292UserId4141
+30-Jul-2019 13:31 : TimeIn AID0UserId11674
+30-Jul-2019 13:31 : User Attendance: 11674 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,11674,'2019-07-30',1,'13:31',49,50,860,159,1,10,'2019-07-30',11674,'2019-07-30 13:31:13',11674,11674,'00:00:00','http://192.168.0.200/ubiattendance/uploads/11674_30072019_133113.jpg','26.1967337,78.1970207','mobile','26.1967337','78.1970207','2019-07-30')
+30-Jul-2019 13:31 : TimeOut AID2384293UserId11674
+30-Jul-2019 13:52 : TimeIn AID0UserId4143
+30-Jul-2019 13:52 : User Attendance: 4143 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4143,'2019-07-30',1,'13:52',49,51,858,159,25,10,'2019-07-30',4143,'2019-07-30 13:52:28',4143,4143,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4143_30072019_135228.jpg','26.1967136,78.1969836','mobile','26.1967344','78.1970094','2019-07-30')
+30-Jul-2019 14:52 : TimeIn AID0UserId4904
+30-Jul-2019 14:52 : User Attendance: 4904 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,4904,'2019-07-30',1,'14:52',49,50,859,43,0,10,'2019-07-30',4904,'2019-07-30 14:52:27',4904,4904,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4904_30072019_145227.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1968154','78.1972122','2019-07-30')
+30-Jul-2019 14:52 : TimeOut AID2384295UserId4904
+30-Jul-2019 15:32 : SELECT id FROM `EmployeeMaster` WHERE  CompanyEmail='QVlRHZ1aKN3VGRGMPZFZOV1awFXV650SS1mSyJ2Rxo1YuJkcVx2b4JFM1QzVXhnTTFjWxZlbFFTYyUUP' and OrganizationId=5404
+30-Jul-2019 15:32 : <html>
+					<head>
+					<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+					<meta name=Generator content="Microsoft Word 12 (filtered)">
+					<style>
+					</style>
+
+					</head>
+
+					<body lang=EN-US link=blue vlink=purple>
+
+					<div class=Section1>
+
+					<div align=center>
+
+					<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550"
+					 style="550px;border-collapse:collapse" align="center">
+					 <tr style="height:328.85pt">
+					  <td width=917 valign=top style="width:687.75px;padding:0in 0in 0in 0in;
+					  height:328.85px">
+					  <div align=center>
+					  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style="width:100.0%;border-collapse:collapse">
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:21.5pt 0in 21.5pt 0in">
+						  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+						  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+						  12.0pt;font-family:Arial,sans-serif"><img width=200 
+						  id="Picture 1" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/logo.png" alt="ubitech solutions"></span></p>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="background:#52BAD5;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="100%" style="width:100.0%;border-collapse:collapse">
+						   <tr>
+							<td valign=top style="padding:0in 0in 0in 0in">
+							<div align=center>
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 width="100%" style="width:100.0%;background:white">
+							 <tr>
+							  <td width="550" valign=top style="width:550px;padding:21.5pt 0in 0in 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+							  12.0pt;font-family:Arial,sans-serif">&nbsp;</span></p>
+							  </td>
+							 </tr>
+							</table>
+							</div>
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="padding:0in 0in 0in 0in">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="550" style="width:550px;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="550" style="width:550px;border-collapse:collapse">
+						   <tr>
+							<td width=30 valign=top style="width:22.5pt;padding:0in 0in 0in 0in">
+							<p class=MsoNormal align=right style="margin-bottom:0in;margin-bottom:
+							.0001pt;text-align:right;line-height:normal"><span style="font-size:
+							12.0pt;font-family:Arial,sans-serif"><img width=30 height=59
+							id="Picture 2" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiAttendance/ubiAttendance/image002.jpg" alt=" "></span></p>
+							</td>
+							<td width="550" valign=top style="width:550px;padding:0in 37.6pt 0in 21.5pt">
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 align=center width="550" style="550px;border-collapse:collapse">
+							 <tr>
+							  <td valign=top style="padding:0in 0in 21.5pt 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:left;line-height:22.55pt"><b><p style="font-size:20.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">Welcome - now let&#39;s get started!<br/>
+							  </p>  	
+								<p style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateOrg?iuser=namSnQ==">Verify now to start your trial</a>
+								</p>
+							
+								<div align=center>
+							  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							   width="550" style="width:550px;border-collapse:collapse">
+							   <tr>
+								<td align="center" style="padding:0in 0in 0in 0in">
+								<a href="https://ubiattendance.ubihrm.com/index.php/services/activateOrg?iuser=namSnQ==" target="_blank" style="font-size:20px;font-family:Helvetica,sans-serif;color:white;text-decoration:none">
+								<p class=MsoNormal align=center style="margin-bottom:0in;								margin-bottom:.0001pt;text-align:center;line-height:normal; background:#52bad5;width: 250px;padding: 15px;">Verify your Account</span></b></span></p></a>
+								</td>
+							   </tr>
+							  </table>
+							  </div>
+								<span
+							  style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060">
+							  
+							 <br/> Hello Test,
+							  
+								</span></b>
+								<p style="text-align: left;" class="paragraph-text">
+								Thanks for trying ubiAttendance. You&#39;re going to love it.<br/><br/>
+								First thing&#39;s first:  <a href="https://ubiattendance.ubihrm.com/index.php/services/activateOrg?iuser=namSnQ==">Verify your Account</a> to start exploring our world class App.<br/>Enjoy your 15-day trial to your heart`s content!<br/><br/><br/>Need more help?  <a href="mailto:ubiattendance@ubitechsolutions.com">Contact us</a> or <a target="_blank" href="https://www.youtube.com/channel/UCLplA-GWJOKZTwGlAaVKezg">View our Channel</a> and learn about key features and best practices.
+								</p>
+								
+							  </p>
+							  </td>
+
+							 </tr>
+							 <tr>
+							 
+							 </tr>
+							 <tr>
+							  <td valign=top style="padding:0in 0in 2.7pt 0in">
+									Cheers,<br/>Team ubiAttendance<br/><a href="http://www.ubiattendance.com/" target="_blank">www.ubiattendance.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubiattendance@ubitechsolutions.com<br/>Skype: ubitech.solutions
+							  </td>
+							 </tr>
+							 
+							</table>
+
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					  </table>
+					  </div>
+					  </td>
+					 </tr>
+					</table>
+
+					</div>
+
+
+					</div>
+
+
+					</body>
+
+					</html>
+                    <br/><br/><b>This is an auto-generated mail. Kindly do not reply to this mail.</b>
+30-Jul-2019 15:32 : The following From address failed: ubiattendance@ubitechsolutions.com
+30-Jul-2019 15:32 : TimeIn AID0UserId14803
+30-Jul-2019 15:32 : User Attendance: 14803 INSERT INTO `AttendanceMaster`(`FakeLocationStatusTimeIn`,`FakeLocationStatusTimeOut`,`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (0,0,14803,'2019-07-30',1,'15:32',6658,21101,27577,0,0,5404,'2019-07-30',14803,'2019-07-30 15:32:53',14803,14803,'00:00:00','http://192.168.0.200/ubiattendance/uploads/14803_30072019_153253.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967715','78.1970216','2019-07-30')
+30-Jul-2019 15:33 : TimeOut AID2384296UserId14803

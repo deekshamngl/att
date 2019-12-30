@@ -1,0 +1,6418 @@
+<?php
+class Att_services_model extends CI_Model
+{
+    function __construct()
+    {
+        parent::__construct();
+        include(APPPATH . "PhpMailer/class.phpmailer.php");
+    }
+    public function getCountries()
+    {
+        $query = $this->db->query("SELECT `Id`, `Name`,countryCode FROM `CountryMaster` order by Name");
+        echo json_encode($query->result());
+    }
+    
+    public function getOrganization($id)
+    {
+        $query = $this->db->query("SELECT o.id as orgid, o.Name as name , z.name as zone FROM Organization as  o, ZoneMaster as z WHERE o.country=z.CountryId and o.id=?", array(
+            $id
+        ));
+        $data  = array();
+        if ($query->num_rows()) {
+            foreach ($query->result() as $row) {
+                $data['response'] = 1;
+                $data['orgid']    = $row->orgid;
+                $data['name']     = $row->name;
+                $data['zone']     = $row->zone;
+            }
+        } else {
+            $data['response'] = 0;
+        }
+        echo json_encode($data);
+    }
+    
+    public function checkLogin()
+    {
+        $data     = array();
+        $active   = 1;
+        $userName = '';
+        $password = '';
+        $org_perm = "1,2,3";
+		$date = date('Y-m-d');
+        
+        $device = isset($_REQUEST['device']) ? $_REQUEST['device'] : '';
+        $qr     = isset($_REQUEST['qr']) ? $_REQUEST['qr'] : '';
+        if ($qr == 'true') {
+            $userName = encode5t(isset($_REQUEST['userName']) ? strtolower($_REQUEST['userName']) : '');
+            $password = isset($_REQUEST['password']) ? $_REQUEST['password'] : '';
+            
+        } else {
+            $userName = encode5t(isset($_REQUEST['userName']) ? strtolower($_REQUEST['userName']) : '');
+            $password = encode5t(isset($_REQUEST['password']) ? $_REQUEST['password'] : '');
+        }
+      // echo "SELECT * FROM `UserMaster` , EmployeeMaster WHERE (Username='$userName' or username_mobile='$userName')and Password='$password' and EmployeeMaster.id=UserMaster.`EmployeeId` and UserMaster.archive=1 and EmployeeMaster.Is_Delete=0 and EmployeeMaster.OrganizationId not in(502,1074)";
+		
+        $query = $this->db->query("SELECT * FROM `UserMaster` , EmployeeMaster WHERE (Username=? or username_mobile=?)and Password=? and EmployeeMaster.id=UserMaster.`EmployeeId` and UserMaster.archive=1 and EmployeeMaster.Is_Delete=0 and EmployeeMaster.OrganizationId not in(502,1074)", array(
+            $userName,
+            $userName,
+            $password
+			
+        )); // custom app- (502 for RAKP) 1074-Erawan
+		//echo($query->num_rows());
+        if ($query->num_rows()) {
+            foreach ($query->result() as $row) {
+                $data['response'] = 1;
+                $data['fname']    = ucfirst($row->FirstName);
+                $data['lname']    = ucfirst($row->LastName);
+                $data['empid']    = $row->EmployeeId;
+                $data['status']   = $row->VisibleSts;
+                $data['orgid']    = $row->OrganizationId;
+                $data['sstatus']  = $row->appSuperviserSts;
+                $data['org_perm'] = $org_perm;
+                $result1          = $this->db->query("SELECT Name, Email FROM `Organization` WHERE id=?", array(
+                    $data['orgid']
+                ));
+                if ($row1 = $result1->row())
+                    if (strlen($row1->Name) > 16)
+                        $data['org_name'] = substr($row1->Name, 0, 16) . '...';
+                    else
+                        $data['org_name'] = $row1->Name;
+                
+                $data['orgmail'] = $row1->Email;
+                
+                $result2 = $this->db->query("SELECT status, end_date FROM `licence_ubiattendance` WHERE OrganizationId =? order by id desc limit 1",array($data['orgid']));
+					if($row2= $result2->row()){	
+							$data['trialstatus']= $row2->status;
+							if(date('Y-m-d',strtotime($row2->end_date)) < $date){
+								$data['trialstatus']= "2";
+							}
+							$data['buysts']= $row2->status;
+					}
+                
+                $data['desination'] = getDesignation($row->Designation);
+				$data['desinationId'] = $row->Designation;
+                
+                if ($row->ImageName != "") {
+                    $dir             = "public/uploads/" . $row->OrganizationId . "/" . $row->ImageName;
+                    $data['profile'] = "https://ubitech.ubihrm.com/" . $dir;
+                } else {
+                    $data['profile'] = "http://ubiattendance.ubihrm.com/assets/img/avatar.png";
+                }
+            }
+            $result1 = $this->db->query("SELECT * FROM `PlayStore` Where 1");
+            if ($row1 = $result1->row()) {
+                if ($device == 'Android')
+                    $data['store'] = $row1->googlepath;
+                else if ($device == 'iOS')
+                    $data['store'] = $row1->applepath;
+                else
+                    $data['store'] = 'https://ubishift.ubihrm.com';
+            }
+        } else {
+            $data['response'] = 0;
+        }
+        echo json_encode($data);
+    }
+	/////// Date - 26/11/2018 via abhinav@ubitechsolutions.com
+    //// function for resending organization email verification from app
+	//////
+	public function resend_verification_mail(){
+		//////////////////-------------activate mail body-strt
+					$orgid = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : "";
+					$email = getOrgEmail($orgid);
+					$emp_id = getEmpIDbyEmail(encode5t($email),$orgid);
+					$contact_person_name = getAdminName($orgid);
+					$result = array();
+                    $message = '<html>
+					<head>
+					<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+					<meta name=Generator content="Microsoft Word 12 (filtered)">
+					<style>
+					</style>
+
+					</head>
+
+					<body lang=EN-US link=blue vlink=purple>
+
+					<div class=Section1>
+
+					<div align=center>
+
+					<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550"
+					 style="550px;border-collapse:collapse" align="center">
+					 <tr style="height:328.85pt">
+					  <td width=917 valign=top style="width:687.75px;padding:0in 0in 0in 0in;
+					  height:328.85px">
+					  <div align=center>
+					  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style="width:100.0%;border-collapse:collapse">
+					   <tr>
+						<td valign=top style="background:#aad400;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:21.5pt 0in 21.5pt 0in">
+						  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+						  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+						  12.0pt;font-family:Arial,sans-serif"><img width=200 
+						  id="Picture 1" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiShift/ubiShift/logo.png" alt="ubitech solutions"></span></p>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="background:#aad400;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="100%" style="width:100.0%;border-collapse:collapse">
+						   <tr>
+							<td valign=top style="padding:0in 0in 0in 0in">
+							<div align=center>
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 width="100%" style="width:100.0%;background:white">
+							 <tr>
+							  <td width="550" valign=top style="width:550px;padding:21.5pt 0in 0in 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+							  12.0pt;font-family:Arial,sans-serif">&nbsp;</span></p>
+							  </td>
+							 </tr>
+							</table>
+							</div>
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="padding:0in 0in 0in 0in">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="550" style="width:550px;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="550" style="width:550px;border-collapse:collapse">
+						   <tr>
+							<td width=30 valign=top style="width:22.5pt;padding:0in 0in 0in 0in">
+							<p class=MsoNormal align=right style="margin-bottom:0in;margin-bottom:
+							.0001pt;text-align:right;line-height:normal"><span style="font-size:
+							12.0pt;font-family:Arial,sans-serif"><img width=30 height=59
+							id="Picture 2" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiShift/ubiShift/image002.jpg" alt=" "></span></p>
+							</td>
+							<td width="550" valign=top style="width:550px;padding:0in 37.6pt 0in 21.5pt">
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 align=center width="550" style="550px;border-collapse:collapse">
+							 <tr>
+							  <td valign=top style="padding:0in 0in 21.5pt 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:left;line-height:22.55pt"><b><p style="font-size:20.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">Welcome - now let&#39;s get started!<br/>
+							  </p>  	
+								<p style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">
+								<a href="https://ubishift.ubihrm.com/index.php/services/activateOrg?iuser='.encrypt($orgid).'">Verify now to start your trial</a>
+								</p>
+							
+								<div align=center>
+							  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							   width="550" style="width:550px;border-collapse:collapse">
+							   <tr>
+								<td align="center" style="padding:0in 0in 0in 0in">
+								<a href="https://ubishift.ubihrm.com/index.php/services/activateOrg?iuser='.encrypt($orgid).'" target="_blank" style="font-size:20px;font-family:Helvetica,sans-serif;color:white;text-decoration:none">
+								<p class=MsoNormal align=center style="margin-bottom:0in;								margin-bottom:.0001pt;text-align:center;line-height:normal; background:#aad400;width: 250px;padding: 15px;">Verify your Account</span></b></span></p></a>
+								</td>
+							   </tr>
+							  </table>
+							  </div>
+								<span
+							  style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060">
+							  
+							 <br/> Hello '.strtok($contact_person_name, " ").',
+							  
+								</span></b>
+								<p style="text-align: left;" class="paragraph-text">
+								Thanks for trying ubiShift. You&#39;re going to love it.<br/><br/>
+								First thing&#39;s first:  <a href="https://ubishift.ubihrm.com/index.php/services/activateOrg?iuser='.encrypt($orgid).'">Verify your Account</a> to start exploring our world class App.<br/>Enjoy your 15-day trial to your heart`s content!<br/><br/><br/>Need more help?  <a href="mailto:jitendra@ubitechsolutions.com">Contact us</a> or <a target="_blank" href="https://www.youtube.com/channel/UCLplA-GWJOKZTwGlAaVKezg">View our Channel</a> and learn about key features and best practices.
+								</p>
+								
+							  </p>
+							  </td>
+
+							 </tr>
+							 <tr>
+							 
+							 </tr>
+							 <tr>
+							  <td valign=top style="padding:0in 0in 2.7pt 0in">
+									Cheers,<br/>Team ubiShift<br/><a href="http://www.ubiattendance.com/" target="_blank">www.ubiattendance.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubishift@ubitechsolutions.com<br/>Skype: ubitech.solutions
+							  </td>
+							 </tr>
+							 
+							</table>
+
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					  </table>
+					  </div>
+					  </td>
+					 </tr>
+					</table>
+
+					</div>
+
+
+					</div>
+
+
+					</body>
+
+					</html>
+                    ';
+                    $headers = '';
+                    $subject = "ubiShift- Account verification";
+					//Trace(" empid-".$emp_id." orgid-".$orgid." email=".$email."  Message body- ".$message);
+                   sendEmail_new($email, $subject, $message, $headers);
+                   //sendEmail_new("abhinav@ubitechsolutions.com", $subject, $message, $headers);
+                    //sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+                   // sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+					$result['status']     = true;
+					echo json_encode($result); 
+                    //sendEmail_new('deeksha@ubitechsolutions.com', $subject, $message, $headers);
+                    //////////////////-------------activate mail body-close
+	}
+	
+    public function register_org()
+    {
+        $org_name            = isset($_REQUEST['org_name']) ? $_REQUEST['org_name'] : "";
+        $contact_person_name = isset($_REQUEST['name']) ? $_REQUEST['name'] : "";
+        $email               = isset($_REQUEST['email']) ? strtolower(trim($_REQUEST['email'])) : "";
+        $password            = isset($_REQUEST['password']) ? $_REQUEST['password'] : "123456";
+        $countrycode         = isset($_REQUEST['countrycode']) ? $_REQUEST['countrycode'] : "";
+        $phone               = isset($_REQUEST['phone']) ? $_REQUEST['phone'] : "";
+        $county              = isset($_REQUEST['country']) ? $_REQUEST['country'] : "0";
+        $address             = isset($_REQUEST['address']) ? $_REQUEST['address'] : "";
+        //    $password = ''.rand(100000,999999);
+        //$password = $phone;
+        $date                = date('Y-m-d H:i:s');
+        //    $password = encrypt(make_rand_pass());
+        $emp_id              = 0;
+        $org_id              = 0;
+        $data                = array();
+        $data['f_name']      = $contact_person_name;
+        $org                 = explode(" ", $org_name);
+        //    $username=strtolower("admin@".$org[0].".com");
+        $username            = strtolower($email);
+        $counter             = 0;
+        $sql                 = "SELECT * FROM Organization where Email = '$email'";
+        $this->db->query($sql);
+        
+        if ($this->db->affected_rows() > 0) {
+            $counter++;
+            $data['sts'] = "false1"; // email id duplicacy
+            echo json_encode($data);
+            return;
+        }
+		
+        $sql = "SELECT * FROM UserMaster where Username = '" . encode5t($email) . "'";
+        $this->db->query($sql);
+        if ($this->db->affected_rows() > 0) {
+            $counter++;
+            $data['sts'] = "false3"; // user register with this email duplicacy
+            echo json_encode($data);
+            return;
+        }
+        
+        $sql = "SELECT * FROM Organization where PhoneNumber = '$phone'";
+        $this->db->query($sql);
+        if ($this->db->affected_rows() > 0) {
+            $counter++;
+            $data['sts'] = "false2"; // phone no. duplicacy
+            echo json_encode($data);
+            return;
+        }
+        
+        
+        $sql = "SELECT * FROM UserMaster where username_mobile = '" . encode5t($phone) . "'";
+        $this->db->query($sql);
+        if ($this->db->affected_rows() > 0) {
+            $counter++;
+            $data['sts'] = "false4"; // user register with this phone duplicacy
+            echo json_encode($data);
+            return;
+        }
+        //$sql = "SELECT * FROM UserMaster where Username = '".encode5t($email)."' or username_mobile = '".encode5t($phone)."'";
+        
+        
+        /*    $sql = "SELECT * FROM UserMaster where Username = '".encode5t($email)."' username_mobile = '".encode5t($phone)."'"; //or 
+        $this->db->query($sql);
+        if($this->db->affected_rows()>0){
+        $data['sts']= "false3"; // 
+        echo json_encode($data);
+        }*/
+        if ($counter > 0) {
+            $data['sts'] = "false"; // 
+            echo json_encode($data);
+        } else {
+            $data['sts'] = "true";
+            $TimeZone    = 0;
+            $query       = $this->db->query("SELECT * FROM `ZoneMaster` WHERE `CountryId`=$county");
+            if ($row = $query->result())
+                $TimeZone = $row[0]->Id;
+            $days     = 1;
+            $emplimit = 0;
+            $query22  = $this->db->query('SELECT * FROM ubitech_login limit 1');
+            foreach ($query22->result_array() as $row22) {
+                $days     = $row22['trial_days'];
+                $emplimit = $row22['user_limit'];
+            }
+            
+            if ($countrycode == '' || $countrycode == '0')
+                $countrycode = getCountryCodeById1($county);
+            
+            $query = $this->db->query("insert into Organization(Name,Email,countrycode,PhoneNumber,Country,Address,TimeZone,CreatedDate,LastModifiedDate,NoOfEmp) values('$org_name','$email','$countrycode','" . $phone . "',$county,'$address',$TimeZone,'$date','$date',$emplimit)");
+            
+            if ($query > 0) {
+                
+                /*     $postdata = http_build_query(
+                array(
+                'inq_title' => "",
+                'inq_amount' => "",
+                'lname' => "",
+                'inq_source' => "",
+                'inq_city' => "",
+                'inq_state' => "",
+                'inq_zipcode' => "",
+                'inq_stage' => "New",
+                'inq_type' => "",
+                'inq_company' => "",
+                'inq_industry' => "",
+                'inq_website' => "",
+                'inq_desc' => "",
+                'org_id' => "ubitechsolutions.com",
+                'product' => "Attendance Management Software",                            
+                'fname' => $org_name,
+                'email_id' => $email,
+                'telephone_no' => $phone,
+                'inq_address' => $address,
+                'inq_mobile' => $phone,
+                'inq_country' => $county                            
+                )
+                ); */
+                /* 
+                END Curl for SIA  RAAM  (CRM)
+                
+                
+                */
+                
+                $org_id = $this->db->insert_id();
+                $zone   = getTimeZone($org_id);
+                date_default_timezone_set($zone);
+                $date  = date('Y-m-d');
+                $query = $this->db->query("update Organization set CreatedDate=?,LastModifiedDate=? where Id=?", array(
+                    $date,
+                    $date,
+                    $org_id
+                ));
+                
+                
+                $epassword = encrypt($password);
+                $query1    = $this->db->query("insert into admin_login(username,password,email,OrganizationId,name) values('$username','$epassword','$email',$org_id,'$contact_person_name')");
+                // this code for insert days trial days start //
+                
+                
+                $start_date = date('Y-m-d');
+                
+                // create default disable email alert
+                $query33 = $this->db->query("INSERT INTO Alert_Settings(OrganizationId, Created_Date) VALUES ($org_id,'$start_date')");
+                ///////////////////////////////////////
+                
+                $end_date = date('Y-m-d', strtotime("+" . $days . " days"));
+                $query33  = $this->db->query("insert into licence_ubiattendance(OrganizationId,start_date,end_date,extended,user_limit) values($org_id,'$start_date','$end_date',1,$emplimit)");
+                // this code for insert days trial days end //
+                
+                //// This Code For Insert ShiftMaster,DepartmentMaster,DesignationMaster Table Start ////
+                $data1 = array(
+                    array(
+                        'Name' => 'Dummy Department',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'Human Resource',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'Finance',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'Marketing',
+                        'OrganizationId' => $org_id
+                    )
+                );
+                $this->db->insert_batch('DepartmentMaster', $data1);
+                $data1 = array(
+                    array(
+                        'Name' => 'Dummy shift',
+                        'TimeIn' => '09:00:00',
+                        'TimeOut' => '18:00:00',
+                        'OrganizationId' => $org_id
+                    )
+                );
+                $this->db->insert_batch('ShiftMaster', $data1);
+				
+				$data1 = array(
+                    array(
+                        'Name' => 'Default Leave',
+                        'LeaveDays' => 0,                        
+                        'OrganizationId' => $org_id,
+						'DefaultSts' => 1
+                    )
+                );
+                $this->db->insert_batch('LeaveMaster', $data1);
+				
+                $data1 = array(
+                    array(
+                        'Name' => 'Dummy Designation',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'Manager',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'HR',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'Clerk',
+                        'OrganizationId' => $org_id
+                    ),
+                    array(
+                        'Name' => 'Trial Designation',
+                        'OrganizationId' => $org_id
+                    )
+                );
+                $this->db->insert_batch('DesignationMaster', $data1);
+				/////////////// User Permission ////////////////////
+				$roleid = getDesignationId("Dummy Designation",$org_id);
+				$data1 = array(
+                    array(
+                    'RoleId'=>$roleid,
+					'ModuleId'=>"12",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,					
+                    ),
+                    array(
+                        'RoleId'=>$roleid,
+					'ModuleId'=>"13",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+                    array(
+                        'RoleId'=>$roleid,
+					'ModuleId'=>"18",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+                    array(
+                        'RoleId'=>$roleid,
+					'ModuleId'=>"42",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+					array(
+                        'RoleId'=>$roleid,
+					'ModuleId'=>"179",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+					array(
+                    'RoleId'=>$roleid,
+					'ModuleId'=>"305",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+					array(
+                    'RoleId'=>$roleid,
+					'ModuleId'=>"19",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+					array(
+                    'RoleId'=>$roleid,
+					'ModuleId'=>"47",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    ),
+					array(
+                    'RoleId'=>$roleid,
+					'ModuleId'=>"60",
+					'ViewPermission'=>1,
+					'EditPermission'=>1,
+					'DeletePermission'=>1,
+					'AddPermission'=>1,
+					'OrganizationId'=>$org_id,					
+					'LastModifiedDate'=>$date,										
+					'CreatedDate'=>$date,	
+                    )
+                );
+                $this->db->insert_batch('UserPermission', $data1);
+                ////  This Code For Insert ShiftMaster,DepartmentMaster,DesignationMaster Table End ////
+                ///////////////////////////-----creating default user-start
+                $shift = '0';
+                $desg  = '0';
+                $dept  = '0';
+                $qry   = $this->db->query("select Id as shift from ShiftMaster where  OrganizationId=" . $org_id . " order by id limit 1");
+                if ($r = $qry->result())
+                    $shift = $r[0]->shift;
+                ;
+                $qry = $this->db->query("select Id as dept from DepartmentMaster where  OrganizationId=" . $org_id . " order by id limit 1");
+                if ($r = $qry->result())
+                    $dept = $r[0]->dept;
+                ;
+                $qry = $this->db->query("select Id as desg from DesignationMaster where  OrganizationId=" . $org_id . " order by id limit 1");
+                if ($r = $qry->result())
+                    $desg = $r[0]->desg;
+                ;
+                
+                $qry = $this->db->query("insert into EmployeeMaster(FirstName,LastName,doj,countrycode,PersonalNo,Shift,OrganizationId,Department,Designation,CompanyEmail) values('$contact_person_name',' ','$date','$countrycode','" . encode5t($phone) . "',$shift,$org_id,$dept,$desg,'" . encode5t($email) . "')");
+                if ($qry > 0) {
+                    $emp_id = $this->db->insert_id();
+                    $qry1   = $this->db->query("INSERT INTO `UserMaster`(`EmployeeId`,appSuperviserSts, `Password`, `Username`,`OrganizationId`,CreatedDate,LastModifiedDate,username_mobile,archive,HRSts) VALUES ($emp_id,1,'" . encode5t($password) . "','" . encode5t($email) . "',$org_id,'$start_date','$start_date','" . encode5t($phone) . "',1,1)");
+                    if ($qry1 > 0)
+                        $data['id'] = $emp_id;
+                    $today = date('Y-m-d');
+                     for ($i = 1; $i < 8; $i++)// create default weekly off
+						$query = $this->db->query("INSERT INTO `ShiftMasterChild`(`ShiftId`,`Day`,`WeekOff`, `OrganizationId`, `ModifiedBy`, `ModifiedDate`) VALUES (?,?,'0,0,0,0,0',?,?,?)",array($shift,$i,$org_id,$emp_id,$today));
+                       /* $query = $this->db->query("INSERT INTO `WeekOffMaster`(`Day`,`WeekOff`, `OrganizationId`, `ModifiedBy`, `ModifiedDate`) VALUES (?,'0,0,0,0,0',?,?,?)", array(
+                            $i,
+                            $org_id,
+                            $emp_id,
+                            $today
+                        ));*/
+                    $data['org_id'] = $org_id;
+                }
+                ///////////////////////////-----creating default user-end 
+                $countryName = '';
+                $query       = $this->db->query("SELECT Name FROM `CountryMaster` WHERE Id=$county");
+                if ($row = $query->result())
+                    $countryName = $row[0]->Name;
+                if ($query1 > 0) {
+                    //////////////////-------------activate mail body-strt
+                    $message = '<html>
+					<head>
+					<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+					<meta name=Generator content="Microsoft Word 12 (filtered)">
+					<style>
+					</style>
+
+					</head>
+
+					<body lang=EN-US link=blue vlink=purple>
+
+					<div class=Section1>
+
+					<div align=center>
+
+					<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550"
+					 style="550px;border-collapse:collapse" align="center">
+					 <tr style="height:328.85pt">
+					  <td width=917 valign=top style="width:687.75px;padding:0in 0in 0in 0in;
+					  height:328.85px">
+					  <div align=center>
+					  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style="width:100.0%;border-collapse:collapse">
+					   <tr>
+						<td valign=top style="background:#aad400;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:21.5pt 0in 21.5pt 0in">
+						  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+						  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+						  12.0pt;font-family:Arial,sans-serif"><img width=200 
+						  id="Picture 1" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiShift/ubiShift/logo.png" alt="ubitech solutions"></span></p>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="background:#aad400;padding:0in 16.1pt 0in 16.1pt">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="100%" style="width:100.0%;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="100%" style="width:100.0%;border-collapse:collapse">
+						   <tr>
+							<td valign=top style="padding:0in 0in 0in 0in">
+							<div align=center>
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 width="100%" style="width:100.0%;background:white">
+							 <tr>
+							  <td width="550" valign=top style="width:550px;padding:21.5pt 0in 0in 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:center;line-height:normal"><span style="font-size:
+							  12.0pt;font-family:Arial,sans-serif">&nbsp;</span></p>
+							  </td>
+							 </tr>
+							</table>
+							</div>
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					   <tr>
+						<td valign=top style="padding:0in 0in 0in 0in">
+						<div align=center>
+						<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						 width="550" style="width:550px;border-collapse:collapse">
+						 <tr>
+						  <td valign=top style="padding:0in 0in 0in 0in">
+						  <div align=center>
+						  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+						   width="550" style="width:550px;border-collapse:collapse">
+						   <tr>
+							<td width=30 valign=top style="width:22.5pt;padding:0in 0in 0in 0in">
+							<p class=MsoNormal align=right style="margin-bottom:0in;margin-bottom:
+							.0001pt;text-align:right;line-height:normal"><span style="font-size:
+							12.0pt;font-family:Arial,sans-serif"><img width=30 height=59
+							id="Picture 2" src="http://ubitechsolutions.com/ubitechsolutions/Mailers/ubiShift/ubiShift/image002.jpg" alt=" "></span></p>
+							</td>
+							<td width="550" valign=top style="width:550px;padding:0in 37.6pt 0in 21.5pt">
+							<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							 align=center width="550" style="550px;border-collapse:collapse">
+							 <tr>
+							  <td valign=top style="padding:0in 0in 21.5pt 0in">
+							  <p class=MsoNormal align=center style="margin-bottom:0in;margin-bottom:
+							  .0001pt;text-align:left;line-height:22.55pt"><b><p style="font-size:20.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">Welcome - now let&#39;s get started!<br/>
+							  </p>  	
+								<p style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060;text-align:center;">
+								<a href="https://ubishift.ubihrm.com/index.php/services/activateAccount?iuser='.encrypt($emp_id).'">Verify now to start your trial</a>
+								</p>
+							
+								<div align=center>
+							  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+							   width="550" style="width:550px;border-collapse:collapse">
+							   <tr>
+								<td align="center" style="padding:0in 0in 0in 0in">
+								<a href="https://ubishift.ubihrm.com/index.php/services/activateAccount?iuser='.encrypt($emp_id).'" target="_blank" style="font-size:20px;font-family:Helvetica,sans-serif;color:white;text-decoration:none">
+								<p class=MsoNormal align=center style="margin-bottom:0in;								margin-bottom:.0001pt;text-align:center;line-height:normal; background:#aad400;width: 250px;padding: 15px;">Verify your Account</span></b></span></p></a>
+								</td>
+							   </tr>
+							  </table>
+							  </div>
+								<span
+							  style="font-size:14.0pt;font-family:Helvetica,sans-serif;
+							  color:#606060">
+							  
+							 <br/> Hello '.strtok($contact_person_name, " ").',
+							  
+								</span></b>
+								<p style="text-align: left;" class="paragraph-text">
+								Thanks for trying ubiShift. You&#39;re going to love it.<br/><br/>
+								First thing&#39;s first:  <a href="https://ubishift.ubihrm.com/index.php/services/activateAccount?iuser='.encrypt($emp_id).'">Verify your Account</a> to start exploring our world class App.<br/>Enjoy your 15-day trial to your heart&#39;s content!<br/><br/><br/>Need more help?  <a href="mailto:ubishift@ubitechsolutions.com">Contact us</a> or <a target="_blank" href="https://www.youtube.com/channel/UCLplA-GWJOKZTwGlAaVKezg">View our Channel</a> and learn about key features and best practices.
+								</p>
+								
+							  </p>
+							  </td>
+
+							 </tr>
+							 <tr>
+							 
+							 </tr>
+							 <tr>
+							  <td valign=top style="padding:0in 0in 2.7pt 0in">
+									Cheers,<br/>Team ubiShift<br/><a href="http://www.ubiattendance.com/" target="_blank">www.ubishift.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubishift@ubitechsolutions.com<br/>Skype: ubitech.solutions
+							  </td>
+							 </tr>
+							 
+							</table>
+
+							</td>
+						   </tr>
+						  </table>
+						  </div>
+						  </td>
+						 </tr>
+						</table>
+						</div>
+						</td>
+					   </tr>
+					  </table>
+					  </div>
+					  </td>
+					 </tr>
+					</table>
+
+					</div>
+
+
+					</div>
+
+
+					</body>
+
+					</html>
+                    ';
+                    $headers = '';
+                    $subject = "ubiShift- Account verification";
+                    sendEmail_new($email, $subject, $message, $headers);
+                  //-- sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+                 //--   sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+					
+                    //sendEmail_new('deeksha@ubitechsolutions.com', $subject, $message, $headers);
+                    //////////////////-------------activate mail body-close
+                    /////////////code by abhinav--CRM integration
+					
+                    $crn          = encode_vt5($org_id);
+                    $country_name = getName("CountryMaster", "Name", "id", $county);
+                    
+                    
+                    //$url = "http://ubitechsolutions.in/ubitech/UBICRM_SANDBOX/UbiAttendance_Integration.php";            
+                   /*  $url = "https://ubirecruit.com/UBICRMNEW/GetLeadJson/";
+                    $ch  = curl_init($url);
+                    $arr = array(
+                        'inq_salutation' => "",
+                        'fname' => $contact_person_name,
+                        'lname' => "",
+                        'email_id' => $email,
+                        'telephone_no' => "(" . $countrycode . ")" . $phone,
+                        'inq_source' => "Mobile App registration",
+                        'inq_address' => $address,
+                        'inq_city' => $address,
+                        'inq_state' => "",
+                        'inq_country' => $country_name,
+                        'inq_zipcode' => "",
+                        'inq_stage' => "Trial",
+                        'inq_type' => "",
+                        'inq_company' => $org_name,
+                        'inq_mobile' => "(+" . $countrycode . ")" . $phone,
+                        'inq_industry' => "",
+                        'inq_website' => "",
+                        'inq_desc' => "CRN no. - " . $crn,
+                        'product' => "ubiAttendance",
+                        'orgid' => "==AUVZ0RW5GaKJFbaNVTWJVU"
+                    );
+					
+                    $payload = json_encode($arr);
+                    
+                    //$arrval = str_replace("\\","",$arrval);
+                    Trace($payload);
+                    //attach encoded JSON string to the POST fields
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+                    
+                    //set the content type to application/json
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Content-Type:application/json'
+                    ));
+                    
+                    //return response instead of outputting
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    
+                    //execute the POST request
+                    $result = curl_exec($ch);
+                    
+                    //close cURL resource
+                    curl_close($ch);
+                    /////////////code by abhinav--CRM integration--close */
+                    
+                    
+                    echo json_encode($data);
+                    // echo $admin_id =  $this->db->insert_id();
+                }
+            } else {
+                $data['sts'] = 0;
+                echo json_encode($data);
+            }
+            
+        }
+    }
+	
+	
+	
+    public function activateAccount()
+    {
+        $empid    = isset($_REQUEST['iuser']) ? decrypt($_REQUEST['iuser']) : 0;
+        $org_id   = 0;
+        $email    = '(registered email id)';
+        $contact  = '(registered contact no.)';
+        $password = '';
+        $name     = '';
+        $query    = $this->db->query("select Username,username_mobile,Password,OrganizationId,(SELECT FirstName from  EmployeeMaster where  EmployeeMaster.Id=?)as FirstName from UserMaster where EmployeeId = ? order by Id limit 1", array(
+            $empid,
+            $empid
+        ));
+        if ($row = $query->result()) {
+            $org_id   = $row[0]->OrganizationId;
+            $email    = decode5t($row[0]->Username);
+            $contact  = decode5t($row[0]->username_mobile);
+            $password = decode5t($row[0]->Password);
+            $name     = $row[0]->FirstName;
+        }
+        
+        $updSts = 0;
+        $sql    = "update UserMaster set archive=1,VisibleSts = 1 where EmployeeId = $empid";
+        $query1 = $this->db->query($sql);
+        $updSts = $this->db->affected_rows();
+        $query  = $this->db->query("UPDATE `Organization` SET `mail_varified`=1 WHERE Id=(select OrganizationId from UserMaster where EmployeeId = ?)", array(
+            $empid
+        ));
+        $updSts += $this->db->affected_rows();
+        $this->db->close();
+        if ($updSts) {
+            $message = "Hello " . $name . "<br/><br/>
+                Greetings from ubiShift Team…! <br/><br/>
+
+                Congratulations! <b>'" . getOrgName($org_id) . "'</b> is successfully registered. You have been assigned the <b>Admin Rights</b>.<br/>
+
+                <b>Company's Reference No. (CRN):</b> " . encode_vt5($org_id) . "<br/><br/>
+
+                <b>Login details for Mobile App</b><br/>
+                Username:    " . $email . " or " . $contact . "<br/>
+                Password:    " . $password . "<br/><br/><br/>
+
+
+                Cheers,<br/>
+                Team ubiShift";
+            $headers = 'From: <noreply@ubiattendance.com>' . "\r\n";
+            $subject = $name . ", your ubiShift Login Details";
+            sendEmail_new($email, $subject, $message, $headers);
+            //--sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+            //--sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+        }
+        return $updSts;
+    }
+    public function activateOrg()
+    {
+        $org_id = isset($_REQUEST['iuser']) ? decrypt($_REQUEST['iuser']) : 0;
+        $query1 = $this->db->query("update UserMaster set archive=1,VisibleSts = 1 where OrganizationId = ?", array(
+            $org_id
+        ));
+        $updSts = $this->db->affected_rows();
+        $query  = $this->db->query("UPDATE `Organization` SET `mail_varified`=1 WHERE Id=?", array(
+            $org_id
+        ));
+        $updSts += $this->db->affected_rows();
+        $this->db->close();
+        return $updSts;
+    }
+    public function getAllDesg($orgid)
+    {
+        $query = $this->db->query("SELECT `Id`, `Name` FROM `DesignationMaster`  WHERE OrganizationId=? and archive = 1 order by name", array(
+            $orgid
+        ));
+        echo json_encode($query->result());
+    }
+    public function getAllDept($orgid)
+    {
+        $query = $this->db->query("SELECT `Id`, `Name`,`archive` FROM `DepartmentMaster`  WHERE OrganizationId=? and archive = 1 order by name", array(
+            $orgid
+        ));
+        echo json_encode($query->result());
+    }
+    public function DesignationMaster()
+    {
+		$orgid=isset($_REQUEST['orgid'])?$_REQUEST['orgid']:0;
+        $query = $this->db->query("SELECT `Id`, `Name`,archive FROM `DesignationMaster`  WHERE OrganizationId=?  order by name", array(
+            $orgid
+        ));
+        echo json_encode($query->result());
+    }
+    
+    public function DepartmentMaster()
+    {
+        $orgid=isset($_REQUEST['orgid'])?$_REQUEST['orgid']:0;
+        $query = $this->db->query("SELECT `Id`, `Name`, archive FROM `DepartmentMaster`  WHERE OrganizationId=? order by name", array(
+            $orgid
+        ));
+        echo json_encode($query->result());
+    }
+    public function shiftMaster()
+    {
+		$orgid=isset($_REQUEST['orgid'])?$_REQUEST['orgid']:0;
+        $query = $this->db->query("SELECT * FROM `ShiftMaster`  WHERE OrganizationId=?  order by Time(Timein)", array(
+            $orgid
+        ));
+        echo json_encode($query->result());
+    }
+    public function registerEmp()
+    {
+        $f_name      = isset($_REQUEST['f_name']) ? ucfirst($_REQUEST['f_name']) : '';
+        $l_name      = isset($_REQUEST['l_name']) ? ucfirst($_REQUEST['l_name']) : '';
+        $password1   = encode5t(isset($_REQUEST['password']) ? $_REQUEST['password'] : '');
+        $username    = isset($_REQUEST['username']) ? encode5t(strtolower($_REQUEST['username'])) : '';
+        $shift       = isset($_REQUEST['shift']) ? $_REQUEST['shift'] : '';
+        $designation = isset($_REQUEST['designation']) ? $_REQUEST['designation'] : '';
+        $department  = isset($_REQUEST['department']) ? $_REQUEST['department'] : '';
+        $contact     = isset($_REQUEST['contact']) ? encode5t($_REQUEST['contact']) : '';
+        $org_id      = isset($_REQUEST['org_id']) ? $_REQUEST['org_id'] : '';
+        $countrycode = isset($_REQUEST['countrycode']) ? $_REQUEST['countrycode'] : "";
+        $country     = isset($_REQUEST['country']) ? $_REQUEST['country'] : 0;
+        $admin       = isset($_REQUEST['admin']) ? $_REQUEST['admin'] : 0; // 1 if emp added by admin
+		$uid       = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $data        = array();
+        $zone        = getTimeZone($org_id);
+        date_default_timezone_set($zone);
+        $date        = date('Y-m-d H:i:s');
+        $data['id']  = 0;
+        $data['sts'] = 0;
+        $ml          = 0;
+        $con         = 0;
+        
+        if ($username != '') {
+            $sql = "SELECT * FROM UserMaster where username = '" . $username . "'";
+            $this->db->query($sql);
+            $ml = $this->db->affected_rows();
+        }
+        if ($contact != '') {
+            $sql = "SELECT * FROM UserMaster where username_mobile = '" . $contact . "' ";
+            $this->db->query($sql);
+            $con = $this->db->affected_rows();
+        }
+        if ($con > 0) {
+            $data['sts'] = 3; // if Contact already exist
+        } else if ($ml > 0) {
+            $data['sts'] = 2; // if email id already exist
+        } else {
+            /*----------------default shift/dept/designation-------------------*/
+            if ($shift == '' || $shift == '0') {
+                $qry = $this->db->query("SELECT Id FROM `ShiftMaster` WHERE OrganizationId=$org_id  order by Id ASC limit 1");
+                if ($r = $qry->result())
+                    $shift = $r[0]->Id;
+            }
+            if ($department == '' || $department == '0') {
+                $qry = $this->db->query("SELECT Id FROM `DepartmentMaster` WHERE OrganizationId=$org_id order by Id ASC limit 1 ");
+                if ($r = $qry->result())
+                    $department = $r[0]->Id;
+            }
+            if ($designation == '' || $designation == '0') {
+                $qry = $this->db->query("SELECT Id FROM `DesignationMaster` WHERE OrganizationId=$org_id  order by Id ASC limit 1");
+                if ($r = $qry->result())
+                    $designation = $r[0]->Id;
+            }
+            /*----------------default shift/dept/designation-close-------------------*/
+            $query = $this->db->query("insert into EmployeeMaster(FirstName,LastName,PersonalNo,Shift,OrganizationId,Department,Designation,CompanyEmail,countrycode,CurrentCountry,CreatedDate,doj) values('$f_name','$l_name','$contact',$shift,$org_id,$department,$designation,'$username','$countrycode',$country,'$date','$date')");
+            if ($query > 0) {
+                $emp_id = $this->db->insert_id();
+                $query1 = $this->db->query("INSERT INTO `UserMaster`(`EmployeeId`, `Password`, `Username`,`OrganizationId`,CreatedDate,LastModifiedDate,username_mobile) VALUES ($emp_id,'$password1','$username',$org_id,'$date','$date','$contact')");
+                if ($query1 > 0) {
+                    $data['sts'] = 1;
+                    $data['id']  = $emp_id;
+                    if ($admin == 1) { //emp added by admin
+                        ///////////////////mail drafted to admin
+                        $message = "<html>
+                        <head>
+                        <title>ubiShift</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>" . $f_name . " " . $l_name . "</b> has been added to the Employees’ List of<b> " . getOrgName($org_id) . "</b>.
+                        <br/> The details registered are:<br/><br/>
+                        <b>
+                        
+                        Employee: " . $f_name . " " . $l_name . " <br/>
+                        
+                        Username(Phone#): " . $_REQUEST['contact'] . "<br/>                    
+                        </b>
+                        </p>
+                        <p>
+                            <a href='https://ubishift.ubihrm.com/index.php/services/useridcard/" . $org_id . "/" . $emp_id . "' target='_blank' >
+                            Generate" . $f_name . " " . $l_name . "’s
+                             QR code </a>                        
+                        </p>
+                        
+                        
+                        <h5>Regards,</h5>
+                        <h5>Team ubiShift </h5>
+                    </body>
+                    </html>
+                    ";
+                        
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        // More headers
+                        $headers .= 'From: <noreply@ubiattendance.com>' . "\r\n";
+                        //$headers .= 'Cc: vijay@ubitechsolutions.com' . "\r\n";
+                        $subject   = $f_name . " " . $l_name . " is registered on ubiShift.";
+                        $adminMail = getAdminEmail($org_id);
+                        sendEmail_new($adminMail, $subject, $message, $headers);
+                        //--sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+                        //--sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+                        ///////////////////mail drafted to admin/
+                        
+                        
+                        /*
+                        
+                        ///////////////////mail drafted to employee
+                        $empmailid=$_REQUEST['username'];
+                        if($empmailid!=''){ // trigger mail to employee
+                        $message="<html>
+                        <head>
+                        <title>ubiAttendance</title>
+                        </head>
+                        <body>Dear ".$f_name." ".$l_name.",<br/>
+                        <p>
+                        Greetings from ubiAttendance Team!<br/><br/>
+                        Congratulations!! You have been registered as an Employee of ".getOrgName($org_id)."<br/>
+                        Kindly<a href='https://play.google.com/store/apps/details?id=org.ubitech.attendance'> Download ubiAttendance App</a> from Google Play Store. <br/><br/>
+                        
+                        Your Login Details:<br/>
+                        Company Name: <b>".getOrgName($org_id)."</b><br/>
+                        
+                        Username(Phone#): <b>".$empmailid." or  ".$_REQUEST['contact']."</b><br/>
+                        Password: ".$_REQUEST['password']."<br/><br/>                            
+                        <br/>
+                        <br/>
+                        Any Questions? Please refer to our
+                        <a href='http://www.ubitechsolutions.com/images/ubiAttendance User Guide (For Employees).pdf'> Employee Guide</a> for our online resources. Contact support@ubitechsolutions.com for any queries.
+                        </p>
+                        
+                        
+                        <br/>
+                        
+                        <h5>Cheers,</h5>
+                        <h5>Team ubiAttendance </h5>
+                        </body>
+                        </html>
+                        ";
+                        
+                        // Always set content-type when sending HTML email
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        // More headers
+                        $headers .= 'From: <noreply@ubiattendance.com>' . "\r\n";
+                        //$headers .= 'Cc: vijay@ubitechsolutions.com' . "\r\n";
+                        $subject="Download the ubiAttendance App. .";
+                        //    sendEmail_new($email,$subject,$message,$headers);
+                        
+                        sendEmail_new($empmailid,$subject,$message,$headers);
+                        sendEmail_new('vijay@ubitechsolutions.com',$subject,$message,$headers);
+                        
+                        sendEmail_new('ubiattendance@ubitechsolutions.com',$subject,$message,$headers);
+                        ///////////////////mail drafted to employee/
+                        } // emp added by admn/
+                        */
+                    } else { // if emp get registered by himself
+                        
+                        ///////// mail drafted to admin
+                        $message = "<html>
+                        <head>
+                        <title>ubiShift</title>
+                        </head>
+                        <body>Dear Admin,<br/>
+                        <p>
+                        Congratulations!! <b>" . $f_name . " " . $l_name . "</b> has been added to the Employees’ List of<b> " . getOrgName($org_id) . "</b>.
+                        <br/><br/>
+                        <b>
+                        Employee: " . $f_name . " " . $l_name . " <br/>
+                        Username(Phone#): " . $_REQUEST['contact'] . "<br/>    
+                        Password: " . $_REQUEST['password'] . "<br/>                        
+                        </b>
+                        </p>
+                        <p>
+                            <a href='http://ubishift.ubihrm.com/index,php/services/useridcard/" . $org_id . "/" . $emp_id . "' target='_blank' >
+                            Generate " . $f_name . " " . $l_name . "’s
+                             QR code </a>                        
+                        </p>
+                        <h5>Regards,</h5>
+                        <h5>Team ubiShift </h5>
+                    </body>
+                    </html>
+                    ";
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        // More headers
+                        $headers .= 'From: <noreply@ubiattendance.com>' . "\r\n";
+                        //$headers .= 'Cc: vijay@ubitechsolutions.com' . "\r\n";
+                        $subject   = $f_name . " " . $l_name . " is registered on ubiShift.";
+                        //    sendEmail_new($email,$subject,$message,$headers);
+                        $adminMail = getAdminEmail($org_id);
+                        sendEmail_new($adminMail, $subject, $message, $headers);
+                        //--sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+                        //--sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+                        ///////// mail drafted to admin/
+                        
+                        ///////// mail drafted to employee
+                        $empmailid = $_REQUEST['username'];
+                        if ($empmailid != '') { // trigger mail to employee
+                            /*     $message="<html>
+                            <head>
+                            <title>ubiAttendance</title>
+                            </head>
+                            <body>Dear ".$f_name." ".$l_name.",<br/>
+                            <p>
+                            Congratulations!! You have been registered as an Employee of  ".getOrgName($org_id).".<br/><br/>
+                            Kindly <a> Download ubiAttendance App from <a href='https://play.google.com/store/apps/details?id=org.ubitech.attendance'>Google Play Store</a>. 
+                            <b>
+                            <br/>
+                            Login details:<br/>
+                            
+                            Username(Phone#): ".$empmailid." or  ".$_REQUEST['contact']."<br/>
+                            Password: ".$_REQUEST['password']."<br/><br/>
+                            
+                            </b>     
+                            <br/>
+                            <br/>
+                            
+                            <h5>Cheers,</h5>
+                            <h5>Team ubiAttendance </h5>
+                            </body>
+                            </html>
+                            ";
+                            */
+                            $message = "<html>
+                              <head>
+                              <title>ubiShift</title>
+                              </head>
+                              <body>Dear " . $f_name . " " . $l_name . ",<br/>
+                              <p>
+                              Congratulations!! You have been added to the Employees’ List of <b> " . getOrgName($org_id) . "</b>.
+                              <br/><br/>
+                              </b>Your Login Details are:<b/><br/><br/>
+                              Username(Phone#): " . $_REQUEST['contact'] . "<br/>
+                              Password: " . $_REQUEST['password'] . "<br/>
+                              </b>
+                              </p>
+                              <p>
+                                  Get QR code by clicking <b> <a href='https://ubishift.ubihrm.com/index.php/services/useridcard/" . $org_id . "/" . $emp_id . "' target='_blank' >Generate QR Code</a></b>                        
+                              </p>
+                              <p>
+                                  <a href='https://play.google.com/store/apps/details?id=org.ubitech.attendance'>Download</a> App on Google Play Store. You can refer to our <a href='http://www.ubitechsolutions.com/images/ubiAttendance%20User%20Guide%20(For%20Employees).pdf'>Get Started Guide</a> for quick onboarding. 
+                              </p>
+                              <h5>Regards,</br>
+                              Team ubiShift </h5>
+                          </body>
+                          </html>
+                          ";
+                            // Always set content-type when sending HTML email
+                            $headers = "MIME-Version: 1.0" . "\r\n";
+                            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                            // More headers
+                            $headers .= 'From: <noreply@ubiattendance.com>' . "\r\n";
+                            //$headers .= 'Cc: vijay@ubitechsolutions.com' . "\r\n";
+                            $subject = "You have registered on ubiShift.";
+                            //    sendEmail_new($email,$subject,$message,$headers);
+                            sendEmail_new($empmailid, $subject, $message, $headers);
+                            //--sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+                            //--sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+                            ///////// mail drafted to employee/
+                        }
+                        
+                        
+                    }
+                } else {
+                    $data['sts'] = 0;
+                    $data['sts'] = 0;
+                }
+                //////////---------check users limit
+                $query = $this->db->query("select count(id) as totalUsers,(select NoOfEmp from Organization where Organization.Id =$org_id) as ulimit,(select status from licence_ubiattendance where licence_ubiattendance.OrganizationId =$org_id) as orgstatus from UserMaster where OrganizationId = $org_id");
+                if ($r = $query->result()) {
+                    if ($r[0]->totalUsers >= $r[0]->ulimit) {
+                       $range='1-20';
+						if($r[0]->totalUsers<21)
+							$range='1-20';
+						else if($r[0]->totalUsers>=21 && $r[0]->totalUsers<41)
+							$range='21-40';
+						else if($r[0]->totalUsers>=41 && $r[0]->totalUsers<61)
+							$range='41-60';
+						else if($r[0]->totalUsers>=61 && $r[0]->totalUsers<81)
+							$range='61-80';
+						else if($r[0]->totalUsers>=81 && $r[0]->totalUsers<101)
+							$range='81-100';
+						else if($r[0]->totalUsers>=101 && $r[0]->totalUsers<121)
+							$range='101-120';
+						else
+							$range='120+';
+                        
+                        
+                        $sdate        = '-';
+                        $edate        = '-';
+                        $country      = 93;
+                        $rate_per_day = 0;
+                        $days         = 0;
+                        $currency     = '';
+                        $due          = 0;
+						$orgstatus=$r[0]->orgstatus;
+						
+                        $query1       = $this->db->query("select start_date,end_date,due_amount,DATEDIFF(end_date,CURDATE())as days,(SELECT `Country` FROM `Organization` WHERE `Id` = $org_id)as country from licence_ubiattendance where OrganizationId  = $org_id");
+                        if ($r1 = $query1->result()) {
+                            $sdate    = $r1[0]->start_date;
+                            $edate    = $r1[0]->end_date;
+                            $days     = $r1[0]->days;
+                            $due      = $r1[0]->due_amount;
+                            $currency = $r1[0]->country == 93 ? 'INR' : 'USD';
+                            $query2   = $this->db->query("SELECT  monthly  FROM `Attendance_plan_master` WHERE `range`='$range' and `currency`='$currency' ");
+                            if ($r2 = $query2->result())
+                                $rate_per_day = ($r2[0]->monthly) / 30;
+                        }
+                        
+                        $payable_amt = 0;
+                        $tax         = 0;
+                        $total       = 0;
+                        if ($currency == 'INR')
+                            $tax = ($rate_per_day) * ($days) * (0.18);
+							$payable_amt = $rate_per_day * $days;
+							$payamtwidtax = round(($payable_amt+$tax),2);
+							$total       = round(($due + $tax + $payable_amt),2);
+                        
+                        /////////////update due amount-start
+                        $query1 = $this->db->query("UPDATE `licence_ubiattendance` SET `due_amount`=$total WHERE `OrganizationId` =$org_id");
+                        /////////////update due amount-close
+                    if($orgstatus==1){ 
+						$subject = getOrgName($org_id)." -Billing details for changed users";
+						$message = "<div style='color:black'>
+					Greetings from ubiShift App<br/><br/>
+					The no. of users in your ubiShift Plan have exceeded. We have updated your plan.  Below are the payment details for the additional Users. <br/>
+					<h4 style='color:blue'>Plan Details:</h4>
+					Company name: ".getOrgName($org_id)."<br/>
+					Plan Start Date:".date('d-M-Y',strtotime($sdate))."<br/>
+					Plan End Date:".date('d-M-Y',strtotime($edate))."<br/>
+					User limit: ".$r[0]->ulimit."<br/>
+					Registered Users: ".($r[0]->totalUsers)."<br/>
+					<br/>
+					<h4 style='color:blue'>Billing Details:</h4>
+					Previous Dues: ".$due.' '.$currency." <br/>
+					Amount Payable for additional Users: ".$payamtwidtax.' '.$currency."<br/>
+					Amount Payable: ".$payamtwidtax." + ".$due." = ".$total." ".$currency." <br/>
+					<br/>
+					<a href='".URL."'>Update your plan now</a> so that there is no disruption in our services<br/><br/>";
+					$message.="Cheers,<br/>
+					Team ubiShift<br/><a target='_blank' href='http://www.ubiattendance.com'>www.ubiattendance.com</a><br/> Tel/ Whatsapp: +91 70678 22132<br/>Email: ubishift@ubitechsolutions.com<br/>Skype: ubitech.solutions</div>";
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        $headers .= 'From: <noreply@ubiattendance.com>' . "\r\n";
+                        $adminMail = getAdminEmail($org_id);
+                        //echo $message;
+                        sendEmail_new($adminMail, $subject, $message, $headers);
+                   //--     sendEmail_new('vijay@ubitechsolutions.com', $subject, $message, $headers);
+                    //--    sendEmail_new('ubiattendance@ubitechsolutions.com', $subject, $message, $headers);
+                       //-- sendEmail_new('deeksha@ubitechsolutions.com', $subject, $message, $headers);
+                    }
+                    }
+                }
+                //////////---------check user's limit--close
+            }
+        }
+        echo json_encode($data);
+    }
+    
+    public function checkOrganization()
+    {
+		$data=array();
+        $orgid = (int) isset($_REQUEST['refid']) ? $_REQUEST['refid'] : 0;
+        $orgid = decode_vt5($orgid);
+		$data['sts']=0;
+        if (is_nan($orgid)) // org id is not a no. after decoding
+            {
+            $data['sts']=0;
+        }else{
+			$this->db->where('Id', $orgid);
+			$query    = $this->db->get('Organization');
+			$num_rows = $query->num_rows();
+			if ($num_rows > 0) {
+				$data['result'] = $query->result();
+				$data['sts']=1;
+			} else {
+				$data['sts']=0;
+			}
+		}
+		echo json_encode($data);
+    }
+	/*public function updateProfilePhoto()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $new_name   = $uid.".jpg";
+		$res = 0;
+		$status = false;
+		
+		if (!file_exists("uploads/$orgid/")) {
+			mkdir("uploads/$orgid/" ,  0777,true);
+		}
+		
+		if(file_exists("uploads/$orgid/".$new_name)){
+			unlink("uploads/$orgid/".$new_name);
+		}
+		
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$orgid/" . $new_name)){
+        //, CurrentCountry=?,countrycode=?
+        $query = $this->db->query("update EmployeeMaster set `ImageName`= ? WHERE `Id`=? and OrganizationId=? ", array(            
+            $new_name,
+            $uid,
+            $orgid
+        ));//$con,$ccon,
+		
+			$res = $this->db->affected_rows();
+			Trace($new_name." ".$uid." ".$orgid);
+			$status = true;
+        }
+		
+        $data        = array();
+		$data['status'] = $status;
+        echo json_encode($data);
+    } */
+    
+     public function saveImage()
+    {
+		
+        $userid  = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 5;
+        $addr    = isset($_REQUEST['location']) ? $_REQUEST['location'] : '';
+        $aid     = isset($_REQUEST['aid']) ? $_REQUEST['aid'] : 0;
+        $act     = isset($_REQUEST['act']) ? $_REQUEST['act'] : 'TimeIn';
+        //$shiftId = isset($_REQUEST['shiftid']) ? $_REQUEST['shiftid'] : 0;
+        $orgid   = isset($_REQUEST['refid']) ? $_REQUEST['refid'] : 1;
+        $latit   = isset($_REQUEST['latit']) ? $_REQUEST['latit'] : '0.0';
+        $longi   = isset($_REQUEST['longi']) ? $_REQUEST['longi'] : '0.0';
+        $result  = array();
+		$dept=getDepartmentIdByEmpID($userid);
+		$desg=getDesignationIdByEmpID($userid);
+		$hourlyRate=getHourlyRateIdByEmpID($userid);
+		if(!getAddonPermission($orgid,"Addon_GeoFence")){ // org doesn't has geo-fence addon
+			$latit   = '0.0';
+			$longi	 = '0.0';
+		}
+		$zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $stamp  = date("Y-m-d H:i:s");
+        $date   = date("Y-m-d");
+        $time   = date("H:i");
+        $today  = date('Y-m-d');
+		 $time  = date("H:i")=="00:00"?"23:59":date("H:i");
+		  Trace('================== saveImage start- '.$userid.'==================' ,$orgid);
+        /*if($shiftId==0){
+			$shiftId=getShiftIdByEmpID($userid);*/
+		$shiftId=getTodayShift($date,$userid);
+		
+		/*************************************************/
+		$trace='Position:func head area ||userid: '.$userid.'||aid: '.$aid.'||act: '.$act.'||orgid: '.$orgid.'||dept: '.$dept.'||desg: '.$desg.'||zone: '.$zone.'||stamp: '.$stamp.'||shiftId: '.$shiftId;
+		 Trace($trace,$orgid);
+		/************************************************/
+		
+        $count      = 0;
+        $errorMsg   = "";
+        $successMsg = "";
+        $status     = 0;
+        $resCode    = 0;
+        $serversts  = 1;
+		$shiftStartTime='00:00:00';
+		$shiftEndTime='00:00:00';
+		$shifttype=1;
+        $new_name   = $userid . '_' . date('dmY_His') . ".jpg";
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/" . $new_name))
+      //  if(true)
+            {
+            $sql = '';
+            
+            //////----------------getting shift info
+            $stype = 0;
+            $sql1  = "SELECT TIMEDIFF(`TimeIn`,`TimeOut`) AS stype,	shifttype,`TimeIn`,`TimeOut` FROM ShiftMaster where id=" . $shiftId;
+			
+            try {
+                $result1 = $this->db->query($sql1);
+                if ($row1 = $result1->row()) {
+                    $stype = $row1->stype;
+					$shiftStartTime=$row1->TimeIn;
+					$shiftEndTime=$row1->TimeOut;
+					$shifttype=$row1->shifttype;
+                }
+            }
+            catch (Exception $e) {
+               Trace("Exception_1: ".$e->getMessage(),$orgid);
+            }
+			if($shifttype==2 && $act=='TimeIn'){ // multi date shift case
+				if($time<$shiftEndTime) // time in should mark in last day date
+					$date   = date("Y-m-d",strtotime("-1 days"));
+				//else  time in should mark in current day date
+			}
+            //////----------------/gettign shift info
+            
+		
+		
+            if ($aid != 0)
+                {
+                if ($shifttype ==1) //// if shift is end whthin same date
+                    $sql = "UPDATE `AttendanceMaster` SET `ExitImage`='" . IMGURL . $new_name . "',CheckOutLoc='$addr',latit_out='$latit',longi_out='$longi', TimeOut='$time', LastModifiedDate='$stamp',overtime =(SELECT subtime(subtime('$time',timein),
+                (select subtime(timeout,timein) from ShiftMaster where id=$shiftId)) as overTime ),timeoutdate='$date'
+                WHERE id=$aid and `EmployeeId`=$userid  and date(AttendanceDate) = '$date' "; //and SUBTIME(  `TimeOut` ,  `TimeIn` ) >'00:05:00'";
+                else// multi date shift
+                    $sql = "UPDATE `AttendanceMaster` SET `ExitImage`='" . IMGURL . $new_name . "',CheckOutLoc='$addr',latit_out='$latit',longi_out='$longi', TimeOut='$time', LastModifiedDate='$stamp' ,overtime =(SELECT subtime(subtime('$time',timein),
+                (select subtime(timeout,timein) from ShiftMaster where id=$shiftId)) as overTime ),timeoutdate='$date'
+                WHERE id=$aid and `EmployeeId`=$userid  ORDER BY `AttendanceDate` DESC LIMIT 1";
+                //and date(AttendanceDate) = DATE_SUB('$date', INTERVAL 1 DAY)
+                
+		/*************************************************/
+		$trace='Position:func middle area CASE: (aid!=0) ||userid: '.$userid.'||aid: '.$aid.'||act: '.$act.'||orgid: '.$orgid.'||dept: '.$dept.'||desg: '.$desg.'||zone: '.$zone.'||stamp: '.$stamp.'||shiftId: '.$shiftId.'||shifttype: '.$shifttype.'||----------------SQL: '.$sql;
+		 Trace($trace,$orgid);
+		/************************************************/
+		
+            } //LastModifiedDate
+            else if ($aid == 0) {
+                ///-------- code for prevent duplicacy in a same day   code-001
+               
+                try {
+					/* $sql = "select * from  AttendanceMaster where EmployeeId=$userid and AttendanceDate= '$today'";
+                    $result1 = $this->db->query($sql);
+                    if ($this->db->affected_rows() < 1) { ///////code-001 (ends)*/ // uncmnt to prevent multi attn in a day
+                        $area = getAreaId($userid);
+                        if($orgid=='138'){
+                        	$area = getNearLocation($latit, $longi, $orgid);
+                        }
+                        $sql  = "INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_Id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES ($userid,'$date',1,'$time',$shiftId,$dept,$desg,$area,$hourlyRate,$orgid,'$date',$userid,'$stamp',$userid,$userid,'00:00:00','" . IMGURL . $new_name . "','$addr','mobile','$latit','$longi','$today')";
+	   /*************************************************/
+		$trace='Position:func middle area CASE: (aid==0) ||userid: '.$userid.'||aid: '.$aid.'||act: '.$act.'||orgid: '.$orgid.'||dept: '.$dept.'||desg: '.$desg.'||zone: '.$zone.'||stamp: '.$stamp.'||shiftId: '.$shiftId.'||shifttype: '.$shifttype.'||----------------SQL: '.$sql;
+		 Trace($trace,$orgid);
+		/************************************************/
+                  /*  } else
+                        $sql = '';*/// uncmnt to prevent multi attn in a day
+                }
+                catch (Exception $e) {
+                    Trace("Exception_2: ".$e->getMessage(),$orgid);
+                    $errorMsg = 'Message: ' . $e->getMessage();
+                    $status   = 0;
+                }
+                
+            }
+           
+            try {
+                $query = $this->db->query($sql);
+                if ($this->db->affected_rows() > 0 && $act == 'TimeIn') {
+       
+                    
+                    $resCode    = 0;
+                    $status     = 1; // update successfully
+                    $successMsg = "Image uploaded successfully.";
+                    //////////////////----------------mail send if attndnce is marked very first time in org ever
+                    $sql        = "SELECT  `Email`  FROM `Organization` WHERE `Id`=" . $orgid;
+                    $to         = '';
+                    $query1     = $this->db->query($sql);
+                    if ($row = $query1->result()) {
+                        $to = $row[0]->Email;
+                    }
+                   
+                    //////////////////----------------/mail send if attndnce is marked very first time in org ever
+                } else {
+                    $status = 2; // no changes found
+                    $errorMsg .= "Failed to upload Image/No Check In found today.";
+                }
+            }
+            catch (Exception $e) {
+                Trace("Exception_3: ".$e->getMessage(),$orgid);
+                $errorMsg = 'Message: ' . $e->getMessage();
+                $status   = 0;
+            }
+        } else {
+            Trace('image not uploaded--',$orgid);
+            $status   = 3; // error in uploading image
+            $errorMsg = 'Message: error in uploading image';
+        }
+        $result['status']     = $status;
+        $result['successMsg'] = $successMsg;
+        $result['errorMsg']   = $errorMsg;
+        //$result['location']=$addr;
+        Trace('================== saveImage End- '.$userid.'==================' ,$orgid);
+        echo json_encode($result);
+    }
+   public function getDeptEmp()
+    {
+		$result = array();
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+		$cond= "";
+		
+		$orgid  = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+		$deptid = isset($_REQUEST['dept']) ? $_REQUEST['dept'] : 0;	
+		$empid = isset($_REQUEST['empid']) ? $_REQUEST['empid'] : 0;	
+		$zone   = getTimeZone($orgid);
+        date_default_timezone_set($zone);		
+		
+		$sts=1;	
+		$date = date('Y-m-d');
+		
+		////////  FIND OUT THE HOLIDAY ON THE DAY OF ATTENDANCE  ///////////////////////
+		
+		$holidaycount=0;
+		$query = $this->db->query("SELECT  Id FROM HolidayMaster WHERE OrganizationId = '$orgid'  and ('$date' between DateFrom and DateTo)");
+		try{
+			$holidaycount =  $query->num_rows();
+		}catch(Exception $e) {
+			$errorMsg = 'Message: ' .$e->getMessage();
+		}
+		
+		///////// FETCH ALL RECORD OF ALL EMPLOYEE FOR THE DAY OF ATTENDANCE  ////////////////////////
+			$query = $this->db->query("SELECT Id, EmployeeCode, FirstName, LastName, Shift, ImageName FROM EmployeeMaster WHERE OrganizationId = '$orgid' and Is_Delete=0 and (DOL='0000-00-00' OR DOL>='$date') and DOJ<='$date' and  Id!='$empid' and Id not in (select EmployeeId from AttendanceMaster where AttendanceDate='$date' and OrganizationId = $orgid) Order by FirstName, LastName");
+			
+			
+			//Department='$deptid' and
+			//Trace("SELECT Id, EmployeeCode, FirstName, LastName, Shift, ImageName FROM EmployeeMaster WHERE OrganizationId = '$orgid' and Is_Delete=0 and (DOL='0000-00-00' OR DOL>='$date') and DOJ<='$date' and Department='$deptid' and Id not in (select EmployeeId from AttendanceMaster where AttendanceDate='$date' and OrganizationId = $orgid) Order by FirstName, LastName");
+			//$query = $this->db->prepare($sql);
+			try{
+				  $count =  $query->num_rows();
+			}catch(Exception $e) {
+				$errorMsg = 'Message: ' .$e->getMessage();
+			}
+			if($count>=1)
+			{
+				$status=true;
+				$successMsg=$count." record found";
+				foreach ($query->result() as $row)
+				{
+				///////////	 FIND OUT THE ANY LEAVE ON THE DAY OF ATTENDANCE FOR THE EMPLOYEE  //////////////////////
+					
+					//////////////  FIND OUT THE WEEK OFF AND HALF DAY ON THE DAY OF ATTENDANCE FOR AN EMPLOYEE /////////
+						$empid=$row->Id;
+						$weekofflg=false;$halfflg=false;
+						$weekno=weekOfMonth($date);
+						$dayofdate= 1 + date("w", strtotime($date));
+						$query2 = $this->db->query("SELECT WeekOff FROM ShiftMasterChild where ShiftId=(select shift from EmployeeMaster where Id=$empid) and Day=$dayofdate");
+						//Utils::Trace($sql2." Date used - ".$leavefrom." day of month -  ".$dayofdate." week of month - ".$weekno);
+						$week="";
+						if($row2 = $query2->row()){
+							$week=$row2->WeekOff;
+						}
+						$weekarr=explode(",",$week);
+						if($query2->num_rows()>0){
+							if($weekarr[$weekno-1]==1){
+								$weekofflg=true; 
+							}else if($weekarr[$weekno-1]==2){
+								$halfflg=true;  
+							}
+						}
+						/////////////////////////////////////////////////////////////////////////////////////////////////////		
+					//// status 1 for present, 2 for absent, 3 for weekoff, 4 for halfday,
+					////	5 for holiday, 6 for leave, 7 for comp off, 8 for work from home
+						$sts=1;
+						if($holidaycount>0){
+							$sts=5;
+						}
+						if($halfflg){
+							$sts=4;
+						}
+						if($weekofflg){
+							$sts=3;
+						}
+						
+							$res = array();
+							$res['id'] = $row->Id;
+							$res['empcode'] = $row->EmployeeCode;
+							$res['name'] = ucwords(strtolower($row->FirstName." ".$row->LastName));
+							$res['timein'] = "00:00";
+							$res['timeout'] = "00:00";
+							$res['shifttimein'] = "00:00";
+							$res['shifttimeout'] = "00:00";
+							//$res['shifttimeinbreak'] = "00:00";
+							//$res['shifttimeoutbreak'] = "00:00";
+							//$res['totaltime'] = "00:00";
+							$res['overtime'] = "00:00";
+							$res['attsts'] = ''.$sts;
+							$res['todate'] = $date;
+							//$res['shift'] = $row->Shift;
+							$res['shift'] =getTodayShift($date,$empid);
+							
+							
+							
+							
+							$res['shiftname'] = getName('ShiftMaster','Name','Id',$res['shift']);
+							$res['shifttype'] = getName('ShiftMaster','shifttype','Id',$res['shift']);
+							if ($row->ImageName != "") {
+								$dir             = $orgid . "/" . $row->ImageName;
+								$res['img'] = 'https://ubitech.ubihrm.com/public/uploads/'. $dir;
+							   // $data['profile'] = "http://ubiattendance.ubihrm.com/" . $dir;
+							} else {
+								$res['img'] = "http://ubiattendance.ubihrm.com/assets/img/avatar.png";
+							}
+							//if(($weekofflg) || ($holidaycount>0) || $leavecount>0){
+							//}else{
+							$query1 = $this->db->query("SELECT TimeIn, TimeOut, TimeInBreak, TimeOutBreak, TIME_FORMAT(TIMEDIFF( TIME_FORMAT(TIMEDIFF(TimeOut, TimeIn),'%H:%i'),TIME_FORMAT(TIMEDIFF(TimeOutBreak, TimeInBreak),'%H:%i')),'%H:%i') as totaltime FROM ShiftMaster WHERE Id = ? ",array($res['shift']));
+							/* $query1 = $this->db->prepare($sql1);
+							$query1->execute(array($row->Shift)); */
+							foreach ($query1->result() as $row1)
+							{
+							//	$res['totaltime'] = $row1->totaltime;
+								
+								$res['timein'] = $row1->TimeIn;
+								
+								$res['shifttimein'] = $row1->TimeIn;
+								
+								//$res['shifttimeinbreak'] = $row1->TimeInBreak;
+								//$res['shifttimeoutbreak'] = $row1->TimeOutBreak;
+								//////////// if half day then time should change to half day
+								if($halfflg){
+									$res['timeout'] = $row1->TimeInBreak;
+									$res['shifttimeout'] = $row1->TimeInBreak;
+								}else{
+									$res['timeout'] = $row1->TimeOut;
+									$res['shifttimeout'] = $row1->TimeOut;
+								}
+							}
+							if(($weekofflg) || ($holidaycount>0))
+							{
+								$res['timein'] = "00:00";
+								$res['timeout'] = "00:00";
+								//$res['totaltime'] = "00:00";
+								$res['overtime'] = "00:00";
+							}
+							
+							$res['timein'] = ($row1->TimeIn!='00:00:00')?date('H:i',strtotime($row1->TimeIn)):$row1->TimeIn;
+					
+							//$res['timein'] = date('H:i');   //need current time for bulk attendance in timein
+							$res['mark'] = 0;
+							//}
+							$data[] = $res;
+						//}
+					
+				}
+			}else{
+				$status=false;
+				$errorMsg = 'error...';
+			}
+			
+			// list of employees who has already marked their attendance---
+			/*$query = $this->db->query("SELECT e.Id, e.EmployeeCode, e.FirstName, e.LastName, e.Shift, e.ImageName, a.Id as aid, a.TimeIn, a.TimeOut, a.AttendanceStatus, a.AttendanceDate FROM EmployeeMaster e, AttendanceMaster a WHERE e.OrganizationId = '$orgid' and e.Is_Delete=0 and e.Id!='$empid'  and e.Id= a.EmployeeId and a.AttendanceDate='$date' and a.OrganizationId=e.OrganizationId Order by a.TimeIn desc");//and e.Department='$deptid'
+			try{
+				$count =  $query->num_rows();
+			}catch(Exception $e) {
+				$errorMsg = 'Message: ' .$e->getMessage();
+			}
+			if($count>=1)
+			{
+				$status=true;
+				$successMsg=$count." record found";
+				foreach ($query->result() as $row)
+				{
+				
+					$empid=$row->Id;
+					$res = array();
+					$res['id'] = $row->Id;
+					$res['empcode'] = $row->EmployeeCode;
+					$res['name'] = ucwords(strtolower($row->FirstName." ".$row->LastName));
+					$res['timein'] = ($row->TimeIn!='00:00:00')?date('H:i',strtotime($row->TimeIn)):$row->TimeIn;
+					$res['timeout'] = ($row->TimeOut!='00:00:00')?date('H:i',strtotime($row->TimeOut)):$row->TimeOut;
+					$res['attsts'] = ($row->AttendanceStatus==1)?'P':'A';
+					$res['todate'] = $date;
+					$res['shift'] = $row->Shift;
+					$res['mark'] = 1;
+					$res['shiftname'] = getName('ShiftMaster','Name','Id',$row->Shift);
+					$res['shifttype'] = getName('ShiftMaster','shifttype','Id',$row->Shift);
+					if ($row->ImageName != "") {
+						$dir = $orgid . "/" . $row->ImageName;
+						$res['img'] = IMGURL. $dir;
+					} else {
+						$res['img'] = "http://ubiattendance.ubihrm.com/assets/img/avatar.png";
+					}
+					$data[] = $res;
+				}
+			}*/
+		$result['data'] =$data;
+		$result['status']=$status;
+		$result['successMsg']=$successMsg;
+		$result['errorMsg']=$errorMsg;
+		echo json_encode($data);
+		//return $result;
+    }
+	public function CreateBulkAtt()
+    {
+		$result = array();
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+        $mid   = isset($_REQUEST['uid'])?$_REQUEST['uid']:0;	//USER ID CONTAINS IN ARRAY FIRST VALUE;
+		$orgid = isset($_REQUEST['org_id'])?$_REQUEST['org_id']:0;//ORG ID CONTAINS IN ARRAY SECOND VALUE;
+		
+		$location = isset($_REQUEST['location'])?$_REQUEST['location']:0;
+		$lat = isset($_REQUEST['lat'])?$_REQUEST['lat']:0;
+		$long = isset($_REQUEST['long'])?$_REQUEST['long']:0;
+		
+		$zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		//$attlist = isset($_REQUEST['attlist'])?$_REQUEST['attlist']:'';//ORG ID CONTAINS IN ARRAY SECOND VALUE;
+				
+		$mdate = date("Y-m-d H:i:s");
+		$tdate = date("Y-m-d");
+		$res1 = isset($_REQUEST['attlist'])?json_decode($_REQUEST['attlist'], true):''; 
+		$skip=0;
+		try{
+		foreach($res1 as $res)
+		{
+			Trace($res['Id']);
+			if($res['mark']==0){
+			/* echo($res['attsts']);
+			return; */
+			$count +=1;
+			$query1 = $this->db->query("Select EmployeeId from AttendanceMaster WHERE EmployeeId=? and AttendanceDate=?",array($res['Id'],  $tdate));
+			/* $query1 = $this->db->prepare($sql1);
+			$query1->execute(array($res[$i]['Id'],  $tdate)); */
+			$count1 =  $query1->num_rows();				
+			if($count1==0)
+			{	
+			$empdept=getName('EmployeeMaster','Department','Id',$res['Id']);
+			$empdesig=getName('EmployeeMaster','Designation','Id',$res['Id']);
+			$emparea_assign=getName('EmployeeMaster','area_assigned','Id',$res['Id']);
+			//////----------------getting shift info
+            
+				if($res['attsts']==2)
+				{
+					$data1 = array(
+					'EmployeeId'=>$res['Id'],
+					'AttendanceDate'=>$tdate,
+					'AttendanceStatus'=>$res['attsts'],
+					'ShiftId'=>$res['shift'],
+					'Dept_id'=>$empdept,
+					'Desg_id'=>$empdesig,
+					'areaId'=>$emparea_assign,
+					'OrganizationId'=>$orgid,
+					'CreatedDate'=>$mdate,
+					'CreatedById'=>$mid,
+					'LastModifiedDate'=>$mdate,
+					'LastModifiedById'=>$mid,
+					'OwnerId'=>$mid,
+					'device'=>'AppManager',
+					'timeoutdate'=>$res['todate']
+				);
+				$query=$this->db->insert('AttendanceMaster',$data1);
+				
+				}else{
+					if($res['timein']=="00:00:00")
+						$res['timein']="00:01:00";
+					if($res['timeout']=="00:00:00")
+						$res['timeout']="23:59:00";
+					
+					//$res['timein']=date('H:i');		//need current time for bulk attendance
+					$res['timein']=date('H:i',strtotime($res['timein']));
+					//$res['timein']=date('H:i',strtotime($res['timein']));//commented because need current time for bulk attendance
+					$res['timeout']=date('H:i',strtotime($res['timeout']));
+					$overtime='00:00';
+					$shifttype=getShiftType($res['shift']);
+				//	$queryot = $this->db->query("SELECT subtime(subtime('".$res['timeout']."','".$res['timein']."'), (select subtime(timeout,timein) from ShiftMaster where id=".$res['shift'].")) as overtime");
+					
+					$timeindate=date("Y-m-d");
+					$timeoutdate=date("Y-m-d");
+					if($shifttype!=1){ // multi-date shift
+						if(strtotime($res['timein']) > strtotime($res['timeout'])){ 
+							$timeoutdate=date("Y-m-d", strtotime($timeoutdate. ' + 1 days'));
+							$queryot = $this->db->query("SELECT SUBTIME( SUBTIME( timein, timeout ) , SUBTIME(  '".$res['timein']."',  '".$res['timeout']."' ) ) AS overtime FROM ShiftMaster WHERE id =".$res['shift']);
+							if($rowot = $queryot->row())
+								$overtime=$rowot->overtime;	
+						}else{
+							$queryot = $this->db->query("SELECT SUBTIME( SUBTIME(  '".$res['timeout']."',  '".$res['timein']."' ) , SUBTIME( timein, timeout ) ) AS overtime FROM ShiftMaster WHERE id=".$res['shift']);
+							if($rowot = $queryot->row())
+								$overtime=$rowot->overtime;
+						}
+					}else { // single date shift
+						$queryot = $this->db->query("SELECT SUBTIME( SUBTIME( timein, timeout ) , SUBTIME(  '".$res['timein']."',  '".$res['timeout']."' ) ) AS overtime FROM ShiftMaster WHERE id =".$res['shift']);
+						
+						if($rowot = $queryot->row())
+								$overtime=$rowot->overtime;	
+					}
+					$data1 = array(
+					'EmployeeId'=>$res['Id'],
+					'AttendanceDate'=>$tdate,
+					'AttendanceStatus'=>$res['attsts'],
+					'TimeIn'=>$res['timein'],
+					'timeindate'=>$timeindate,
+					'timeoutdate'=>$timeoutdate,
+					'TimeOut'=>$res['timeout'],
+					'Overtime'=>$overtime,
+					'ShiftId'=>$res['shift'],
+					'Dept_id'=>$empdept,
+					'Desg_id'=>$empdesig,
+					'areaId'=>$emparea_assign,
+					'OrganizationId'=>$orgid,
+					'CreatedDate'=>$mdate,
+					'CreatedById'=>$mid,
+					'LastModifiedDate'=>$mdate,
+					'LastModifiedById'=>$mid,
+					'OwnerId'=>$mid,
+					'device'=>'AppManager',
+					'checkInLoc'=>$location,
+					'latit_in'=>$lat,
+					'longi_in'=>$long,
+					'CheckOutLoc'=>$location,
+					'latit_out'=>$lat,
+					'longi_out'=>$long,
+					'EntryImage'=>'https://ubiattendance.ubihrm.com/assets/img/managerdevice.png',
+					'ExitImage'=>'https://ubiattendance.ubihrm.com/assets/img/managerdevice.png'
+				);//'timeoutdate'=>$res['todate']
+				/*'checkInLoc'=>$location
+					'latit_in'=>$lat,
+					'longi_in'=>$long,
+					'CheckOutLoc'=>$location,
+					'latit_out'=>$lat,
+					'longi_out'=>$long,*/
+				$query=$this->db->insert('AttendanceMaster',$data1);
+				/*$to=decode5t(getName('EmployeeMaster','CompanyEmail','Id',$res['Id']));
+				$subject= $res['Name'].' has punched Time in';
+				$msg=$res['Name'].' has punched Time in at '.$res['timein'].' from '.$location;
+				if($to!=''){
+					sendEmail_new($to,$subject,$msg);	//sendEmail_new('deeksha@ubitechsolutions.com',$subject,$msg.' <br/> Mail: '.$to);
+				}*/
+				}		
+					if($query){
+						$count++;
+					}
+			}else{
+				$skip++;
+			}
+		}
+		}
+		}catch(Exception $e) {
+			$errorMsg = 'Message: ' .$e->getMessage();
+		}
+        if ($count >0) {
+			$count = $count-count($res1);
+			   $status =true;
+			   $successMsg = $count." records saved successfully";
+			if($skip>0){
+				$successMsg .= $skip." records skipped";
+			}
+        } else {
+           $status =false;
+		   $errorMsg = 'There is some problem while creating record';
+        }
+		
+		$result["data"] =$data;
+		$result['status']=$status;
+		$result['successMsg']=$successMsg;
+		$result['errorMsg']=$errorMsg;
+		
+        // default return
+        return $result;
+    }
+	
+	 /////------------------------------------------------------------------------    
+    public function getUserPermission()
+    {
+        $uid     = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid   = isset($_REQUEST['refid']) ? $_REQUEST['refid'] : 0;
+		$roleid   = isset($_REQUEST['roleid']) ? $_REQUEST['roleid'] : 0;
+        $result = array();
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$res = array();
+		//$id=decode5t($id);
+		$this->db->select('*');		 
+		$whereCondition="(RoleId = $roleid AND OrganizationId = $orgid and ModuleId in (select Id from ModuleMaster where AttendanceAppSts=1))";
+		$this->db->where($whereCondition);
+		$this->db->from('UserPermission');
+		
+		$query1 =$this->db->get();
+		$count=$query1->num_rows();
+		if($count>=1){
+			$status=true;
+			$successMsg=$count." record found";			
+			foreach ($query1->result() as $row)
+			{
+				$modulename=getName('ModuleMaster','ModuleName','Id',$row->ModuleId);
+				$res[$modulename] = (int)$row->ViewPermission;				
+			}
+        }
+		
+		$result["userpermission"] = $res;
+		$result["orgpermission"] = "Pending";
+        //echo json_encode($res);        
+		return $result;
+    }
+    
+	public function getInfo()
+    {
+        $uid     = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid   = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $data    = array();
+		$trace='';
+Trace('=================== getInfo start- '.$uid.'===================' ,$orgid);
+		$data['Addon_BulkAttn']=0;
+		$data['Addon_GeoFence']=0;
+		$data['Addon_Payroll']=0;
+		$data['Addon_Tracking']=0;
+		$data['Addon_VisitPunch']=0;
+		$data['Addon_TimeOff']=0;
+		$data['sstatus']=0;
+		$data['pwd']="";
+		$data['mail_varified']=0;
+		$data['shiftId'] = 0;
+		$data['Is_Delete'] = 0;
+        $data['aid']     = 0; 
+		$data['act'] = 'TimeIn';
+		$data['profile'] = "http://ubishift.ubihrm.com/assets/img/avatar.png";
+		$data['leavetypeid'] = '';
+        $data['stype'] = '0';
+        $data['data']  = '';
+        //////////////-------getting time zone
+        $zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        //////////////-------/getting time zone
+        
+        $stype  = 0;
+		$stypeD=0;
+		$date   = date('Y-m-d');
+		$time=date('H:i:s');
+		$data['shiftId'] =getTodayShift($date,$uid);
+		//////////////////////////////////////////////////////////////////////
+		 $sql    = "SELECT Id,EmployeeCode,FirstName,LastName,shift,ImageName,OrganizationId,Is_Delete FROM `EmployeeMaster` WHERE id=$uid";
+		 
+        $result = $this->db->query($sql);
+        if ($row=$result->result()) {
+			/***************************/
+			Trace('sql_1:'.$sql,$orgid);
+		 /***************************/
+           // $data['shiftId'] = $row[0]->shift;
+			$data['Is_Delete'] = $row[0]->Is_Delete;
+            $data['aid']     = 0; //o means no attendance punched till now
+			
+            if ($row[0]->ImageName != "") {
+                    $dir             = IMGURL. $row[0]->OrganizationId . "/" . $row[0]->ImageName;
+                    $data['profile'] =$dir;
+                } else {
+                    $data['profile'] = "http://ubishift.ubihrm.com/assets/img/avatar.png";
+                }
+            //////----------------gettig shift info
+            
+          /*  $sql1 = "SELECT TIMEDIFF(  `TimeIn` ,  `TimeOut` ) AS stype
+        FROM ShiftMaster where id=" . $data['shiftId'];*/
+		$sql1 = "SELECT TIMEDIFF(`TimeIn`,`TimeOut` ) AS stypeD,shifttype AS stype,TimeIn as startShiftTime FROM ShiftMaster where id=" . $data['shiftId'];
+		
+		$stype=1;
+		$stypeD=0;
+		$startShiftTime='00:00:00';
+            try {
+                $result1 = $this->db->query($sql1);
+                if ($row1=$result1->result()) {
+					/***************************/
+						Trace('sql_2:'.$sql1,$orgid);
+					 /***************************/
+                    $stypeD = $row1[0]->stypeD;
+                    $stype = $row1[0]->stype;
+					$startShiftTime=$row1[0]->startShiftTime;
+                }
+            }
+            catch (Exception $e) {
+				Trace("Exception_1: ".$e->getMessage(),$orgid);
+            }
+            //////----------------/gettig shift info
+            if ($stype <= 1) { //// if shift is end whthin same date
+                $sql1 = "SELECT id as aid,TimeOut FROM `AttendanceMaster` WHERE employeeid=$uid and `AttendanceDate`='$date'and TimeIn !='00:00:00' and TimeOut='00:00:00' order by Id desc  limit 1";
+                try {
+                    $result1 = $this->db->query($sql1);
+                    if ($row1 = $result1->row()) {
+						/***************************/
+							Trace('sql_3:'.$sql1,$orgid);
+						/***************************/
+                        $data['act'] = 'TimeOut';
+                        $data['aid'] = $row1->aid;
+						
+                        if ($row1->TimeOut != '00:00:00' && $row1->TimeOut != ''){
+                            $data['act'] = 'TimeIn';
+							$data['aid']=0;
+						}
+                    }else{
+						$data['act'] = 'TimeIn';
+						$data['aid']=0;
+						
+					}
+                }
+                catch (Exception $e) {
+					Trace("Exception_2: ".$e->getMessage(),$orgid);
+                }
+            } else { /////// if shift is start and end in two diff dates
+						//$sql1="SELECT id as aid,TimeOut,AttendanceDate FROM `AttendanceMaster` WHERE employeeid=$uid and TimeIn !='00:00:00' and TimeOut='00:00:00' and `AttendanceDate`=DATE_SUB('$date', INTERVAL 1 DAY)";
+						$sql1="SELECT id as aid,TimeOut,AttendanceDate FROM `AttendanceMaster` WHERE employeeid=$uid and TimeIn !='00:00:00' and TimeOut='00:00:00' and  (`AttendanceDate`>=DATE_SUB('$date', INTERVAL 1 DAY) or `AttendanceDate`='$date') and Id = (select MAX(Id) from AttendanceMaster WHERE EmployeeId=$uid) order by Id desc limit 1";
+						try{
+								$result1 =$this->db->query($sql1);
+								if($row1= $result1->row()){
+									/***************************/
+										Trace('sql_2:'.$sql1,$orgid);
+									 /***************************/
+									//echo $row1->AttendanceDate;
+									//echo $date;
+									if($row1->AttendanceDate!=$date){ // yes att
+										if($time>=$startShiftTime){
+											$data['act']='TimeIn';
+											$data['aid']=0;
+										}else{
+											$data['act']='TimeOut';
+											$data['aid']=$row1->aid;
+										}
+									
+									}else{ // today att
+										$data['act']='TimeOut';
+										$data['aid']=$row1->aid;
+										
+										
+									}
+										
+									if($row1->TimeOut!='00:00:00'){
+										$data['act'] = 'TimeIn';//'Imposed' condition
+										$data['aid']=0;
+										
+									}
+								}
+								else {
+								 $sql1="SELECT id as aid,TimeOut FROM `AttendanceMaster` WHERE employeeid=$uid and `AttendanceDate`='$date'";
+									try{
+										$result1 =$this->db->query($sql1);
+										if($row1= $result1->row()){
+											/***************************/
+												Trace('sql_4:'.$sql1,$orgid);
+											 /***************************/
+											$data['act']='TimeOut';
+											$data['aid']=$row1->aid;
+											
+											if($row1->TimeOut!='00:00:00'){
+												$data['act'] = 'TimeIn';//'Imposed' condition
+												$data['aid']=0;
+												
+											}
+										}
+										else   
+											$data['act']='TimeIn';	
+									}catch(Exception $e){
+										Trace("Exception_3: ".$e->getMessage(),$orgid);
+									}
+									
+								}									
+						}catch(Exception $e){
+							Trace("Exception_4: ".$e->getMessage(),$orgid);
+						}
+					
+        }
+        }
+		//////////////////////////////////////////////////////////////////////
+		$query = $this->db->query("SELECT `appSuperviserSts`  FROM `UserMaster` WHERE  EmployeeId=? and OrganizationId=?", array(
+            $uid,
+            $orgid
+        ));
+        if($row=$query->result())
+			$data['sstatus']=$row[0]->appSuperviserSts;
+		
+		
+		$query = $this->db->query("SELECT `Password` FROM `UserMaster` WHERE `EmployeeId`=? and OrganizationId=?", array(
+            $uid,
+            $orgid
+        ));
+        if($row=$query->result())
+			$data['pwd']=decode5t($row[0]->Password);
+			
+		
+		$query = $this->db->query("SELECT `mail_varified`  FROM `Organization` WHERE Id=?", array(
+            $orgid
+        ));
+        if($row=$query->result())
+			$data['mail_varified']=$row[0]->mail_varified;
+		$query = $this->db->query("SELECT `Addon_BulkAttn`, `Addon_LocationTracking`, `Addon_VisitPunch`, `Addon_GeoFence`, `Addon_Payroll`,Addon_TimeOff  FROM `licence_ubiattendance` WHERE OrganizationId=?", array($orgid));
+        if($row=$query->result()){
+			$data['Addon_BulkAttn']=$row[0]->Addon_BulkAttn;
+			$data['Addon_Payroll']=$row[0]->Addon_Payroll;
+			$data['Addon_Tracking']=$row[0]->Addon_LocationTracking;
+			$data['Addon_VisitPunch']=$row[0]->Addon_VisitPunch;
+			$data['Addon_GeoFence']=$row[0]->Addon_GeoFence;
+			$data['Addon_TimeOff']=$row[0]->Addon_TimeOff;
+		}
+       
+        $data['leavetypeid'] = $this->getLeaveTypeId($orgid);
+        $data['stype'] = $stypeD;
+        $data['data']  = $date;
+		Trace(json_encode($data),$orgid);
+Trace('=================== getInfo end- '.$uid.'===================' ,$orgid);
+        echo json_encode($data);
+        
+    }
+	////// end getting attendance user permission //////////
+    /////---------------------------------------------------------
+   /* public function getInfo()
+    {
+        $uid     = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid   = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $data    = array();
+		$del_and_inactive='';
+        //////////////-------getting time zone
+        $sql     = "SELECT name
+                FROM ZoneMaster
+                WHERE id = ( 
+                SELECT  `TimeZone` 
+                FROM  `Organization` 
+                WHERE id =$orgid
+                LIMIT 1)";
+        $zone    = 'Asia/Kolkata';
+        $result1 = $this->db->query($sql);
+        if ($row = $result1->row())
+            $zone = $row->name;
+        date_default_timezone_set($zone);
+        //////////////-------/getting time zone
+        $date   = date('Y-m-d');
+		$time=date('H:i:s');
+        $stype  = 0;
+		
+		
+		$data['sstatus']=0;
+		$query = $this->db->query("SELECT `appSuperviserSts`  FROM `UserMaster` WHERE  EmployeeId=? and OrganizationId=?", array(
+            $uid,
+            $orgid
+        ));
+        if($row=$query->result())
+			$data['sstatus']=$row[0]->appSuperviserSts;
+		
+		$data['pwd']="";
+		$query = $this->db->query("SELECT `Password` FROM `UserMaster` WHERE `EmployeeId`=? and OrganizationId=?", array(
+            $uid,
+            $orgid
+        ));
+        if($row=$query->result())
+			$data['pwd']=decode5t($row[0]->Password);
+		
+		
+		
+		$data['mail_varified']=0;
+		$query = $this->db->query("SELECT `mail_varified`  FROM `Organization` WHERE Id=?", array(
+            $orgid
+        ));
+        if($row=$query->result())
+			$data['mail_varified']=$row[0]->mail_varified;
+		
+		$data['Addon_BulkAttn']=0;
+		$data['Addon_GeoFence']=0;
+		$data['Addon_Payroll']=0;
+		$data['Addon_Tracking']=0;
+		$data['Addon_VisitPunch']=0;
+		$data['Addon_TimeOff']=0;
+		$query = $this->db->query("SELECT `Addon_BulkAttn`, `Addon_LocationTracking`, `Addon_VisitPunch`, `Addon_GeoFence`, `Addon_Payroll`,Addon_TimeOff  FROM `licence_ubiattendance` WHERE OrganizationId=?", array($orgid));
+        if($row=$query->result()){
+			$data['Addon_BulkAttn']=$row[0]->Addon_BulkAttn;
+			$data['Addon_Payroll']=$row[0]->Addon_Payroll;
+			$data['Addon_Tracking']=$row[0]->Addon_LocationTracking;
+			$data['Addon_VisitPunch']=$row[0]->Addon_VisitPunch;
+			$data['Addon_GeoFence']=$row[0]->Addon_GeoFence;
+			$data['Addon_TimeOff']=$row[0]->Addon_TimeOff;
+		}
+        $sql    = "SELECT Id,EmployeeCode,FirstName,LastName,shift,ImageName,OrganizationId,Is_Delete,archive FROM `EmployeeMaster` WHERE id=$uid";
+        $result = $this->db->query($sql);
+        foreach ($result->result() as $row) {
+            $data['shiftId'] = $row->shift;
+			$data['Is_Delete'] = $row->Is_Delete;
+			// check: if sts is active or delete
+			$del_and_inactive=$row->Is_Delete!=0?'_del':'';
+			$del_and_inactive.=$row->archive!=1?'_inc':'';
+			// check:if sts is active or delete/
+            $data['aid']     = 0; //o means no attendance punched till now
+            if ($row->ImageName != "") {
+                    $dir             = "public/uploads/" . $row->OrganizationId . "/" . $row->ImageName;
+                    $data['profile'] = "https://ubitech.ubihrm.com/" . $dir;
+                } else {
+                    $data['profile'] = "http://ubiattendance.ubihrm.com/assets/img/avatar.png";
+                }
+            //////----------------gettig shift info
+            
+		$sql1 = "SELECT TIMEDIFF(  `TimeIn` ,  `TimeOut` ) AS stypeD,shifttype AS stype,TimeIn as startShiftTime FROM ShiftMaster where id=" . $data['shiftId'];
+		$stype=1;
+		$stypeD=0;
+		$startShiftTime='00:00:00';
+            try {
+                $result1 = $this->db->query($sql1);
+                if ($row1=$result1->result()) {
+                    $stypeD = $row1[0]->stypeD;
+                    $stype = $row1[0]->stype;
+					$startShiftTime=$row1[0]->startShiftTime;
+                }
+            }
+            catch (Exception $e) {
+            }
+            //////----------------/gettig shift info
+            if ($stype <= 1) { //// if shift is end whthin same date
+                $sql1 = "SELECT id as aid,TimeOut FROM `AttendanceMaster` WHERE employeeid=$uid and `AttendanceDate`='$date'";
+                try {
+                    $result1 = $this->db->query($sql1);
+                    if ($row1 = $result1->row()) {
+                        $data['act'] = 'TimeOut';
+                        $data['aid'] = $row1->aid;
+                        if ($row1->TimeOut != '00:00:00')
+                            $data['act'] = 'Imposed';
+                    }else
+                        $data['act'] = 'TimeIn';
+                }
+                catch (Exception $e) {
+                }
+            } else { 			/////// if shift is start and end in two diff dates
+						//$sql1="SELECT id as aid,TimeOut,AttendanceDate FROM `AttendanceMaster` WHERE employeeid=$uid and TimeIn !='00:00:00' and TimeOut='00:00:00' and `AttendanceDate`=DATE_SUB('$date', INTERVAL 1 DAY)";
+						$sql1="SELECT id as aid,TimeOut,AttendanceDate FROM `AttendanceMaster` WHERE employeeid=$uid and TimeIn !='00:00:00' and TimeOut='00:00:00' and  (`AttendanceDate`>=DATE_SUB('$date', INTERVAL 1 DAY) or `AttendanceDate`='$date') and Id = (select MAX(Id) from AttendanceMaster WHERE EmployeeId=$uid) order by Id desc limit 1";
+						try{
+								$result1 =$this->db->query($sql1);
+								if($row1= $result1->row()){
+									if($row1->AttendanceDate!=$date){ // yes att
+										if($time>=$startShiftTime){
+											$data['act']='TimeIn';
+											$data['aid']=0;
+										}else{
+											$data['act']='TimeOut';
+											$data['aid']=$row1->aid;
+										}
+									
+									}else{ // today att
+										$data['act']='TimeOut';
+										$data['aid']=$row1->aid;
+									}
+										
+									if($row1->TimeOut!='00:00:00')
+										$data['act']='Imposed';
+								}
+								else {
+								 $sql1="SELECT id as aid,TimeOut FROM `AttendanceMaster` WHERE employeeid=$uid and `AttendanceDate`='$date'";
+									try{
+										$result1 =$this->db->query($sql1);
+										if($row1= $result1->row()){
+											$data['act']='TimeOut';
+											$data['aid']=$row1->aid;
+											if($row1->TimeOut!='00:00:00')
+												$data['act']='Imposed';
+										}
+										else   
+											$data['act']='TimeIn';	
+									}catch(Exception $e){}
+									
+								}									
+						}catch(Exception $e){}
+					
+        }
+        }
+		$data['pwd'].=$del_and_inactive!=''?$del_and_inactive:'';
+        $data['leavetypeid'] = $this->getLeaveTypeId($orgid);
+        $data['stype'] = $stypeD;
+        $data['data']  = $date;
+        echo json_encode($data);
+        
+    }*/
+	
+	public function getLeaveTypeId($orgid){
+		
+		$ci =& get_instance();
+		$ci->load->database();
+		$name="";$result = array();
+		//$conname='';
+		$ci->db->select("Id");
+		$whereCondition= "(OrganizationId = $orgid AND DefaultSts = 1)";
+		$ci->db->where($whereCondition);
+		$ci->db->from("LeaveMaster");
+		$query =$ci->db->get();
+		$count = $query->num_rows();
+		if($count>0){
+			$status=true;
+			$successMsg=$count." record found";
+			foreach($query->result() as $row){
+				$name=$row->Id;
+			}
+		}
+		return  $name;
+	}
+	
+    public function getHistory()
+    {
+        $userid = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $refno  = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $zone   = getTimeZone($refno);
+        date_default_timezone_set($zone);
+        $dateStart = date('Y-m-d');
+        $dateEnd   = date('Y-m-d', strtotime('-7 days'));
+        $query     = $this->db->query("SELECT (SELECT CONCAT(FirstName,' ',LAstName) from  EmployeeMaster where  EmployeeMaster.Id=?)as Name,EmployeeId,`AttendanceDate` , Min(`TimeIn`) as TimeIn, Max(`TimeOut`) as TimeOut,TIMEDIFF(TIMEDIFF(TimeOut,TimeIn),(SELECT SEC_TO_TIME(sum(time_to_sec( TIMEDIFF(TimeTo,TimeFrom))) )as time from  Timeoff where Timeoff.EmployeeId = ? and TimeofDate=AttendanceDate))as activeHours,TIMEDIFF(TimeOut,TimeIn) as thours,(SELECT SEC_TO_TIME(sum(time_to_sec( TIMEDIFF(TimeTo,TimeFrom))) )as time from  Timeoff where Timeoff.EmployeeId = ? and TimeofDate=AttendanceDate and Timeoff.ApprovalSts=2) as bhour,EntryImage,CONCAT(LEFT(checkInLoc,30),'...') as checkInLoc,ExitImage,CONCAT(LEFT(CheckOutLoc,30),'...') as CheckOutLoc,latit_in,longi_in,latit_out,longi_out  FROM `AttendanceMaster` WHERE AttendanceMaster.EmployeeId=? and (AttendanceMaster.AttendanceStatus=1 or 
+		AttendanceMaster.AttendanceStatus=3 or 
+		AttendanceMaster.AttendanceStatus=4 or AttendanceMaster.AttendanceStatus=5 or AttendanceMaster.AttendanceStatus=8) and date(attendanceDate) between date('" . $dateEnd . "') AND date('" . $dateStart . "') GROUP BY (AttendanceDate) order by AttendanceMaster.Id desc   ", array(
+            $userid,
+            $userid,
+            $userid,
+            $userid
+        )); //and TimeOut!= '00:00:00' //limit 7  
+        $data      = $query->result();
+        //$query = $this->db->query("SELECT SEC_TO_TIME(sum(time_to_sec( TIMEDIFF(BreakOff,BreakOn))) )as time from  BreakMaster where EmployeeId = ? and date=?",array($userid,$row1->AttendanceDate));
+        //    $data['timespent']=$query->result();
+        echo json_encode($data);
+    }
+    
+    public function getSlider()
+    {
+        $orgid = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        if ($orgid == 0) {
+            
+            $query = $this->db->query("SELECT  `link`, `file`  FROM `slider_settings` WHERE  `archive`=1");
+            echo json_encode($query->result());
+            return;
+        } else {
+            $query = $this->db->query("SELECT status FROM `licence_ubiattendance` WHERE OrganizationId=?", array(
+                $orgid
+            ));
+            if ($row = $query->row()) {
+                $cond = ' WHERE 0=1';
+                ;
+                if ($row->status == 1) // paid users
+                    $cond = ' WHERE archive in (1,2)';
+                else if ($row->status == 0) // trial users
+                    $cond = ' WHERE archive in (1,3)';
+                $query = $this->db->query("SELECT  `link`, `file`  FROM `slider_settings`" . $cond);
+                echo json_encode($query->result());
+                return;
+            }
+        }
+    }
+    public function getUsersMobile()
+    {
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $query = $this->db->query("SELECT Concat( `FirstName`,' ',`LastName`) as name , (select Name from DepartmentMaster where Id=Department) as `Department` ,(select Name from DesignationMaster where Id=Designation) as `Designation`,(select VisibleSts from UserMaster where EmployeeId = EmployeeMaster.Id) as `archive` FROM `EmployeeMaster` WHERE  `OrganizationId`=" . $orgid . " order by FirstName");
+        $data1 = array();
+		echo json_encode($query->result());
+    }
+	public function getEmployeesList()
+    {
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $query = $this->db->query("SELECT Concat( `FirstName`,' ',`LastName`) as name ,Id, EmployeeCode as ecode FROM `EmployeeMaster` WHERE  `OrganizationId`=" . $orgid . " order by FirstName");
+        $data1 = array();
+		echo json_encode($query->result());
+    }
+	public function saveShiftAllocation(){
+		$orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+		$empid = isset($_REQUEST['empid']) ? $_REQUEST['empid'] : 0;
+		$empList = isset($_REQUEST['empList']) ? $_REQUEST['empList'] : '';
+		$shift = isset($_REQUEST['shift']) ? $_REQUEST['shift'] : 0;
+		$date = isset($_REQUEST['date']) ? date('Y-m-d',strtotime($_REQUEST['date'])) : '0';
+		$zone   = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		$stamp=date('Y-m-d');
+		$emp=explode(',',$empList);
+		//print_r($emp);
+		$cnt=0;
+	//	return false;
+		for($i=0;$i<(count($emp)-1);$i++){
+			$query  =$this->db->query("Select Id from ShiftDateSetting where EmployeeId = ? AND ScheduleDate = ? AND OrganizationId =  ? ",array($emp[$i],$date,$orgid));
+				if($row = $query->row())
+				{
+					$query = $this->db->query("Update ShiftDateSetting set ShiftId = ? , LastModifiedDate=?, LastModifiedById = ? where  Id = ? ",array($shift,$stamp,$empid,$row->Id));
+				}else{
+					$query = $this->db->query("INSERT INTO `ShiftDateSetting`(`EmployeeId`, `ScheduleDate`, `ShiftId`, `OrganizationId`, `CreatedDate`, `LastModifiedDate`, `CreatedById`, `LastModifiedById`) VALUES (?,?,?,?,?,?,?,?)",array($emp[$i],$date,$shift,$orgid,$stamp,$stamp,$empid,$empid));
+				}
+			if($query>0)
+				$cnt++;
+		}
+		if($cnt)
+			echo 1;
+		else 
+			echo 0;
+		return;
+	}
+	
+    public function getAttendanceMobile()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date = date('Y-m-d');
+        $time = date('H:i:s');
+        $data = array();
+        if ($att == 'today') { //today attendance
+            $query                = $this->db->query("SELECT count(`Id`) as total FROM `EmployeeMaster`  WHERE `OrganizationId`=" . $orgid . " and archive=1 ");
+            //and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift)
+            $data['total']        = $query->result();
+            $query                = $this->db->query("SELECT count(`EmployeeId`) as exited FROM AttendanceMaster  WHERE `AttendanceDate`  ='" . $date . "' and `TimeOut` !='00:00:00' and `OrganizationId`=" . $orgid);
+            $data['exited']       = $query->result();
+            $query                = $this->db->query("SELECT count(`EmployeeId`) as timedin FROM AttendanceMaster  WHERE `AttendanceDate`  ='" . $date . "'  and `OrganizationId`=" . $orgid); //and `TimeOut` ='00:00:00'
+            $data['timedin']      = $query->result();
+            $query                = $this->db->query("SELECT count(TimeFrom) as onbreak FROM `Timeoff` where TimeofDate=? and (TimeTo ='00:00:00' or TimeTo IS NULL)  and OrganizationId=?", array(
+                $date,
+                $orgid
+            ));
+            $data['onbreak']      = $query->result();
+            $query                = $this->db->query("select count(Id) as latecomers from AttendanceMaster where `AttendanceDate`  ='" . $date . "' and `OrganizationId`=" . $orgid . " and time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['latecomers']   = $query->result();
+            $query                = $this->db->query("select count(Id) as earlyleavers from AttendanceMaster where `AttendanceDate`  ='" . $date . "' and `OrganizationId`=" . $orgid . " and TimeOut !='00:00:00' and time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['earlyleavers'] = $query->result();
+            $query                = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist']        = $query->result();
+            //---managing off (weekly and holiday)
+            $dt                   = $date;
+            
+            //    day of month : 1 sun 2 mon --
+            $dayOfWeek   = 1 + date('w', strtotime($dt));
+            $weekOfMonth = weekOfMonth($dt);
+            $week        = '';
+            $query       = $this->db->query("SELECT `WeekOff` FROM  `WeekOffMaster` WHERE  `OrganizationId` =? AND  `Day` =  ?", array(
+                $orgid,
+                $dayOfWeek
+            ));
+            if ($row = $query->result()) {
+                $week = explode(",", $row[0]->WeekOff);
+            }
+            if ($week[$weekOfMonth - 1] == 1) {
+                $data['absentees'] = '';
+            } else {
+                $query = $this->db->query("SELECT `DateFrom`, `DateTo` FROM `HolidayMaster` WHERE OrganizationId=? and (? between `DateFrom` and `DateTo`) ", array(
+                    $orgid,
+                    $dt
+                ));
+                if ($query->num_rows() > 0) {
+                    //-----managing off (weekly and holiday) - close            
+                    $query             = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status from EmployeeMaster where `OrganizationId` =$orgid and EmployeeMaster.archive=1 and EmployeeMaster.Id not in(select AttendanceMaster.`EmployeeId` from AttendanceMaster where `AttendanceDate`='$date' and `OrganizationId` =$orgid) and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift) order by `name`", array(
+                        $orgid,
+                        $date,
+                        $orgid
+                    ));
+                    $data['absentees'] = $query->result();
+                } else {
+                    $data['absentees'] = '';
+                }
+            }
+        } else if ($att == 'today_late') {
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+        } else if ($att == 'today_early') {
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage, SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+        } else if ($att == 'today_abs') {
+            
+            
+            $q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$date' and OrganizationId =" . $orgid . " group by AttendanceDate";
+            $query = $this->db->query($q2);
+            $d     = array();
+            $res   = array();
+            foreach ($query->result() as $row) {
+                '<br/>total: ' . $row->total . '  date: ' . $row->AttendanceDate . '<br/>';
+                $query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+                            FROM `EmployeeMaster` 
+                            WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+                             AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+                            NOT IN (
+                            SELECT `EmployeeId` 
+                            FROM `AttendanceMaster` 
+                            WHERE `AttendanceDate` 
+                            IN (
+                             '" . $row->AttendanceDate . "'
+                            )
+                            AND AttendanceMaster.OrganizationId =" . $orgid . "
+                            AND `AttendanceStatus` not in(3,5,6)
+                            )
+                            ORDER BY EmployeeMaster.Id ");
+                $count  = $query1->num_rows();
+                foreach ($query1->result() as $row) {
+                    $data            = array();
+                    //$data['name']=ucwords(getEmpName($row->Id));
+                    $data['name']    = getEmpName($row->EmployeeId);
+                    $data['status']  = 'Absent';
+                    $data['TimeIn']  = '-';
+                    $data['TimeOut'] = '-';
+                    $res[]           = $data;
+                }
+            }
+            $this->db->close();
+            $data['elist'] = $res;
+        } else if ($att == 'yesterday') { //yesterday attendance
+            $date                 = date('Y-m-d', strtotime("-1 days"));
+            $query                = $this->db->query("SELECT count(`Id`) as total FROM `EmployeeMaster`  WHERE archive=1 and `OrganizationId`=" . $orgid);
+            $data['total']        = $query->result();
+            $query                = $this->db->query("SELECT count(`Id`) as timedin FROM `AttendanceMaster`  WHERE AttendanceDate='" . $date . "' and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) and `OrganizationId`=" . $orgid);
+            $data['timedin']      = $query->result();
+            $query                = $this->db->query("select count(Id) as latecomers from AttendanceMaster where `AttendanceDate`  ='" . $date . "' and `OrganizationId`=" . $orgid . " and time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['latecomers']   = $query->result();
+            $query                = $this->db->query("select count(Id) as earlyleavers from AttendanceMaster where `AttendanceDate`  ='" . $date . "' and `OrganizationId`=" . $orgid . " and TimeOut !='00:00:00' and time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['earlyleavers'] = $query->result();
+            //$query = $this->db->query("SELECT count(`EmployeeId`) as exited FROM AttendanceMaster  WHERE `AttendanceDate`  ='".$date."' and `TimeOut` !='00:00:00' and `OrganizationId`=".$orgid);
+            //$data['exited']=$query->result();
+            //    $query = $this->db->query("SELECT count(`EmployeeId`) as timedin FROM AttendanceMaster  WHERE `AttendanceDate`  ='".$date."' and `TimeOut` ='00:00:00' and `OrganizationId`=".$orgid);
+            //    $data['timedin']=$query->result();
+            //    $query = $this->db->query("SELECT count(BreakOn) as onbreak FROM `BreakMaster` where Date=? and BreakOff ='00:00:00' and OrganizationId=?",array($date,$orgid));
+            //    $data['onbreak']=$query->result();
+            
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) and `AttendanceDate`=? and  OrganizationId=? order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+            //---managing off (weekly and holiday)
+            $dt            = $date;
+            
+            //    day of month : 1 sun 2 mon --
+            $dayOfWeek   = 1 + date('w', strtotime($dt));
+            $weekOfMonth = weekOfMonth($dt);
+            $week        = '';
+            $query       = $this->db->query("SELECT `WeekOff` FROM  `WeekOffMaster` WHERE  `OrganizationId` =? AND  `Day` =  ?", array(
+                $orgid,
+                $dayOfWeek
+            ));
+            if ($row = $query->result()) {
+                $week = explode(",", $row[0]->WeekOff);
+            }
+            if ($week[$weekOfMonth - 1] == 1) {
+                $data['absentees'] = '';
+            } else {
+                $query = $this->db->query("SELECT `DateFrom`, `DateTo` FROM `HolidayMaster` WHERE OrganizationId=? and (? between `DateFrom` and `DateTo`) ", array(
+                    $orgid,
+                    $dt
+                ));
+                if ($query->num_rows() > 0) {
+                    
+                    //-----managing off (weekly and holiday) - close            
+                    $query             = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status from EmployeeMaster where `OrganizationId` =$orgid and EmployeeMaster.archive=1 and EmployeeMaster.Id in(select AttendanceMaster.`EmployeeId` from AttendanceMaster where `AttendanceDate`='$date' and AttendanceStatus<>1 and `OrganizationId` =$orgid) and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift) order by `name`", array(
+                        $orgid,
+                        $date,
+                        $orgid
+                    ));
+                    $data['absentees'] = $query->result();
+                } else {
+                    $data['absentees'] = '';
+                }
+            }
+        } else if ($att == 'yes_late') {
+            $date          = date('Y-m-d', strtotime("-1 days"));
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+        } else if ($att == 'yes_early') {
+            $date          = date('Y-m-d', strtotime("-1 days"));
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+        } else if ($att == 'yes_abs') {
+            $date  = date('Y-m-d', strtotime("-1 days"));
+            $q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$date' and OrganizationId =" . $orgid . " group by AttendanceDate";
+            $query = $this->db->query($q2);
+            $d     = array();
+            $res   = array();
+            foreach ($query->result() as $row) {
+                '<br/>total: ' . $row->total . '  date: ' . $row->AttendanceDate . '<br/>';
+                $query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+                            FROM `EmployeeMaster` 
+                            WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+                             AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+                            NOT IN (
+                            SELECT `EmployeeId` 
+                            FROM `AttendanceMaster` 
+                            WHERE `AttendanceDate` 
+                            IN (
+                             '" . $row->AttendanceDate . "'
+                            )
+                            AND AttendanceMaster.OrganizationId =" . $orgid . "
+                            AND `AttendanceStatus` not in(3,5,6)
+                            )
+                            ORDER BY EmployeeMaster.Id ");
+                $count  = $query1->num_rows();
+                foreach ($query1->result() as $row) {
+                    $data            = array();
+                    //$data['name']=ucwords(getEmpName($row->Id));
+                    $data['name']    = getEmpName($row->EmployeeId);
+                    $data['status']  = 'Absent';
+                    $data['TimeIn']  = '-';
+                    $data['TimeOut'] = '-';
+                    $res[]           = $data;
+                }
+            }
+            $this->db->close();
+            $data['elist'] = $res;
+        } else if ($att == 'cdate') { //custom date  attendance
+            $cdate = isset($_REQUEST['cdate']) ? date('Y-m-d', strtotime($_REQUEST['cdate'])) : 0;
+            $cond  = '';
+            if ($cdate == $date)
+                $cond = "    and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift)";
+            $query                = $this->db->query("SELECT count(`Id`) as total FROM `EmployeeMaster`  WHERE `OrganizationId`=" . $orgid . " and archive=1 " . $cond);
+            $data['total']        = $query->result();
+            $query                = $this->db->query("SELECT count(`EmployeeId`) as marked FROM AttendanceMaster  WHERE AttendanceDate  ='" . $cdate . "'  and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) and `OrganizationId`=" . $orgid);
+            $data['marked']       = $query->result();
+            $query                = $this->db->query("select count(Id) as latecomers from AttendanceMaster where `AttendanceDate`  ='" . $cdate . "' and `OrganizationId`=" . $orgid . " and time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['latecomers']   = $query->result();
+            $query                = $this->db->query("select count(Id) as earlyleavers from AttendanceMaster where `AttendanceDate`  ='" . $cdate . "' and `OrganizationId`=" . $orgid . " and TimeOut !='00:00:00' and time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['earlyleavers'] = $query->result();
+            $query                = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut`,'Present' as status ,AttendanceDate FROM `AttendanceMaster` WHERE AttendanceDate =? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) and  OrganizationId=? order by `AttendanceDate` desc,name", array(
+                $cdate,
+                $orgid
+            ));
+            $data['elist']        = $query->result();
+            //---managing off (weekly and holiday)// 
+            $dt                   = $cdate;
+            
+            //    day of month : 1 sun 2 mon --
+            $dayOfWeek   = 1 + date('w', strtotime($dt));
+            $weekOfMonth = weekOfMonth($dt);
+            $week        = '';
+            $query       = $this->db->query("SELECT `WeekOff` FROM  `WeekOffMaster` WHERE  `OrganizationId` =? AND  `Day` =  ?", array(
+                $orgid,
+                $dayOfWeek
+            ));
+            if ($row = $query->result()) {
+                $week = explode(",", $row[0]->WeekOff);
+            }
+            if ($week[$weekOfMonth - 1] == 1) {
+                $data['absentees'] = '';
+            } else {
+                $query = $this->db->query("SELECT `DateFrom`, `DateTo` FROM `HolidayMaster` WHERE OrganizationId=? and (? between `DateFrom` and `DateTo`) ", array(
+                    $orgid,
+                    $dt
+                ));
+                if ($query->num_rows() == 0) {
+                    //-----managing off (weekly and holiday) - close
+                    $query             = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status,'" . $cdate . "' as AttendanceDate from EmployeeMaster where `OrganizationId` =? and EmployeeMaster.archive=1 and EmployeeMaster.Id in(select AttendanceMaster.`EmployeeId` from AttendanceMaster where `AttendanceDate`=? and AttendanceStatus<>1 and `OrganizationId` =?) " . $cond . " order by `name`", array(
+                        $orgid,
+                        $cdate,
+                        $orgid
+                    ));
+                    //$query = $this->db->query("select * from AttendanceMaster where AttendanceStatus<>1 and AttendanceDate='2018-01-01'",array());
+                    $data['absentees'] = $query->result();
+                } else {
+                    $data['absentees'] = '';
+                }
+            }
+        } else if ($att == 'cd_late') {
+            $date          = isset($_REQUEST['cdate']) ? date('Y-m-d', strtotime($_REQUEST['cdate'])) : 0;
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+        } else if ($att == 'cd_early') {
+            $date          = isset($_REQUEST['cdate']) ? date('Y-m-d', strtotime($_REQUEST['cdate'])) : 0;
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8)order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['elist'] = $query->result();
+        } else if ($att == 'cd_abs') {
+            $date  = isset($_REQUEST['cdate']) ? date('Y-m-d', strtotime($_REQUEST['cdate'])) : 0;
+            $q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$date' and OrganizationId =" . $orgid . " group by AttendanceDate";
+            $query = $this->db->query($q2);
+            $d     = array();
+            $res   = array();
+            foreach ($query->result() as $row) {
+                '<br/>total: ' . $row->total . '  date: ' . $row->AttendanceDate . '<br/>';
+                $query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+                            FROM `EmployeeMaster` 
+                            WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+                             AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+                            NOT IN (
+                            SELECT `EmployeeId` 
+                            FROM `AttendanceMaster` 
+                            WHERE `AttendanceDate` 
+                            IN (
+                             '" . $row->AttendanceDate . "'
+                            )
+                            AND AttendanceMaster.OrganizationId =" . $orgid . "
+                            AND `AttendanceStatus` not in(3,5,6)
+                            )
+                            ORDER BY EmployeeMaster.Id ");
+                $count  = $query1->num_rows();
+                foreach ($query1->result() as $row) {
+                    $data            = array();
+                    //$data['name']=ucwords(getEmpName($row->Id));
+                    $data['name']    = getEmpName($row->EmployeeId);
+                    $data['status']  = 'Absent';
+                    $data['TimeIn']  = '-';
+                    $data['TimeOut'] = '-';
+                    $res[]           = $data;
+                }
+            }
+            $this->db->close();
+            $data['elist'] = $res;
+        } else if ($att == 'absentees') { //custom date  absentees
+            $cdate               = isset($_REQUEST['cdate']) ? date('Y-m-d', strtotime($_REQUEST['cdate'])) : 0;
+            ////////////////
+            $query               = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status,'" . $cdate . "' as AttendanceDate  from EmployeeMaster where `OrganizationId` =" . $orgid . " and EmployeeMaster.Id not in(select AttendanceMaster.`EmployeeId` from AttendanceMaster WHERE `AttendanceDate`  ='" . $cdate . "' and `OrganizationId`=" . $orgid . " and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift) order by DATE(AttendanceDate),name)");
+            $data['absentees'][] = $query->result();
+            ////////////////
+            $query               = $this->db->query("SELECT count(`Id`) as total FROM `EmployeeMaster`  WHERE `OrganizationId`=" . $orgid);
+            $data['total']       = $query->result();
+            $query               = $this->db->query("SELECT count(`EmployeeId`) as marked FROM AttendanceMaster  WHERE AttendanceDate  ='" . $cdate . "' and `OrganizationId`=" . $orgid);
+            $data['marked']      = $query->result();
+            $query               = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status,'" . $cdate . "' as AttendanceDate  from EmployeeMaster where `OrganizationId` =" . $orgid . " and EmployeeMaster.Id not in(select AttendanceMaster.`EmployeeId` from AttendanceMaster WHERE `AttendanceDate`  ='" . $cdate . "' and `OrganizationId`=" . $orgid . "  and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate),name)");
+            $data['elist']       = $query->result();
+        } else if ($att == 'l7') { //last 7 days attendance
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            foreach ($datePeriod as $date) {
+                $dt              = $date->format('Y-m-d');
+                $query           = $this->db->query("SELECT count(`EmployeeId`) as total,AttendanceDate FROM AttendanceMaster WHERE `AttendanceDate`  ='" . $dt . "' and AttendanceStatus<>1 and `OrganizationId`=" . $orgid);
+                $data['rec'][]   = $query->result();
+                $query           = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status FROM `AttendanceMaster` WHERE `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate) desc,name");
+                $data['elist'][] = $query->result();
+                ///////////////abs
+                
+                //---managing off (weekly and holiday)
+                $query = $this->db->query("SELECT `DateFrom`, `DateTo` FROM `HolidayMaster` WHERE OrganizationId=? and (? between `DateFrom` and `DateTo`) ", array(
+                    $orgid,
+                    $dt
+                ));
+                if ($query->num_rows() > 0)
+                    continue;
+                //    day of month : 1 sun 2 mon --
+                $dayOfWeek   = 1 + date('w', strtotime($dt));
+                $weekOfMonth = weekOfMonth($dt);
+                $week        = '';
+                $query       = $this->db->query("SELECT `WeekOff` FROM  `WeekOffMaster` WHERE  `OrganizationId` =? AND  `Day` =  ?", array(
+                    $orgid,
+                    $dayOfWeek
+                ));
+                if ($row = $query->result()) {
+                    $week = explode(",", $row[0]->WeekOff);
+                }
+                if ($week[$weekOfMonth - 1] == 1)
+                    continue;
+                //-----managing off (weekly and holiday) - close
+                $query               = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status,'" . $dt . "' as AttendanceDate  from EmployeeMaster where `OrganizationId` =" . $orgid . " and EmployeeMaster.archive=1 and EmployeeMaster.Id in(select AttendanceMaster.`EmployeeId` from AttendanceMaster WHERE `AttendanceDate`  ='" . $dt . "' and AttendanceStatus<>1 and `OrganizationId`=" . $orgid . ") and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift) order by DATE(AttendanceDate),name");
+                $data['absentees'][] = $query->result();
+                
+                //////////abs
+                
+                
+            }
+        } else if ($att == 'l7_late') {
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate) desc,name");
+                $res[] = $query->result();
+            }
+            $data['elist'] = $res;
+            
+        } else if ($att == 'l7_early') {
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate) desc,name");
+                $res[] = $query->result();
+            }
+            $data['elist'] = $res;
+        } else if ($att == 'l7_abs') {
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            
+            $res = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$dt' and OrganizationId =" . $orgid . " group by AttendanceDate";
+                $query = $this->db->query($q2);
+                $d     = array();
+                //$res=array();
+                foreach ($query->result() as $row) {
+                    $date   = $row->AttendanceDate;
+                    // '<br/>total: '.$row->total.'  date: '.$row->AttendanceDate .'<br/>';
+                    $query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+                            FROM `EmployeeMaster` 
+                            WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+                             AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+                            NOT IN (
+                            SELECT `EmployeeId` 
+                            FROM `AttendanceMaster` 
+                            WHERE `AttendanceDate` 
+                            IN (
+                             '" . $row->AttendanceDate . "'
+                            )
+                            AND AttendanceMaster.OrganizationId =" . $orgid . "
+                            AND `AttendanceStatus` not in(3,5,6)
+                            )
+                            ORDER BY EmployeeMaster.Id ");
+                    $count  = $query1->num_rows();
+                    foreach ($query1->result() as $row) {
+                        $data                   = array();
+                        //$data['name']=ucwords(getEmpName($row->Id));
+                        $data['name']           = getEmpName($row->EmployeeId);
+                        $data['AttendanceDate'] = $date;
+                        $data['status']         = 'Absent';
+                        $data['TimeIn']         = '-';
+                        $data['TimeOut']        = '-';
+                        $res[]                  = $data;
+                    }
+                }
+                //$res1[]=$query->result();
+            }
+            $this->db->close();
+            $data['elist'] = $res;
+        } else if ($att == 'thismonth') { //current month attendance
+            $month                = date('m');
+            $year                 = date('Y');
+            $query                = $this->db->query("SELECT count(`Id`) as total FROM `EmployeeMaster`  WHERE `OrganizationId`=" . $orgid);
+            $data['total']        = $query->result();
+            $query                = $this->db->query("SELECT count(`EmployeeId`) as marked FROM AttendanceMaster  WHERE EXTRACT(MONTH from AttendanceDate)  ='" . $month . "' and EXTRACT(YEAR from AttendanceDate)  ='" . $year . "' and  `OrganizationId`=" . $orgid);
+            $data['marked']       = $query->result();
+            $query                = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut`,'Present' as status ,AttendanceDate FROM `AttendanceMaster` WHERE EXTRACT(MONTH from AttendanceDate) =?  and  EXTRACT(YEAR from AttendanceDate)  =? and OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate),name", array(
+                $month,
+                $year,
+                $orgid
+            ));
+            $data['elist']        = $query->result();
+            $query                = $this->db->query("select count(Id) as latecomers from AttendanceMaster where EXTRACT(MONTH from AttendanceDate) ='" . $month . "' and `OrganizationId`=" . $orgid . " and time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['latecomers']   = $query->result();
+            $query                = $this->db->query("select count(Id) as earlyleavers from AttendanceMaster where EXTRACT(MONTH from AttendanceDate) ='" . $month . "' and `OrganizationId`=" . $orgid . " and TimeOut !='00:00:00' and time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId)");
+            $data['earlyleavers'] = $query->result();
+            $start_week           = date('Y-m-01');
+            $end_week             = date('Y-m-d');
+            $start_week           = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week             = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod           = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            foreach ($datePeriod as $date) {
+                $dt    = $date->format('Y-m-d');
+                //---managing off (weekly and holiday)
+                $query = $this->db->query("SELECT `DateFrom`, `DateTo` FROM `HolidayMaster` WHERE OrganizationId=? and (? between `DateFrom` and `DateTo`) ", array(
+                    $orgid,
+                    $dt
+                ));
+                if ($query->num_rows() > 0)
+                    continue;
+                //    day of month : 1 sun 2 mon --
+                $dayOfWeek   = 1 + date('w', strtotime($dt));
+                $weekOfMonth = weekOfMonth($dt);
+                $week        = '';
+                $query       = $this->db->query("SELECT `WeekOff` FROM  `WeekOffMaster` WHERE  `OrganizationId` =? AND  `Day` =  ?", array(
+                    $orgid,
+                    $dayOfWeek
+                ));
+                if ($row = $query->result()) {
+                    $week = explode(",", $row[0]->WeekOff);
+                }
+                if ($week[$weekOfMonth - 1] == 1)
+                    continue;
+                //-----managing off (weekly and holiday) - close
+                $query               = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status,'" . $dt . "' as AttendanceDate  from EmployeeMaster where `OrganizationId` =" . $orgid . " and EmployeeMaster.archive=1 and EmployeeMaster.Id in(select AttendanceMaster.`EmployeeId` from AttendanceMaster WHERE `AttendanceDate`  ='" . $dt . "'  and AttendanceStatus<>1 and `OrganizationId`=" . $orgid . ") and CAST('$time' as time) > (select TimeIn from ShiftMaster where ShiftMaster.Id=shift) order by DATE(AttendanceDate),name asc");
+                $data['absentees'][] = $query->result();
+            }
+        } else if ($att == 'tm_late') {
+            $start_week = date('Y-m-01');
+            $end_week   = date('Y-m-d');
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate) desc,name");
+                $res[] = $query->result();
+            }
+            $data['elist'] = $res;
+            
+        } else if ($att == 'tm_early') {
+            $start_week = date('Y-m-01');
+            $end_week   = date('Y-m-d');
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate) desc,name");
+                $res[] = $query->result();
+            }
+            $data['elist'] = $res;
+        } else if ($att == 'tm_abs') {
+            $start_week = date('Y-m-01');
+            $end_week   = date('Y-m-d');
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$dt' and OrganizationId =" . $orgid . " group by AttendanceDate";
+                $query = $this->db->query($q2);
+                $d     = array();
+                //$res=array();
+                foreach ($query->result() as $row) {
+                    $date   = $row->AttendanceDate;
+                    // '<br/>total: '.$row->total.'  date: '.$row->AttendanceDate .'<br/>';
+                    $query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+                            FROM `EmployeeMaster` 
+                            WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+                             AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+                            NOT IN (
+                            SELECT `EmployeeId` 
+                            FROM `AttendanceMaster` 
+                            WHERE `AttendanceDate` 
+                            IN (
+                             '" . $row->AttendanceDate . "'
+                            )
+                            AND AttendanceMaster.OrganizationId =" . $orgid . "
+                            AND `AttendanceStatus` not in(3,5,6)
+                            )
+                            ORDER BY EmployeeMaster.Id ");
+                    $count  = $query1->num_rows();
+                    foreach ($query1->result() as $row) {
+                        $data                   = array();
+                        //$data['name']=ucwords(getEmpName($row->Id));
+                        $data['name']           = getEmpName($row->EmployeeId);
+                        $data['AttendanceDate'] = $date;
+                        $data['status']         = 'Absent';
+                        $data['TimeIn']         = '-';
+                        $data['TimeOut']        = '-';
+                        $res[]                  = $data;
+                    }
+                }
+                //$res1[]=$query->result();
+            }
+            $this->db->close();
+            $data['elist'] = $res;
+        } else if ($att == 'lastweek') { //lasweek attendance
+            $previous_week = strtotime("-1 week +1 day");
+            $start_week    = strtotime("last monday midnight", $previous_week);
+            $end_week      = strtotime("next sunday", $start_week);
+            $start_week    = date("Y-m-d", $start_week);
+            $end_week      = date("Y-m-d", $end_week);
+            $start_week    = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week      = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod    = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            foreach ($datePeriod as $date) {
+                $dt              = $date->format('Y-m-d');
+                $query           = $this->db->query("SELECT count(`EmployeeId`) as total,AttendanceDate FROM AttendanceMaster  WHERE `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid);
+                $data['rec'][]   = $query->result();
+                $query           = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate,'Present' as status FROM `AttendanceMaster` WHERE `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) order by DATE(AttendanceDate),name ");
+                $data['elist'][] = $query->result();
+                //---managing off (weekly and holiday)
+                $query           = $this->db->query("SELECT `DateFrom`, `DateTo` FROM `HolidayMaster` WHERE OrganizationId=? and (? between `DateFrom` and `DateTo`) ", array(
+                    $orgid,
+                    $dt
+                ));
+                if ($query->num_rows() > 0)
+                    continue;
+                //    day of month : 1 sun 2 mon --
+                $dayOfWeek   = 1 + date('w', strtotime($dt));
+                $weekOfMonth = weekOfMonth($dt);
+                $week        = '';
+                $query       = $this->db->query("SELECT `WeekOff` FROM  `WeekOffMaster` WHERE  `OrganizationId` =? AND  `Day` =  ?", array(
+                    $orgid,
+                    $dayOfWeek
+                ));
+                if ($row = $query->result()) {
+                    $week = explode(",", $row[0]->WeekOff);
+                }
+                if ($week[$weekOfMonth - 1] == 1)
+                    continue;
+                //-----managing off (weekly and holiday) - close
+                $query               = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name,'-' as TimeIn,'-' as TimeOut ,'Absent' as status,'" . $dt . "' as AttendanceDate  from EmployeeMaster where `OrganizationId` =" . $orgid . " and EmployeeMaster.Id not in(select AttendanceMaster.`EmployeeId` from AttendanceMaster WHERE `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . ") order by DATE(AttendanceDate),name");
+                $data['absentees'][] = $query->result();
+            }
+            //$data['elist']=$query->result();
+        }
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+        
+    }
+    public function getIndivisualReportData()
+    {
+        return true;
+    }
+    public function getLateComings()
+    {
+        $org_id = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $date   = isset($_REQUEST['cdate']) ? $_REQUEST['cdate'] : 0;
+        $res    = array();
+        $date   = date('Y-m-d', strtotime($date));
+        $query  = $this->db->query("select Shift,Id  from EmployeeMaster where OrganizationId = $org_id and Id IN (select EmployeeId from AttendanceMaster where OrganizationId = $org_id and AttendanceDate='$date' and TimeIn != '00:00:00') order by FirstName");
+        foreach ($query->result() as $row) {
+            $ShiftId = $row->Shift;
+            $EId     = $row->Id;
+            $query   = $this->db->query("select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn,TimeOut from ShiftMaster where Id = $ShiftId");
+            if ($data123 = $query->row()) {
+                $shiftin  = $data123->TimeIn;
+                $shift    = substr($data123->TimeIn, 0, 5) . ' - ' . substr($data123->TimeOut, 0, 5);
+                $ct       = date('H:i:s');
+                $query111 = $this->db->query("select * from EmployeeMaster where OrganizationId = $org_id  and Id =$EId");
+                if ($row111 = $query111->row()) {
+                    $query333 = $this->db->query("select * from AttendanceMaster where OrganizationId = $org_id  and EmployeeId =$EId and TimeIn > '$shiftin' and AttendanceDate='$date'");
+                    if ($row333 = $query333->row()) {
+                        $a              = new DateTime($row333->TimeIn);
+                        $b              = new DateTime($data123->TimeIn);
+                        $interval       = $a->diff($b);
+                        $data['lateby'] = $interval->format("%H:%I");
+                        $data['timein'] = substr($row333->TimeIn, 0, 5);
+                        $data['name']   = $row111->FirstName . ' ' . $row111->LastName;
+                        $data['shift']  = $shift;
+                        $data['date']   = $date;
+                        $res[]          = $data;
+                    }
+                }
+            }
+        }
+        
+        echo json_encode($res, JSON_NUMERIC_CHECK);
+    }
+    public function getEarlyLeavings()
+    {
+        $org_id = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $date   = isset($_REQUEST['cdate']) ? $_REQUEST['cdate'] : 0;
+        $zone   = getTimeZone($org_id);
+        date_default_timezone_set($zone);
+        $res   = array();
+        $date  = date('Y-m-d', strtotime($date));
+        $cdate = date('Y-m-d');
+        $time  = date('H:i:s');
+        $cond  = '';
+        $query = $this->db->query("select Shift,Id  from EmployeeMaster where OrganizationId = $org_id and Id IN (select EmployeeId from AttendanceMaster where OrganizationId = $org_id and AttendanceDate='$date' and TimeIn != '00:00:00') order by FirstName");
+        foreach ($query->result() as $row) {
+            $ShiftId = $row->Shift;
+            $EId     = $row->Id;
+            $query   = $this->db->query("select TimeIn,TimeOut from ShiftMaster where Id = $ShiftId");
+            if ($data123 = $query->row()) {
+                $shiftout = $data123->TimeOut;
+                $shift    = substr($data123->TimeIn, 0, 5) . ' - ' . substr($data123->TimeOut, 0, 5);
+                $ct       = date('H:i:s');
+                $query111 = $this->db->query("select * from EmployeeMaster where OrganizationId = $org_id  and Id =$EId");
+                if ($row111 = $query111->row()) {
+                    if ($cdate == $date)
+                        $cond = "    and TimeOut !='00:00:00'";
+                    $query333 = $this->db->query("select * from AttendanceMaster where OrganizationId = $org_id  and EmployeeId =$EId and TimeOut < '$shiftout' and AttendanceDate='$date' " . $cond." order by Id Desc limit 1");
+                    if ($row333 = $query333->row()) {
+                        $a               = new DateTime($row333->TimeOut);
+                        $b               = new DateTime($data123->TimeOut);
+                        $interval        = $a->diff($b);
+                        $data['earlyby'] = $interval->format("%H:%I");
+                        $data['timeout'] = substr($row333->TimeOut, 0, 5);
+                        ;
+                        $data['name']  = $row111->FirstName . ' ' . $row111->LastName;
+                        $data['shift'] = $shift;
+                        $data['date']  = $date;
+                        $res[]         = $data;
+                    }
+                }
+            }
+        }
+        
+        echo json_encode($res, JSON_NUMERIC_CHECK);
+    }
+    
+    
+    public function getBreakInfo()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $today       = date('Y-m-d');
+        //SELECT `Id`, `EmployeeId`, `TimeofDate`, `TimeFrom`, `TimeTo`, `Reason`, `ApproverId`, `ApprovalSts`, `ApproverComment`, `CreatedDate`, `ModifiedDate`, `OrganizationId` FROM `Timeoff` WHERE 1
+        $query       = $this->db->query("SELECT `Id`,TimeofDate as Date, TimeFrom as `BreakOn`, TimeTo as `BreakOff`, `OrganizationId` FROM `Timeoff` WHERE EmployeeId=? and OrganizationId=? and TimeofDate=? order by Id desc limit 1", array(
+            $uid,
+            $orgid,
+            $today
+        ));
+        $data        = array();
+        $data['id']  = '';
+        $data['stb'] = '';
+        $data['sts'] = 0;
+        foreach ($query->result() as $row) {
+            $data['id'] = $row->Id;
+            if (($row->BreakOn != '00:00:00' or $row->BreakOn != '') and ($row->BreakOff == '00:00:00' or $row->BreakOff == '')) {
+                $data['sts'] = 1; // Timed in but not timed out
+                $data['stb'] = $row->BreakOn;
+            }
+        }
+        echo json_encode($data);
+    }
+    public function getPunchInfo()
+    { 
+		$uid=isset($_REQUEST['uid'])?$_REQUEST['uid']:0;
+		$orgid=isset($_REQUEST['orgid'])?$_REQUEST['orgid']:0;
+		$zone=getTimeZone($orgid);
+		date_default_timezone_set($zone);
+		$today=isset($_REQUEST['date'])?$_REQUEST['date']:date('Y-m-d');		
+		$today=date('Y-m-d',strtotime($today));
+		//$today=date('Y-m-d');
+		if($uid!=0){
+			$query = $this->db->query("SELECT Id,EmployeeId,`location`,location_out,`time`,`time_out`,checkin_img,checkout_img, `client_name`, `description`,`latit`, `longi`, `latit_out`, `longi_out` FROM `checkin_master` WHERE EmployeeId=? and date=?  AND  EmployeeId in (SELECT Id from EmployeeMaster where OrganizationId = $orgid AND Is_Delete = 0) order by EmployeeId ",array($uid,$today));	
+		}else{
+			$query = $this->db->query("SELECT Id, EmployeeId,`location`,location_out,`time`,`time_out`,checkin_img,checkout_img, `client_name`, `description`,`latit`, `longi`, `latit_out`, `longi_out` FROM `checkin_master` WHERE OrganizationId=? and date=? AND  EmployeeId in (SELECT Id from EmployeeMaster where OrganizationId = $orgid AND Is_Delete = 0) order by EmployeeId ",array($orgid,$today));	
+		}
+		$res=array();
+		foreach ($query->result() as $row){
+			$data=array();
+			$data['Id']=$row->Id;
+			$data['emp']=getEmpName($row->EmployeeId);
+			$data['loc_in']=$row->location;
+			$data['loc_out']=$row->location_out;
+			$data['time_in']=date('H:i',strtotime($row->time));
+			$data['time_out']=date('H:i',strtotime($row->time_out));
+			$data['latit']=$row->latit;
+			$data['longi']=$row->longi;
+			$data['longi_out']=$row->longi_out;
+			$data['latit_in']=$row->latit_out;
+			$data['client']=$row->client_name;
+			$data['desc']=$row->description;
+			$data['checkin_img']=$row->checkin_img;
+			$data['checkout_img']=$row->checkout_img;
+			$res[]=$data;
+		}
+		echo json_encode($res);
+		
+		/*
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $today      = date('Y-m-d');
+        $query      = $this->db->query("SELECT Id FROM `checkin_master` WHERE `EmployeeId`=? and `OrganizationId`=? and `time_out`='00:00:00' and date=? order by id desc limit 1 ", array(
+            $uid,
+            $orgid,
+            $today
+        ));
+        $data       = array();
+        $data['id'] = 0;
+        if ($row = $query->result())
+            $data['id'] = $row[0]->Id;
+        echo json_encode($data);
+		*/
+    }
+    public function getPunchedLocations()
+    {
+        $userid = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $date   = isset($_REQUEST['cdate']) ? $_REQUEST['cdate'] : 0;
+        
+        $query = $this->db->query("SELECT  `location`,location_out ,`time`,`time_out`, `client_name`, `description` FROM `checkin_master` WHERE EmployeeId=? order by id desc", array(
+            $userid
+        ));
+		//echo "SELECT  `location`,location_out ,`time`,`time_out`, `client_name`, `description` FROM `checkin_master` WHERE EmployeeId=$userid' order by id desc";
+        echo json_encode($query->result());
+    }
+    public function timeBreak()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $id    = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $today = date('Y-m-d');
+        $time  = date("H:i:s");
+        ;
+        $query = $this->db->query("SELECT `Id`,TimeFrom as BreakOn,TimeTo as BreakOff FROM `Timeoff` WHERE EmployeeId=? and OrganizationId=? and TimeofDate=? order by Id desc limit 1", array(
+            $uid,
+            $orgid,
+            $today
+        ));
+        $data  = array();
+        $sts   = 0;
+        $res   = 0;
+        if ($query->num_rows() > 0) {
+            $row        = $query->result();
+            $data['id'] = $row[0]->Id;
+            //echo $row[0]->BreakOn."--".$row[0]->BreakOff.'--';
+            if (($row[0]->BreakOn != '00:00:00' or $row[0]->BreakOn != '') and ($row[0]->BreakOff == '00:00:00' or $row[0]->BreakOff == '')) {
+                $sts = 1; // Timed in but not timed out
+            }
+        }
+        
+        if ($sts == 0) { // time to marke start time off
+            
+            //    $query = $this->db->query("INSERT INTO `BreakMaster`(`EmployeeId`, `Date`, `BreakOn`, `OrganizationId`) VALUES (?,?,?,?)",array($uid,$today,$time,$orgid));
+            $query = $this->db->query("INSERT INTO `Timeoff`(`EmployeeId`, `TimeofDate`, `TimeFrom`, `OrganizationId`,ApprovalSts,CreatedDate) VALUES (?,?,?,?,?,?)", array(
+                $uid,
+                $today,
+                $time,
+                $orgid,
+                2,
+                $today
+            ));
+            if ($this->db->affected_rows() > 0)
+                $res = 1;
+        } else { // time to mark stop time off
+            //    $query = $this->db->query("UPDATE `BreakMaster` SET `BreakOff`=? WHERE id=? ",array($time,$id));
+            $query = $this->db->query("UPDATE `Timeoff` SET `TimeTo`=? WHERE id=? ", array(
+                $time,
+                $id
+            ));
+            if ($this->db->affected_rows() > 0)
+                $res = 2;
+        }
+        echo json_encode($res);
+    }
+    public function changePassword()
+    {
+        $uid         = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid       = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $pwd         = encode5t(isset($_REQUEST['pwd']) ? $_REQUEST['pwd'] : '');
+        $npwd        = encode5t(isset($_REQUEST['npwd']) ? $_REQUEST['npwd'] : '');
+        $data        = array();
+        $res = 0;
+        $zone        = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $today = date('Y-m-d');
+        $query = $this->db->query("select * from UserMaster where EmployeeId=? and BINARY Password=? and OrganizationId=?", array(
+            $uid,
+            $pwd,
+            $orgid
+        ));
+        if ($this->db->affected_rows() < 1) 
+            $res = 2; // password not matched
+        else { // old password matched
+            if ($pwd == $npwd) 
+                $res = 3; // new password and old password are same
+        }
+        if($res==0){
+        $query = $this->db->query("UPDATE `UserMaster` SET `Password`=?  WHERE EmployeeId=? and OrganizationId=?", array(
+            $npwd,
+            $uid,
+            $orgid
+        ));
+        if ($this->db->affected_rows() > 0) 
+            $res = 1; // password updated
+        }
+        echo $res;
+    }
+    public function getProfile()
+    {
+        $uid                    = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $query                  = $this->db->query("SELECT `Id`,`FirstName`,`LastName`,`MaritalStatus`,`HomeAddress`,`PersonalNo`,Department,Designation  ,Shift,CurrentCountry FROM `EmployeeMaster` WHERE `Id`=?", array(
+            $uid
+        ));
+        $data                   = array();
+        $data['info']           = $query->result();
+        $query                  = $this->db->query("SELECT `DisplayName`, `ActualValue` FROM `OtherMaster` WHERE `OtherType`='MaritalStatus'");
+        $data['marital']        = $query->result();
+        $msts                   = $data['info'][0]->MaritalStatus;
+        $data['dept']           = $data['info'][0]->Department!='0'?getDepartment($data['info'][0]->Department):'';
+        $data['desg']           = $data['info'][0]->Designation!=0?getDesignation($data['info'][0]->Designation):'';
+        $data['shift']          = $data['info'][0]->Shift!=0?getShift($data['info'][0]->Shift):'';
+        $data['PersonalNo']     = decode5t($data['info'][0]->PersonalNo);
+        $data['HomeAddress']    = decode5t($data['info'][0]->HomeAddress);
+		$data['shifttiming']	= $data['info'][0]->Shift!=0?getShiftTimes($data['info'][0]->Shift):'';
+        $data['CurrentCountry'] = $data['info'][0]->CurrentCountry;
+        $query                  = $this->db->query("SELECT `Id`, `Name`,countryCode FROM `CountryMaster` order by Name");
+        $data['country']        = $query->result();
+        echo json_encode($data);
+    }
+	public function getAttendancees()
+    {
+        $orgid                    = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        $zone        = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $today = date('Y-m-d');
+		$query                  = $this->db->query("
+		select Id,
+		concat(FirstName,' ',LastName) as Name,
+		Shift,
+		Designation,
+		Department 
+		from EmployeeMaster where OrganizationId=$orgid and 
+		archive=1 and 
+		Id not in( select EmployeeId from AttendanceMaster where AttendanceDate='$today' and OrganizationId='$orgid')");
+        echo json_encode($query->result());
+    }
+	
+    public function updateProfile()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $no    = isset($_REQUEST['no']) ? encode5t($_REQUEST['no']) : 0;
+        //$mar   = isset($_REQUEST['mar']) ? $_REQUEST['mar'] : 0; // marrital status -- eliminated
+        $con   = isset($_REQUEST['con']) ? $_REQUEST['con'] : 0;
+        //$ccon  = isset($_REQUEST['ccon']) ? $_REQUEST['ccon'] : '0';
+       // $add   = isset($_REQUEST['add']) ? encode5t($_REQUEST['add']) : 0;
+        $res   = 0;
+		$count = 0;
+		 if ($no != '') {
+            $sql = "SELECT * FROM UserMaster where username_mobile = '" . $no . "' ";
+            $this->db->query($sql);
+            $count = $this->db->affected_rows();
+        }
+		if($count == 0){
+		
+        //, CurrentCountry=?,countrycode=?
+        $query = $this->db->query("update EmployeeMaster set `PersonalNo`= ? WHERE `Id`=? and OrganizationId=? ", array(            
+            $no,
+            $uid,
+            $orgid
+        ));//$con,$ccon,
+        $res   = $this->db->affected_rows();
+        if ($res)
+            $query = $this->db->query("update UserMaster set username_mobile=? WHERE `EmployeeId`=? and OrganizationId=? ", array(
+                $no,
+                $uid,
+                $orgid
+            ));
+        }
+		
+        $data        = array();
+        $data['res'] = $res;
+        echo json_encode($data);
+    }
+	/* 
+	public function updateProfilePhoto()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $new_name   = $uid.".jpg";
+		$res = 0;
+		$status = false;
+		
+		if (!file_exists("uploads/$orgid/")) {
+			mkdir("uploads/$orgid/" ,  0777,true);
+		}
+		
+		if(file_exists("uploads/$orgid/".$new_name)){
+			unlink("uploads/$orgid/".$new_name);
+		}
+		
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$orgid/" . $new_name)){
+		
+        //, CurrentCountry=?,countrycode=?
+        $query = $this->db->query("update EmployeeMaster set `ImageName`= ? WHERE `EmployeeCode`=? and OrganizationId=? ", array(            
+            $new_name,
+            $uid,
+            $orgid
+        ));//$con,$ccon,
+		
+			$res = $this->db->affected_rows();
+			Trace($new_name." ".$uid." ".$orgid);
+			$status = true;
+        }
+		
+        $data        = array();
+		$data['status'] = $status;
+        echo json_encode($data);
+    } */
+    
+   public function resetPasswordLink(){   // generate and set reset password link
+//sendEmail_new("bitsvijay@gmail.com","pwd testing","testing mail");
+		$una=isset($_REQUEST['una'])?$_REQUEST['una']:'';
+		//$orgid=isset($_REQUEST['refno'])?$_REQUEST['refno']:0;
+		//$orgid=sqrt($`-99);
+		$una=encode5t($una);
+		$query = $this->db->query("SELECT Id,OrganizationId,`FirstName`,(SELECT  `resetPassCounter` FROM `UserMaster` WHERE `Username`=? or username_mobile=?)as ctr, (SELECT  `Username` FROM `UserMaster` WHERE `Username`=? or username_mobile=?)as email FROM `EmployeeMaster` WHERE `Id`=(SELECT  `EmployeeId` FROM `UserMaster` WHERE `Username`=? or username_mobile=?)",array($una,$una,$una,$una,$una,$una));
+		if($query->num_rows()>0){
+			if($row=$query->result()){	
+//	 $url='https://ubiattendance.ubihrm.com/index.php/services/HastaLaVistaUbi?hasta='.encrypt($row[0]->Id).'&vista='.encrypt($orgid);
+			$orgid = $row[0]->OrganizationId;
+			$email=($row[0]->email=='')?'':decode5t($row[0]->email);
+			 $url='https://ubishift.ubihrm.com/index.php/services/HastaLaVistaUbi?hasta='.encrypt($row[0]->Id).'&vista='.encrypt($orgid).'&ctrpvt='.encrypt($row[0]->ctr);
+			$msg=" Dear ".$row[0]->FirstName." <br/>
+				You have requested for reset your ubiShift login password, please click on the following link to reset your password ".$url." <br/><br/>
+				Thanks<br/>
+				UBITECH TEAM
+				" ;
+				//sendEmail_new($email,"UbiAttendance reset Password",$msg);
+				$headers = 'From: <noreply@ubiattendance.com>' . "\r\n";
+				sendEmail_new($email,"ubiShift reset Password",$msg,$headers);
+				
+				echo 1; // valid id and ref
+			}else
+				echo 0;  
+		}else
+				echo 2;
+	}
+	
+    public function setPassword()
+    {
+        $uid   = isset($_REQUEST['hasta']) ? decrypt($_REQUEST['hasta']) : 0;
+        $orgid = isset($_REQUEST['vista']) ? decrypt($_REQUEST['vista']) : 0;
+        $np    = isset($_REQUEST['np']) ? encode5t($_REQUEST['np']) : '';
+        //$np=isset($_REQUEST['np'])?($_REQUEST['np']):'';
+        $res   = 0;
+        //    echo "UPDATE UserMaster SET Password='".$np."' WHERE EmployeeId=".$uid." and OrganizationId=".$orgid;
+        //    return false;
+        $query = $this->db->query("UPDATE `UserMaster` SET`Password`=?,resetPassCounter=resetPassCounter+1 WHERE EmployeeId=? and OrganizationId=?", array(
+            $np,
+            $uid,
+            $orgid
+        ));
+        $res   = $this->db->affected_rows();
+        echo $res;
+    }
+    public function checkLinkValidity($uid, $orgid, $counter)
+    {
+        //    echo "SELECT id  FROM `UserMaster` WHERE  EmployeeId='$uid' and OrganizationId=$orgid and resetPassCounter=$counter";
+        //        die();
+        $query = $this->db->query("SELECT id  FROM `UserMaster` WHERE  EmployeeId=? and OrganizationId=? and resetPassCounter=?", array(
+            $uid,
+            $orgid,
+            $counter
+        ));
+        
+        return $query->num_rows();
+        
+    }
+    public function getSuperviserSts()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refid']) ? $_REQUEST['refid'] : 0;
+        $query = $this->db->query("SELECT `appSuperviserSts`  FROM `UserMaster` WHERE  EmployeeId=? and OrganizationId=?", array(
+            $uid,
+            $orgid
+        ));
+        echo json_encode($query->result());
+    }
+    public function test()
+    {
+		$query = $this->db->query("SELECT `Password` FROM `UserMaster` WHERE `EmployeeId`=? and OrganizationId=?", array(
+            4147,
+            10
+        ));
+        if($row=$query->result())
+			echo decode5t($row[0]->Password);
+		else echo 'unable to show pwd';
+		return false;
+		
+        echo "Encoding 21: " . encode_vt5(21);
+        echo "Decoding 540: " . decode_vt5(540);
+        return false;
+        $tz    = 0;
+        $query = $this->db->query("SELECT * FROM `ZoneMaster` WHERE `CountryId`=93");
+        if ($row = $query->result())
+            echo $row[0]->Id;
+        else
+            echo "Nothing";
+    }
+    //////-----------------------------------shift
+    public function addShift()
+    {
+        $sna       = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+        $ti        = date("H:i:s", strtotime(isset($_REQUEST['ti']) ? $_REQUEST['ti'] : '00:00:00'));
+        $to        = date("H:i:s", strtotime(isset($_REQUEST['to']) ? $_REQUEST['to'] : '00:00:00'));
+        $tib       = date("H:i:s", strtotime(isset($_REQUEST['tib']) ? $_REQUEST['tib'] : '00:00:00'));
+        $tob       = date("H:i:s", strtotime(isset($_REQUEST['tob']) ? $_REQUEST['tob'] : '00:00:00'));
+        $tig       = date("H:i:s", strtotime(isset($_REQUEST['tig']) ? $_REQUEST['tig'] : '00:00:00'));
+        $tog       = date("H:i:s", strtotime(isset($_REQUEST['tog']) ? $_REQUEST['tog'] : '00:00:00'));
+        $bog       = date("H:i:s", strtotime(isset($_REQUEST['bog']) ? $_REQUEST['bog'] : '00:00:00'));
+        $big       = date("H:i:s", strtotime(isset($_REQUEST['big']) ? $_REQUEST['big'] : '00:00:00'));
+		 $ti	=	 $ti=='00:00:00'	?	'00:01:00'	:	 $ti;
+		 $to	=	 $to=='00:00:00'	?	'23:59:00'	:	 $to;
+        $shifttype = isset($_REQUEST['shifttype']) ? $_REQUEST['shifttype'] : 0;
+        $orgid     = isset($_REQUEST['org_id']) ? $_REQUEST['org_id'] : '0';
+        $sts       = isset($_REQUEST['sts']) ? $_REQUEST['sts'] : 1;
+        $date      = date('Y-m-d');
+        $res       = 0;
+        $query     = $this->db->query("select Id from `ShiftMaster` where Name=? and OrganizationId=?  ", array(
+            $sna,
+            $orgid
+        ));
+        if ($query->num_rows() > 0)
+            $res = -1; // Shift Name already exist already exist
+        else {
+            $query = $this->db->query("INSERT INTO `ShiftMaster`(`Name`, `TimeIn`, `TimeOut`, `TimeInGrace`, `TimeOutGrace`, `TimeInBreak`, `TimeOutBreak`, `OrganizationId`, `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `BreakInGrace`, `BreakOutGrace`, `archive`,shifttype) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", array(
+                $sna,
+                $ti,
+                $to,
+                $tig,
+                $tog,
+                $tib,
+                $tob,
+                $orgid,
+                $date,
+                0,
+                $date,
+                0,
+                0,
+                $big,
+                $bog,
+                $sts,
+                $shifttype
+            ));
+			$res   = $this->db->affected_rows();
+			$shift_id = $this->db->insert_id();
+			 for ($i = 1; $i < 8; $i++)// create default weekly off
+						$query = $this->db->query("INSERT INTO `ShiftMasterChild`(`ShiftId`,`Day`,`WeekOff`, `OrganizationId`, `ModifiedBy`, `ModifiedDate`) VALUES (?,?,'0,0,0,0,0',?,0,?)",array($shift_id,$i,$orgid,$date));
+           }
+        $this->db->close();
+        echo $res;
+        
+    }
+    //////-----------------------------------/shift
+    //////-----------------------------------/department
+    public function addDept()
+    {
+        
+        $id    = isset($_REQUEST['uid']) ? $_REQUEST['uid'] :0;
+        $orgid = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        $dna   = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+        $sts   = isset($_REQUEST['sts']) ? $_REQUEST['sts'] : 0;
+        $date  = date('Y-m-d');
+		$query=$this->db->query("Select Id from DepartmentMaster where Name=? and OrganizationId=?",array($dna,$orgid));
+		$res = $this->db->affected_rows();
+		if($res>0)
+		{
+			echo -1; // if dept already exist
+			return false;
+		}
+        $query = $this->db->query("INSERT INTO `DepartmentMaster`(`Name`, `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `OrganizationId`,`archive`) VALUES (?,?,?,?,?,?,?,?)", array(
+            $dna,
+            $date,
+            $id,
+            $date,
+            $id,
+            $id,
+            $orgid,
+            $sts
+        ));
+        $res = $this->db->affected_rows();
+        echo $res;
+    }
+	public function updateDept()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] :0;
+        $dna   = isset($_REQUEST['dept']) ? $_REQUEST['dept'] : '-';
+        $sts   = isset($_REQUEST['sts']) ? $_REQUEST['sts'] : 0;
+        $did   = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+		$orgid = getName("EmployeeMaster","OrganizationId","Id",$uid);
+        $date  = date('Y-m-d');
+		$query=$this->db->query("Select Id from DepartmentMaster where Name=? and OrganizationId=? and Id!=?",array($dna,$orgid,$did));
+		$res = $this->db->affected_rows();
+		if($res>0)
+		{
+			echo -1; // if dept already exist
+			return false;
+		}
+		
+        $query = $this->db->query("update `DepartmentMaster` set 
+		`Name`=?,
+		`LastModifiedDate`=?, 
+		`LastModifiedById`=?,
+		`archive`=? 
+			where id=?",
+		array(
+            $dna,
+            $date,
+            $uid,
+            $sts,
+			$did
+        ));
+        $res = $this->db->affected_rows();
+		$this->db->close();
+        echo $res;
+    }
+    //////-----------------------------------/department
+	public function updateShift()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] :0;
+        $dna   = isset($_REQUEST['shift']) ? $_REQUEST['shift'] : '-';
+        $sts   = isset($_REQUEST['sts']) ? $_REQUEST['sts'] : 0;
+        $did   = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+		$orgid = getName("EmployeeMaster","OrganizationId","Id",$uid);
+        $date  = date('Y-m-d');
+		$query=$this->db->query("Select Id from ShiftMaster where Name=? and OrganizationId=? and Id!=?",array($dna,$orgid,$did));
+		$res = $this->db->affected_rows();
+		if($res>0)
+		{
+			echo -1; // if dept already exist
+			return false;
+		}
+		
+        $query = $this->db->query("update `ShiftMaster` set 
+		`Name`=?,
+		`LastModifiedDate`=?, 
+		`LastModifiedById`=?,
+		`archive`=? 
+			where id=?",
+		array(
+            $dna,
+            $date,
+            $uid,
+            $sts,
+			$did
+        ));
+        $res = $this->db->affected_rows();
+		$this->db->close();
+        echo $res;
+    }
+	//////-----------------------------------/update designation
+	public function updateDesg()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] :0;
+        $dna   = isset($_REQUEST['desg']) ? $_REQUEST['desg'] : '-';
+        $sts   = isset($_REQUEST['sts']) ? $_REQUEST['sts'] : 0;
+        $did   = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+		$orgid = getName("EmployeeMaster","OrganizationId","Id",$uid);
+        $date  = date('Y-m-d');
+		$query=$this->db->query("Select Id from DesignationMaster where Name=? and OrganizationId=? and Id!=?",array($dna,$orgid,$did));
+		$res = $this->db->affected_rows();
+		if($res>0)
+		{
+			echo -1; // if dept already exist
+			return false;
+		}
+		
+        $query = $this->db->query("update `DesignationMaster` set 
+		`Name`=?,
+		`LastModifiedDate`=?, 
+		`LastModifiedById`=?,
+		`archive`=? 
+			where id=?",
+		array(
+            $dna,
+            $date,
+            $uid,
+            $sts,
+			$did
+        ));
+        $res = $this->db->affected_rows();
+		$this->db->close();
+        echo $res;
+    }
+    //////-----------------------------------/department
+	
+    //////-----------------------------------/desgi
+    public function addDesg()
+    {
+        $id    = isset($_REQUEST['uid']) ? $_REQUEST['uid'] :0;
+        $orgid = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        $dna   = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+        $sts   = isset($_REQUEST['sts']) ? $_REQUEST['sts'] : 0;
+        $desc  = isset($_REQUEST['desc']) ? $_REQUEST['desc'] : '';
+        $date  = date('Y-m-d');
+		$query=$this->db->query("Select Id from DesignationMaster where Name=? and OrganizationId=?",array($dna,$orgid));
+		$res = $this->db->affected_rows();
+		if($res>0)
+		{
+			echo -1; // if dept already exist
+			return false;
+		}
+        $query = $this->db->query("INSERT INTO `DesignationMaster`(`Name`, `OrganizationId`, `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`,`Description`, `archive`) VALUES (?,?,?,?,?,?,?,?,?)", array(
+            $dna,
+            $orgid,
+            $date,
+            $id,
+            $date,
+            $id,
+            $id,
+            $desc,
+            $sts
+        ));
+        $res   = $this->db->affected_rows();
+		$this->db->close();
+        echo $res;
+    }
+    public function getTimeoffList()
+    {
+        $org_id     = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : '0';
+        $start_week = isset($_REQUEST['fd']) ? $_REQUEST['fd'] : '0';
+        $end_week   = isset($_REQUEST['to']) ? $_REQUEST['to'] : '0';
+        $start_week = date("Y-m-d", strtotime($start_week));
+        $end_week   = date("Y-m-d", strtotime($end_week));
+        $query      = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName) from EmployeeMaster where id= `EmployeeId`) as name,(SELECT DisplayName FROM `OtherMaster` WHERE `OtherType` = 'LeaveStatus' and ActualValue = ApprovalSts) as ApprovalSts, TIME_FORMAT(TimeFrom, '%H:%i') as TimeFrom ,TIME_FORMAT(TimeTo, '%H:%i') as TimeTo,TIME_FORMAT(TIMEDIFF( TimeTo, TimeFrom), '%H:%i') as diff,DATE_FORMAT(TimeofDate,'%d/%m/%Y') as tod FROM `Timeoff` where OrganizationId = " . $org_id . " and TimeofDate  BETWEEN '" . $start_week . "' AND '" . $end_week . "' order by DATE(TimeofDate), name");
+		$this->db->close();
+        echo json_encode($query->result(), JSON_NUMERIC_CHECK);
+        
+        //echo "SELECT (select CONCAT(FirstName,' ',LastName) from EmployeeMaster where id= `EmployeeId`) as name, TimeFrom,TimeTo,TIMEDIFF( TimeTo, TimeFrom) as diff FROM `Timeoff`,TimeofDate where OrganizationId = 10 and TimeofDate  BETWEEN '".$start_week."' AND '".$end_week."'";
+        
+    }
+    //////-----------------------------------/desig
+    
+    public function getAppVersion()
+    {
+        $platform = isset($_REQUEST['platform']) ? $_REQUEST['platform'] : 'Android';
+        if ($platform == 'Android')
+            $query = $this->db->query("SELECT android_version as version FROM  `PlayStore` WHERE orgid=0 LIMIT 1");
+        else
+            $query = $this->db->query("SELECT ios_version as version FROM  `PlayStore` WHERE orgid=0 LIMIT 1");
+        echo json_encode($query->result());
+    }
+    
+    public function addCheckin()
+    {
+        $orgid    = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        $cname    = isset($_REQUEST['cname']) ? $_REQUEST['cname'] : '';
+        $comment  = isset($_REQUEST['comment']) ? $_REQUEST['comment'] : '';
+        $loc      = isset($_REQUEST['loc']) ? $_REQUEST['loc'] : '';
+        $latit    = isset($_REQUEST['latit']) ? $_REQUEST['latit'] : '0.0';
+        $longi    = isset($_REQUEST['longi']) ? $_REQUEST['longi'] : '0.0';
+        $skip     = isset($_REQUEST['skip']) ? $_REQUEST['skip'] : 0;
+        $uid      = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $punch_id = isset($_REQUEST['punch_id']) ? $_REQUEST['punch_id'] : 0;
+        $zone     = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date = date('Y-m-d');
+        $time = date('H:i:00');
+        if ($punch_id == 0)
+            echo $query = $this->db->query("INSERT INTO `checkin_master`(`EmployeeId`, `location`, `latit`, `longi`, `time`, `date`, `client_name`, `description`, `OrganizationId`) VALUES (?,?,?,?,?,?,?,?,?)", array(
+                $uid,
+                $loc,
+                $latit,
+                $longi,
+                $time,
+                $date,
+                $cname,
+                $comment,
+                $orgid
+            ));
+        else if ($punch_id != 0 && $skip == 1) // skip case
+            echo $query = $this->db->query("UPDATE `checkin_master`set `location_out`=location, `latit_out`=latit, `longi_out`=longi, `time_out`=time where id=?", array(
+                $punch_id
+            ));
+        else
+            echo $query = $this->db->query("UPDATE `checkin_master`set `location_out`=?, `latit_out`=?, `longi_out`=?, `time_out`=? where id=?", array(
+                $loc,
+                $latit,
+                $longi,
+                $time,
+                $punch_id
+            ));
+    }
+    
+    ////////////////////importing methods from HRM- start
+    public function getModules()
+    {
+        $orgid = isset($_REQUEST['orgid']) ? decode5t($_REQUEST['orgid']) : '0';
+        $data  = array();
+        try {
+            $query              = $this->db->query("SELECT ModuleId AS module,ViewPermission as permission FROM OrgPermission WHERE  OrgId= ? and ModuleId in (5,31,66,171,186,187,2)", array(
+                $orgid
+            ));
+            $data['permission'] = $query->result();
+        }
+        catch (Exception $a) {
+            $data['permission'] = '0';
+        }
+        return $data;
+        
+    }
+		public function saveVisit(){
+		$userid  = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+		$cid  = isset($_REQUEST['cid']) ? $_REQUEST['cid'] : 0;
+        $addr    = isset($_REQUEST['location']) ? $_REQUEST['location'] : '';
+        $orgid   = isset($_REQUEST['refid']) ? $_REQUEST['refid'] : 0;
+        $latit   = isset($_REQUEST['latit']) ? $_REQUEST['latit'] : '0.0';
+        $longi   = isset($_REQUEST['longi']) ? $_REQUEST['longi'] : '0.0';
+		if(!getAddonPermission($orgid,"Addon_GeoFence")){ // org doesn't has geo-fence addon
+			$latit   = '0.0';
+			$longi	 = '0.0';
+		}
+		$zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		$stamp  = date("Y-m-d H:i:s");
+        $date   = date("Y-m-d");
+        $time   = date("H:i")=="00:00"?"23:59":date("H:i");
+		$data=array();
+		$data['msg']='Mark visit under process';
+		$data['res']=0;
+		$client_name=$cid;//getClientName($cid);
+		$new_name   = $userid . '_' .$cid. '_' .date('dmY_His') . ".jpg";
+		if (move_uploaded_file($_FILES["file"]["tmp_name"], "visits/" . $new_name))
+    //    if(true)
+        {
+			$query=$this->db->query("update `checkin_master` set description=?, `location_out`=location ,`latit_out`=latit,`longi_out`=longi, `time_out`=time,`checkout_img`='',skipped=1 where EmployeeId=? and time_out='00:00:00'",array('Visit out not punched',$userid));
+			
+			
+			$sql="INSERT INTO `checkin_master`(`EmployeeId`, `location`, `latit`, `longi`, `time`, `date`, `client_name`, `ClientId`, `OrganizationId`, `checkin_img`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			$query=$this->db->query($sql,array($userid,$addr,$latit,$longi,$time,$date,$client_name,$cid,$orgid,IMGURL1.$new_name));
+			if($query>0){
+				$data['res']='1';
+				$data['msg']='Visit marked successfully.';
+			}else{
+				$data['res']='0';
+				$data['msg']='Unable to mark visit, try later.';
+			}
+		}else{
+			$data['res']='0';
+			$data['msg']='Error in moving the image, try later.';
+		}
+		echo json_encode($data);
+	}
+	public function updateProfilePhoto()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $new_name   = $uid.".jpg";
+		$res = 0;
+		$status = false;
+		
+		if (!file_exists("uploads/$orgid/")) {
+			mkdir("uploads/$orgid/" ,  0777,true);
+		}
+		
+		if(file_exists("uploads/$orgid/".$new_name)){
+			unlink("uploads/$orgid/".$new_name);
+		}
+		
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/$orgid/" . $new_name)){
+        //, CurrentCountry=?,countrycode=?
+        $query = $this->db->query("update EmployeeMaster set `ImageName`= ? WHERE `Id`=? and OrganizationId=? ", array(            
+            $new_name,
+            $uid,
+            $orgid
+        ));//$con,$ccon,
+		
+			$res = $this->db->affected_rows();
+			Trace($new_name." ".$uid." ".$orgid);
+			$status = true;
+        }
+		
+        $data        = array();
+		$data['status'] = $status;
+        echo json_encode($data);
+    } 
+		public function saveVisitOut(){
+		$visit_id  = isset($_REQUEST['visit_id']) ? $_REQUEST['visit_id'] : 0;
+		$remark  = isset($_REQUEST['remark']) ? $_REQUEST['remark'] : 0;
+        $latit   = isset($_REQUEST['latit']) ? $_REQUEST['latit'] : '0.0';
+        $longi   = isset($_REQUEST['longi']) ? $_REQUEST['longi'] : '0.0';
+        $addr   = isset($_REQUEST['addr']) ? $_REQUEST['addr'] : '0.0';
+        $orgid   = isset($_REQUEST['refid']) ? $_REQUEST['refid'] : '0.0';
+        $empid   = isset($_REQUEST['empid']) ? $_REQUEST['empid'] : '0.0';
+		if(!getAddonPermission($orgid,"Addon_GeoFence")){ // org doesn't has geo-fence addon
+			$latit   = '0.0';
+			$longi	 = '0.0';
+		}
+		$zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		$stamp  = date("Y-m-d H:i:s");
+        $date   = date("Y-m-d");
+        $time   = date("H:i")=="00:00"?"23:59":date("H:i");
+		$data=array();
+		$data['msg']='Mark visit out under process';
+		$data['res']=0;
+		$new_name   = $visit_id . '__' .date('dmY_His') . ".jpg";
+		if (move_uploaded_file($_FILES["file"]["tmp_name"], "visits/" . $new_name))
+      //  if(true)
+        {
+			
+			
+			$query=$this->db->query("update `checkin_master` set description=?, `location_out`=? ,`latit_out`=?,`longi_out`=?, `time_out`=?,`checkout_img`=? where Id=?",array($remark,$addr,$latit,$longi,$time,IMGURL1.$new_name,$visit_id));
+			if($query>0){
+				$data['res']='1';
+				$data['msg']='Visit marked successfully.';
+			}else{
+				$data['res']='0';
+				$data['msg']='Unable to mark visit, try later.';
+			}
+		}else{
+			$data['res']='0';
+			$data['msg']='Error in moving the image, try later.';
+		}
+		echo json_encode($data);
+	}
+	
+    public function punchLocation()
+    {
+        $orgid   = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        $cname   = isset($_REQUEST['cname']) ? $_REQUEST['cname'] : '';
+        $comment = isset($_REQUEST['comment']) ? $_REQUEST['comment'] : '';
+        $loc     = isset($_REQUEST['loc']) ? $_REQUEST['loc'] : '';
+        $latit   = isset($_REQUEST['latit']) ? $_REQUEST['latit'] : '0.0';
+        $longi   = isset($_REQUEST['longi']) ? $_REQUEST['longi'] : '0.0';
+        $uid     = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $lid     = isset($_REQUEST['lid']) ? $_REQUEST['lid'] : 0;
+        $act     = isset($_REQUEST['act']) ? $_REQUEST['act'] : 'PunchIn';
+		if(!getAddonPermission($orgid,"Addon_GeoFence")){ // org doesn't has geo-fence addon
+			$latit   = '0.0';
+			$longi	 = '0.0';
+		}
+        $zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date           = date('Y-m-d');
+        $time           = date('H:i:00');
+        $data           = array();
+        $data['lid']    = 0;
+        $data['status'] = 'failure';
+        if ($lid == 0) {
+            $query = $this->db->query("INSERT INTO checkin_master(`EmployeeId`, `location`, `latit`, `longi`, `time`, `date`, `client_name`, `description`, `OrganizationId`) VALUES (?,?,?,?,?,?,?,?,?)",
+			array(
+                $uid,
+                $loc,
+                $latit,
+                $longi,
+                $time,
+                $date,
+                $cname,
+                $comment,
+                $orgid
+            ));
+            
+            $data['lid']    = $this->db->insert_id();
+            $data['act']    = 'PunchOut';
+            $data['status'] = 'success';
+        } else {
+            $query = $this->db->query("update `checkin_master` set location_out=?, `latit_out`=?, `longi_out`=?, `time_out`=?  where Id =?",
+			array(
+                $loc,
+                $latit,
+                $longi,
+                $time,
+                $lid
+            ));
+            $data['status'] = 'success';
+            $data['act']    = 'PunchIn';
+        }
+        echo json_encode($data);
+        
+    }
+    public function skipPunch()
+    {
+        $lid            = isset($_REQUEST['lid']) ? $_REQUEST['lid'] : 0;
+        $data           = array();
+        $data['status'] = 'failure';
+        $query          = $this->db->query("update `checkin_master` set location_out=location,`latit_out`=latit, `longi_out`=longi, `time_out`=time  where Id =?",
+		array(
+            $lid
+        ));
+        if ($query)
+            $data['status'] = 'success';
+        echo json_encode($data);
+        
+    }
+    public function fetchTimeOffList()
+    {
+		
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+		
+		$orgid=getOrgIdByEmpId($uid);
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $query = $this->db->query("SELECT Id, `TimeofDate`, `TimeFrom`, `TimeTo`,TIMEDIFF(TimeTo, TimeFrom) as hrs, `Reason`, `ApprovalSts`, `ApproverComment` FROM `Timeoff` WHERE EmployeeId=? order by Id desc limit 30",
+		array(
+            $uid
+        ));
+        $res          = array();
+      
+        foreach ($query->result() as $row) {
+            $data         = array();
+			$currenttime = date('H:i');
+			$currentdate = date('Y-m-d');
+			$data['timeoffid'] = $row->Id;
+            $data['date'] = date("dS M", strtotime($row->TimeofDate));
+			
+			$fromtime=date('H:i', strtotime($row->TimeFrom));
+			$timeoffdate=date('Y-m-d', strtotime($row->TimeofDate));
+			if($currentdate==$timeoffdate && strtotime($currenttime)>strtotime($fromtime)){
+				$data['withdrawlsts'] = false;
+			}else if((strtotime($currentdate)<=strtotime($timeoffdate) ) && ($this->gettimeoffpendingatstatus($row->ApprovalSts, $row->Id)=='Pending')){
+				/* if(strtotime($currenttime)>strtotime($fromtime)){
+				$data['withdrawlsts'] = false;
+				} */
+				$data['withdrawlsts'] = true;
+			}else
+				$data['withdrawlsts'] = false;
+            $data['from'] = date('H:i', strtotime($row->TimeFrom));
+            $data['to']   = date('H:i', strtotime($row->TimeTo));
+            $data['hrs']  = ' (' . date('H:i', strtotime($row->hrs)) . ')';
+            
+            $data['status']  = $this->gettimeoffpendingatstatus($row->ApprovalSts, $row->Id);
+            $data['reason']  = $row->Reason != '' || $row->Reason != null ? $row->Reason : '-';
+            $data['comment'] = $row->ApproverComment != '' || $row->ApproverComment != null ? $row->ApproverComment : '-';
+            //$data['comment']=$row->ApproverComment;
+            $res[]           = $data;
+        }
+        echo json_encode($res);
+    }
+	
+	/////////////////   service to fetch leave summary  //////////
+	
+	public function getLeaveList()
+    {
+        $uid   = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $query = $this->db->query("SELECT Id,`ApplyDate`, `LeaveFrom`, `LeaveTo`, LeaveValidDays, `LeaveReason`, `LeaveStatus`, `ApproverComment` FROM `EmployeeLeave` WHERE EmployeeId=? order by Id desc limit 30",
+		array(
+            $uid
+        ));
+        $res          = array();
+		
+        foreach ($query->result() as $row) {
+            $data         = array();
+			$data['leaveid'] = $row->Id;
+			$todaydate=date("Y-m-d");
+			$data['withdrawlsts'] = true;
+			if(strtotime($todaydate)>strtotime($row->LeaveFrom))
+				$data['withdrawlsts'] = false;
+            $data['date'] = date("dS M'y", strtotime($row->ApplyDate));
+            $data['from'] = date("dS M'y", strtotime($row->LeaveFrom));
+            $data['to']   = date("dS M'y", strtotime($row->LeaveTo));
+            $data['days']  = ' (' . $row->LeaveValidDays . ')';
+            $data['status']  = $this->getpendingatstatus($row->LeaveStatus, $row->Id);// TODO dynamic with the status pending on which employee.
+            $data['reason']  = $row->LeaveReason != '' || $row->LeaveReason != null ? $row->LeaveReason : '-';
+            $data['comment'] = $row->ApproverComment != '' || $row->ApproverComment != null ? $row->ApproverComment : '-';
+            //$data['comment']=$row->ApproverComment;
+            $res[]           = $data;
+        }
+        echo json_encode($res);
+    }
+	
+	public function getpendingatstatus($sts,$leaveid){
+	if($sts==3){
+						$pendingapprover=$this->getApproverPendingSts($leaveid,3);
+						$pendingapp=$this->getEmployeeName($pendingapprover);			
+						if($pendingapp=="")
+							return "Pending";
+						else
+							return "Pending at $pendingapp";
+					}else{
+						return $this->getleavetype($sts);
+					}
+	}
+	
+	public function getApproverPendingSts($id,$sts)
+	{
+		$name ="0";
+		if($sts==2) //approved
+			$sql = "SELECT * FROM LeaveApproval where LeaveId=? and ApproverSts=? order by Id desc limit 1";
+		else //pending	
+			$sql = "SELECT * FROM LeaveApproval where LeaveId=? and ApproverSts=? order by Id asc limit 1";
+		$query = $this->db->query($sql,
+		array(
+			$id,$sts
+		));
+		try{
+			foreach ($query->result() as $row) {
+		
+				$name = $row->ApproverId;
+			}
+		}catch(Exception $e) {}
+
+		return $name;
+	}
+	
+	//////////// get time off pending at status ///////////////
+	
+		public function gettimeoffpendingatstatus($sts,$leaveid){
+	if($sts==3){
+						$pendingapprover=$this->gettimeoffApproverPendingSts($leaveid,3);
+						$pendingapp=$this->getEmployeeName($pendingapprover);			
+						if($pendingapp=="")
+							return "Pending";
+						else
+							return "Pending";
+						/* return "Pending at $pendingapp";// removing pending at condition as per discussion with badi ma'am */
+					}else{
+						return $this->getleavetype($sts);
+					}
+	}
+	
+	public function gettimeoffApproverPendingSts($id,$sts)
+	{
+		$name ="0";
+		if($sts==2) //approved
+			$sql = "SELECT * FROM TimeoffApproval where TimeofId=? and ApproverSts=? order by Id desc limit 1";
+		else //pending	
+			$sql = "SELECT * FROM TimeoffApproval where TimeofId=? and ApproverSts=? order by Id asc limit 1";
+		$query = $this->db->query($sql,
+		array(
+			$id,$sts
+		));
+		try{
+			foreach ($query->result() as $row) {
+		
+				$name = $row->ApproverId;
+			}
+		}catch(Exception $e) {}
+
+		return $name;
+	}
+	
+	public function getEmployeeName($id)
+	{
+		$name ="";
+		
+		$sql = "SELECT FirstName, MiddleName, LastName FROM EmployeeMaster WHERE Id = ?";
+        $query =$this->db->query($sql,
+		array(
+			$id
+		));
+		try{
+			foreach ($query->result() as $row) {
+				 $name = ucwords(strtolower($row->FirstName. " " .$row->MiddleName. " " .$row->LastName));
+			}
+		}catch(Exception $e) {
+			
+		}
+		return $name;
+	}
+	
+	public function getleavetype($val){
+		$status = "info"; $label="Pending";                 
+		if($val==1){ $status = "danger"; $label="Rejected";  }
+		elseif($val==2){ $status = "success"; $label="Approved";  }
+		elseif($val==4){ $status = "warning"; $label="Cancel";  }	
+		elseif($val==5){ $status = "info"; $label="Withdrawn";  }			
+		elseif($val==6){ $status = "success"; $label="Issued";  }			
+		elseif($val==7){ $status = "warning"; $label="Pending at admin";  }			
+		return $label;
+    }
+	
+
+    ////////////////////importing methods from HRM- end
+    public function mailtest()
+    {
+        echo getAreaId(4147);
+        return false;
+        echo decrypt('q+fX19fNg7zez84=');
+        echo "</br/>" . decrypt('q+fX19fNg7zez86U');
+        return false;
+        $tmrw      = date('Y-m-d', strtotime(' +1 day'));
+        $startdate = date('Y-m-d', strtotime(' -2 day'));
+        $enddate   = date('Y-m-d', strtotime(' +2 day'));
+        $data      = array();
+        $query     = $this->db->query("SELECT
+            LIC.end_date as expiry ,
+            AD.name as contectperson ,
+            ORG.Id as orgid,
+            ORG.Name as orgname ,
+            ORG.PhoneNumber as orgno,
+            ORG.Email as orgemail,
+            ORG.Country as orgcountry,
+            (select count(id) from EmployeeMaster as EMP where EMP.OrganizationId=ORG.Id) as orgemp ,
+            AD.username as uname,
+            AD.password as pass
+            FROM  admin_login AD , Organization ORG , licence_ubiattendance LIC WHERE LIC.OrganizationId=ORG.Id AND AD.OrganizationId=ORG.Id AND  LIC.end_date BETWEEN '$startdate' AND '$enddate'  ORDER BY LIC.end_date ");
+        foreach ($query->result() as $row) {
+            $data1                  = array();
+            $data1['expiry']        = $row->expiry;
+            $data1['contectperson'] = $row->contectperson;
+            $data1['orgid']         = $row->orgid;
+            $data1['orgname']       = $row->orgname;
+            $data1['orgno']         = $row->orgno;
+            $data1['orgemail']      = $row->orgemail;
+            $data1['orgcountry']    = $row->orgcountry;
+            $data1['orgemp']        = $row->orgemp;
+            $data1['uname']         = $row->uname;
+            $data1['pass']          = decrypt($row->pass);
+            $data[]                 = $data1;
+        }
+        //print_r($data); return;
+        $list = '';
+        for ($i = 0; $i < count($data); $i++) {
+            $list .= '<tr><td>' . ($i + 1) . '.</td><td>' . date('d-m-Y', strtotime($data[$i]['expiry'])) . '</td><td>' . (($data[$i]['orgid']) * ($data[$i]['orgid']) + 99) . '</td><td>' . $data[$i]['orgname'] . '</td><td>' . $data[$i]['contectperson'] . '</td><td>' . $data[$i]['orgno'] . '</td><td>' . $data[$i]['orgemail'] . '</td><td>' . $data[$i]['orgemp'] . '</td><td>' . getCountryById1($data[$i]['orgcountry']) . '</td><tr/>';
+            
+            if ($data[$i]['expiry'] == $tmrw) {
+                $to      = $data[$i]['orgemail'];
+                $subject = $data[$i]['contectperson'] . ", your Premium Plan expires tomorrow!";
+                $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+                <title>ubiShift</title>
+                <style type="text/css">
+                body {
+                  margin-left: 0px;
+                  margin-top: 0px;
+                  margin-right: 0px;
+                  margin-bottom: 0px;
+                -webkit-text-size-adjust:none; -ms-text-size-adjust:none;
+                background: white;
+                } 
+
+                table{border-collapse: collapse;}  
+                .icon-row{
+                  border-bottom: 2px solid #00aad4;
+
+                }
+
+                .icons{
+                  padding: 50px;
+                }
+                .icons img{
+                  width:100px;
+                  height: auto;
+                }
+
+                </style></head>
+
+                <body>
+                <table  width="650" align="center" style="background-color: white;">
+                  <tr>
+                    <td><img src="https://ubiattendance.ubihrm.com/mailers/banner.png"></td>
+                </tr>
+                <tr>
+                  <td align="left">
+                    <p style="font-family: Arial;font-size: 18px;padding: 10px;">
+                      Hello ' . $data[$i]['contectperson'] . ',<br><br>
+
+                We hope you are enjoying the free trial of ubiShift!<br><br> 
+
+                The Trial period will be over in just less than 24 hours. By now, you are more than likely feeling one of these two ways:<br><br> 
+
+                 
+
+                HAPPY! -    Subscribe to the ubiShift Software - <a target="_blank" href="https://ubishift.ubihrm.com/">Login to My Plan</a><br><br>
+
+                NEED MORE TIME?  -   <a  style="color: black;" href="mailto:support@ubitechsolutions.com?subject=Extend%20My%20Free%20Trial">Extend your trial further by writing back to us</a><br><br>
+
+                 
+
+                Looking forward to make <b>ubiShift</b> work for you!<br><br>
+
+                Regards,<br>
+
+                Team ubiShift 
+                      
+                    </p>
+                    
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <p style="text-align: center;font-size: 16px;font-family: Arial">You can <a style="color: black;" href="mailto:unsubscribe@ubitechsolutions.com?subject=Unsubscribe&body=Hello%0A%0APlease%20unsubscribe%20me%20from%20the%20mailing%20list%0A%0AThanks">unsubscribe</a> from this email or change your email 
+                <br>notifications</p>
+                  </td>
+                </tr>
+                  </table>
+                  <table  width="650" align="center"> 
+                    <tr>
+                      <td>
+                        <p style="text-align: center; font-size: 12px; font-family:Arial">
+                          This email was sent by <a style="" href="mailto:ubishift@ubitechsolutions.com">ubishift@ubitechsolutions.com</a> to ' . $data[$i]['orgemail'] . '
+                Not interested? <a style="color: black;" href="mailto:unsubscribe@ubitechsolutions.com?subject=Unsubscribe&body=Hello%0A%0APlease%20unsubscribe%20me%20from%20the%20mailing%20list%0A%0AThanks">Unsubscribe</a><br>
+                <p style="color: grey;text-align: center;font-size: 12px;">Ubitech Solutions Private Limited | S-553, Greater Kailash Part II, New Delhi, 110048</p>
+
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+
+                </body>
+                </html>';
+                
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                // More headers
+                $headers .= 'From: <support@ubitechsolutions.com>' . "\r\n";
+                //$headers .= 'Cc: vijay@ubitechsolutions.com' . "\r\n";
+                //        sendEmail_new($to,$subject,$message,$headers);
+              //--  sendEmail_new('parth@ubitechsolutions.com', "Mail Via SMTP", $message, $headers);
+                echo 'Mail done';
+                //    sendEmail_new('parth@ubitechsolutions.com',$subject,$message,$headers);
+                break;
+            } //if ends here
+        } // loop ends here
+        
+        
+        return false;
+        /*
+        $to = "parth@ubitechsolutions.com";
+        $subject = "Expiry mailer";
+        $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        
+        <title>ubiAttendance</title>
+        <style type="text/css">
+        body {
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        -webkit-text-size-adjust:none; -ms-text-size-adjust:none;
+        background: white;
+        } 
+        
+        table{border-collapse: collapse;}  
+        .icon-row{
+        border-bottom: 2px solid #00aad4;
+        
+        }
+        
+        .icons{
+        padding: 50px;
+        }
+        .icons img{
+        width:100px;
+        height: auto;
+        }
+        
+        </style></head>
+        
+        <body>
+        <table  width="650" align="center" style="border: 3px solid #e3e6e7;">
+        <tr>
+        <td><img src="https://ubiattendance.ubihrm.com/mailers/banner.png"></td>
+        </tr>
+        <tr>
+        <td align="left">
+        <p style="font-family: Arial;font-size: 20px;padding: 10px;">
+        Hello [Customer Name]*,<br><br>
+        
+        We hope you are enjoying the free trial of ubiAttendance!<br><br> 
+        
+        The Trial period will be over in just less than 24 hours. By now, you are more than likely feeling one of these two ways:<br><br> 
+        
+        
+        
+        HAPPY!     Subscribe to the ubiAttendance Software - <a target="_blank" href="https://ubiattendance.ubihrm.com/">Login to My Plan</a><br><br>
+        
+        ID - [registered email id]*<br><br>
+        
+        Password - [password]*<br><br>
+        
+        
+        
+        NEED MORE TIME?     <a  style="color: black;" href="mailto:support@ubitechsolutions.com?subject=Extend%20My%20Free%20Trial">Extend your trial further by writing back to me</a><br><br>
+        
+        
+        
+        Looking forward to make <b>ubiAttendance</b> work for you!<br><br>
+        
+        Regards,<br><br>
+        
+        Team ubiAttendance 
+        
+        </p>
+        
+        </td>
+        </tr>
+        </table>
+        
+        </body>
+        </html>';
+        
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // More headers
+        $headers .= 'From: <support@ubitechsolutions.com.com>' . "\r\n";
+        //$headers .= 'Cc: vijaympct13@gmail.com' . "\r\n";
+        sendEmail_new($to,$subject,$message,$headers);*/
+    }
+    
+	public function getAllDesgPermission()
+    {
+		$result = array();
+		$orgid = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+		$roleid = isset($_REQUEST['roleid']) ? $_REQUEST['roleid'] : 0;
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+        $query = $this->db->query("SELECT `Id`, `Name` FROM `DesignationMaster`  WHERE OrganizationId=? and archive = 1 AND Id != $roleid order by name", array(
+            $orgid
+        ));
+		$count=$query->num_rows();
+		if($count>=1)
+		{
+			$status=true;
+			$successMsg=$count." record found";
+			//$res1 = array();
+			//$res1['rolename'] = $id;
+			//$data[] = $res1;
+			foreach ($query->result() as $row)
+			{
+				$res = array();
+				$res['id'] = $row->Id;
+				$res['rolename'] = $row->Name;
+				$res['permissions'] = $this->getPermissionDetail($row->Id, $orgid);				
+				$data[] = $res;
+			}
+        }
+		if ($count >= 1) {
+           $status =true;
+		   $successMsg = "Permission successed";
+        } else {
+           $status =false;
+		   $errorMsg="Error while fetching permission";
+        }
+		/* $result["data"] =$data;
+		$result['status']=$status;
+		$result['successMsg']=$successMsg;
+		$result['errorMsg']=$errorMsg; */
+        return $data;
+    }
+	public function getPermissionDetail($id, $orgid){
+		$result = array();
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+		//$id=decode5t($id);
+		$this->db->select('*');		 
+		$whereCondition="(AttendanceAppSts=1)";
+		$this->db->where($whereCondition);
+		$this->db->from('ModuleMaster');
+		
+		$query1 =$this->db->get();
+		$count=$query1->num_rows();
+		if($count>=1){
+			$status=true;
+			$successMsg=$count." record found";			
+			foreach ($query1->result() as $row)
+			{
+				$res = array();				
+				$res['rolename'] = $id;
+				$res['roles'] = getName('DesignationMaster','Name','Id',$id);
+				$res['modulename'] = $row->Id;
+				$res['name'] = getName('ModuleMaster','ModuleName','Id',$row->Id);
+				$res['label'] = getName('ModuleMaster','ModuleLabel','Id',$row->Id);
+				$res['vsts'] = (int)$this->getModulePermission($id, $row->Id, "ViewPermission", $orgid);
+				$res['ests'] = (int)$this->getModulePermission($id, $row->Id, "EditPermission", $orgid);
+				$res['dsts'] = (int)$this->getModulePermission($id, $row->Id, "DeletePermission", $orgid);
+				$res['asts'] = (int)$this->getModulePermission($id, $row->Id, "AddPermission", $orgid);
+				$data[] = $res;
+			}
+        }
+		
+		if ($count >= 1) {
+           $status =true;
+		   $successMsg = "Permission successed";
+        } else {
+           $status =false;
+		   $errorMsg="Error while fetching permission";
+        }
+		
+		$result = $data;		
+		return $result;
+    }
+	
+	function getModulePermission($roleid, $moduleid, $sts, $orgid){
+		
+		$ci =& get_instance();
+		$ci->load->database();
+		$per="0";$result = array();
+		//$conname='';
+		$ci->db->select($sts);
+		$whereCondition= "(RoleId = $roleid AND OrganizationId = $orgid AND ModuleId = $moduleid)";
+		$ci->db->where($whereCondition);
+		$ci->db->from("UserPermission");
+		$query =$ci->db->get();
+		$count = $query->num_rows();
+		if($count>0){
+			$status=true;
+			$successMsg=$count." record found";
+			foreach($query->result() as $row){
+				$per=$row->$sts;
+			}
+		}
+		return  $per;
+	}
+	
+	
+/* 	public function getPermissionDetail($id, $orgid){
+		$result = array();
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+		//$id=decode5t($id);
+		$this->db->select('*');		 
+		$whereCondition="(RoleId = $id AND OrganizationId = $orgid and ModuleId in (select Id from ModuleMaster where AttendanceAppSts=1))";
+		$this->db->where($whereCondition);
+		$this->db->from('UserPermission');
+		
+		$query1 =$this->db->get();
+		$count=$query1->num_rows();
+		if($count>=1){
+			$status=true;
+			$successMsg=$count." record found";			
+			foreach ($query1->result() as $row)
+			{
+				$res = array();
+				$res['id'] = $row->Id;
+				$res['rolename'] = $row->RoleId;
+				$res['roles'] = getName('DesignationMaster','Name','Id',$row->RoleId);
+				$res['modulename'] = $row->ModuleId;
+				$res['name'] = getName('ModuleMaster','ModuleName','Id',$row->ModuleId);
+				$res['label'] = getName('ModuleMaster','ModuleLabel','Id',$row->ModuleId);
+				$res['vsts'] = (int)$row->ViewPermission;
+				$res['ests'] = (int)$row->EditPermission;
+				$res['dsts'] = (int)$row->DeletePermission;
+				$res['asts'] = (int)$row->AddPermission;
+				$data[] = $res;
+			}
+        }
+		
+		if ($count >= 1) {
+           $status =true;
+		   $successMsg = "Permission successed";
+        } else {
+           $status =false;
+		   $errorMsg="Error while fetching permission";
+        }
+		
+		$result = $data;		
+		return $result;
+    } */
+	public function getAttendances_details()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : 0;
+         $aDate   = isset($_REQUEST['aDate']) ? $_REQUEST['aDate'] : 0;
+        $empId   = isset($_REQUEST['empId']) ? $_REQUEST['empId'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d');
+        $aDate =date('Y-m-d',strtotime($aDate));
+        $time = date('H:i:s');
+        $data = array();
+	   if($datafor=='present'){
+         //today attendance//SUBSTR(TimeIn, 1, 5) as `TimeIn
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name ,  SUBSTR(TimeIn, 1, 5) as TimeIn, SUBSTR(TimeOut, 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) and EmployeeId = ? order by `name` , Id desc", array($aDate,$orgid,$empId));
+            $data['present']        = $query->result();
+	   }
+	   echo json_encode($data, JSON_NUMERIC_CHECK); 
+    }
+	
+	public function getAttendances_new()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d');
+        $time = date('H:i:s');
+        $data = array();
+		
+	   
+	   if($datafor=='present'){
+         //today attendance//SUBSTR(TimeIn, 1, 5) as `TimeIn
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name ,  SUBSTR(Min(TimeIn), 1, 5) as TimeIn, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,AttendanceDate,EmployeeId,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name` , Id desc", array($date,$orgid));
+            $data['present']        = $query->result();
+	   }else if($datafor=='absent'){		
+$temp=array();
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? 
+and AttendanceStatus in (2,6,7) order by `name`",array($date,$orgid));
+            $temp =  $query->result();
+			$query  = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name, '-' as TimeIn,'-' as TimeOut
+						FROM  `EmployeeMaster` 
+						WHERE  `OrganizationId` =?
+						AND ARCHIVE =1
+						AND Id NOT 
+						IN (
+						SELECT EmployeeId
+						FROM AttendanceMaster
+						WHERE AttendanceDate =  ?
+						AND  `OrganizationId` =?
+						)
+						AND (
+						SELECT  `TimeIn` 
+						FROM  `ShiftMaster` 
+						WHERE  `Id` = Shift
+						AND TimeIn <  ?
+						)",array($orgid,$date,$orgid,$time));
+						$data['absent']= array_merge($temp,$query->result());
+						
+			  $this->db->close();
+	}else if($datafor=='latecomings'){
+        //////// today_late
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) group by (EmployeeId) order by `name`", array($date,$orgid));
+			
+            $data['lateComings'] = $query->result();
+	}else if($datafor=='earlyleavings'){	
+        ////////today_early
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['earlyLeavings'] = $query->result();
+	}
+			
+			
+			
+       
+        
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+        
+    }
+	public function getAttendances_yes()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : 0;
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+       $date =date('Y-m-d', strtotime(' -1 day'));
+        $time = date('H:i:s');
+        $data = array();
+       
+	   
+	   
+	   if($datafor=='present'){
+         //today attendance
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name ,AttendanceDate,EmployeeId, SUBSTR(min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+				$date,$orgid));
+            $data['present']        = $query->result();
+	   }else if($datafor=='absent'){
+			$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=2 or AttendanceStatus=6 or AttendanceStatus=7 ) order by `name`", array($date,$orgid));
+            $this->db->close();
+            $data['absent'] =  $query->result();
+        
+	}else if($datafor=='latecomings'){		
+			
+			
+        //////// today_late
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['lateComings'] = $query->result();
+	}else if($datafor=='earlyleavings'){	
+			
+			
+			
+        ////////today_early
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['earlyLeavings'] = $query->result();
+	}
+			
+			
+			
+       
+        
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+        
+    }
+	public function getCDateAttendances_new()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $date   = isset($_REQUEST['date']) ? $_REQUEST['date'] : '';
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : '';
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d',strtotime($date));
+        $time = date('H:i:s');
+        $data = array();
+       
+	   
+	   
+	   
+         //today attendance
+		 if($datafor=='present'){
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , AttendanceDate,EmployeeId,SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array($date,$orgid));
+            $data['present']        = $query->result();
+			
+			 }else if($datafor=='absent'){
+			//////////today_abs
+			
+			if($date!=date('Y-m-d')){// for other deay's absentees
+				$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=2 or AttendanceStatus=6 or AttendanceStatus=7 ) order by `name`", array($date,$orgid));
+				$this->db->close();
+				$data['absent'] =  $query->result();
+			}else{ // for today's absentees
+				$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? 
+and AttendanceStatus in (2,6,7) order by `name`",array($date,$orgid));
+			$temp=array();
+            $temp =  $query->result();
+			
+			$query  = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name, '-' as `TimeOut` ,'-' as TimeIn
+						FROM  `EmployeeMaster` 
+						WHERE  `OrganizationId` =?
+						AND ARCHIVE =1
+						AND Id NOT 
+						IN (
+						SELECT EmployeeId
+						FROM AttendanceMaster
+						WHERE AttendanceDate =  ?
+						AND  `OrganizationId` =?
+						)
+						AND (
+						SELECT  `TimeIn` 
+						FROM  `ShiftMaster` 
+						WHERE  `Id` = Shift
+						AND TimeIn <  ?
+						)",array($orgid,$date,$orgid,$time));
+						$data['absent']= array_merge($temp,$query->result());
+			}
+			
+	}else if($datafor=='latecomings'){
+        //////// today_late
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['lateComings'] = $query->result();
+	}else if($datafor=='earlyleavings'){		
+        ////////today_early
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['earlyLeavings'] = $query->result();
+	}		
+			
+			
+			
+        
+        
+        
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+        
+    }
+	public function getCDateAttnDeptWise_new()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $date   = isset($_REQUEST['date']) ? $_REQUEST['date'] : '';
+        $dept   = isset($_REQUEST['dept']) ? $_REQUEST['dept'] : '';
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : '';
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d',strtotime($date));
+        $time = date('H:i:s');
+        $data = array();
+       
+	   
+	   $dept_cond='';
+	   $dept_cond1='';
+	   if($dept!=0)
+	   {
+		   $dept_cond=' and Dept_id = '.$dept;
+		   $dept_cond1=' and Department = '.$dept;
+	   }
+	   //echo "SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name ,EmployeeId,AttendanceDate, SUBSTR(Min(TimeIn), 1, 5) as TimeIn, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`='$date' ".$dept_cond." and  OrganizationId=$orgid and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId)  order by `name`";
+         //today attendance
+		 if($datafor=='present'){
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name ,EmployeeId,AttendanceDate, SUBSTR(Min(TimeIn), 1, 5) as TimeIn, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`=? ".$dept_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId)  order by `name`",
+		array($date,$orgid));
+            $data['present']        = $query->result();
+			
+			 }
+			 else if($datafor=='absent'){
+				 
+			//////////abs
+	
+			
+			
+			if($date != date('Y-m-d')){// for other deay's absentees
+				$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=2 or AttendanceStatus=6 or AttendanceStatus=7 )  ".$dept_cond."  order by `name`", array($date,$orgid));
+				$this->db->close();
+				$data['absent'] =  $query->result();
+			}else{ // for today's absentees
+				$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=?  ".$dept_cond."  and  OrganizationId=? 
+and AttendanceStatus in (2,6,7) order by `name`",array($date,$orgid));
+			$temp=array();
+            $temp =  $query->result();
+			
+			$query  = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name, '-' as `TimeOut` ,'-' as TimeIn
+						FROM  `EmployeeMaster` 
+						WHERE  `OrganizationId` =?
+						AND ARCHIVE =1
+						AND Id NOT 
+						IN (
+						SELECT EmployeeId
+						FROM AttendanceMaster
+						WHERE AttendanceDate =  ?
+						AND  `OrganizationId` =?
+						)
+						AND (
+						SELECT  `TimeIn` 
+						FROM  `ShiftMaster` 
+						WHERE  `Id` = Shift
+						AND TimeIn <  ?
+						)  $dept_cond1 ",array($orgid,$date,$orgid,$time));
+						
+						$data['absent']= array_merge($temp,$query->result());
+			}
+	}else if($datafor=='latecomings'){
+        //////// today_late
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? ".$dept_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['lateComings'] = $query->result();
+	}else if($datafor=='earlyleavings'){		
+        ////////today_early
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? ".$dept_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['earlyLeavings'] = $query->result();
+	}		
+			
+			
+			
+        
+        
+        
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+        
+    }
+
+///////////// single emp history of last 30 days
+	public function getEmpHistoryOf30()
+    {
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $emp   = isset($_REQUEST['emp']) ? $_REQUEST['emp'] : 0;
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : '';
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d');
+        $edate =date('Y-m-d',strtotime('-29 days'));
+        $time = date('H:i:s');
+        $data = array();
+		if($datafor=='present'){
+		
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name,EmployeeId,SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut`, AttendanceDate,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,EntryImage,ExitImage,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (`AttendanceDate` BETWEEN ? AND ?) and  EmployeeId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (AttendanceDate) order by `AttendanceDate` Desc",
+		array($edate,$date,$emp));
+            $data['present']        = $query->result();
+		} else if($datafor=='absent'){
+			//////////abs
+			$query  = $this->db->query("SELECT AttendanceDate,'-' as TimeIn,'-' as TimeOut FROM `AttendanceMaster` WHERE (`AttendanceDate` BETWEEN ? AND ?) and  EmployeeId=? and (AttendanceStatus=2 or AttendanceStatus=7 or AttendanceStatus=6 ) order by `AttendanceDate` Desc",
+		array($edate,$date,$emp));
+            $data['absent'] =  $query->result();
+			
+	}else if($datafor=='latecomings'){
+        //////// late
+		
+         /*   $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(TimeIn, 1, 5) as `TimeIn`, SUBSTR(TimeOut, 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? ".$dept_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) order by `name`", array(
+                $date,
+                $orgid
+            ));*/
+			$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name,EmployeeId, AttendanceDate,SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,EntryImage,ExitImage,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (`AttendanceDate` BETWEEN ? AND ?) and (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId))  AND  EmployeeId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (AttendanceDate) order by `AttendanceDate` Desc",
+		array($edate,$date,$emp));
+            $data['lateComings'] = $query->result();
+	}else if($datafor=='earlyleavings'){		
+        ////////early
+           $query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name,EmployeeId,AttendanceDate,SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,EntryImage,ExitImage,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (`AttendanceDate` BETWEEN ? AND ?) and (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00') and  EmployeeId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (AttendanceDate) order by `AttendanceDate` Desc",
+		array($edate,$date,$emp));
+            $data['earlyLeavings'] = $query->result();
+	}	 
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+    }
+	
+	
+	public function getCDateAttnDesgWise_new()
+    {
+        // getting counting of attending/onbreak/exits and not attending emps
+        $orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+        $att   = isset($_REQUEST['att']) ? $_REQUEST['att'] : 0;
+        $date   = isset($_REQUEST['date']) ? $_REQUEST['date'] : '';
+        $desg   = isset($_REQUEST['desg']) ? $_REQUEST['desg'] : '';
+        $datafor   = isset($_REQUEST['datafor']) ? $_REQUEST['datafor'] : '';
+        $zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d',strtotime($date));
+        $time = date('H:i:s');
+        $data = array();
+       
+	   
+	   $desg_cond = '';
+	   $desg_cond1 = '';
+	   if($desg!=0)
+	   {
+		   $desg_cond=' and Desg_id='.$desg;
+		   $desg_cond1 = ' and Designation = '.$desg;
+	   }
+	   
+         //today attendance
+		 if($datafor=='present'){
+		$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name ,EmployeeId,AttendanceDate, SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE `AttendanceDate`=? ".$desg_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`",
+		array($date,$orgid));
+            $data['present']        = $query->result();
+			
+			 }else if($datafor=='absent'){
+			//////////abs
+	
+			if($date!=date('Y-m-d')){// for other deay's absentees
+				$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=2 or AttendanceStatus=6 or AttendanceStatus=7 )  ".$desg_cond."  order by `name`", array($date,$orgid));
+				$this->db->close();
+				$data['absent'] =  $query->result();
+			}else{ // for today's absentees
+				$query  = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , '-' as `TimeOut` ,'-' as TimeIn FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? 
+and AttendanceStatus in (2,6,7)  ".$desg_cond."  order by `name`",array($date,$orgid));
+			$temp=array();
+            $temp =  $query->result();
+			
+			$query  = $this->db->query("SELECT CONCAT(FirstName,' ',LastName) as name, '-' as `TimeOut` ,'-' as TimeIn
+						FROM  `EmployeeMaster` 
+						WHERE  `OrganizationId` =?
+						AND ARCHIVE =1  ".$desg_cond1."    
+						AND Id NOT 
+						IN (
+						SELECT EmployeeId
+						FROM AttendanceMaster
+						WHERE AttendanceDate =  ?
+						AND  `OrganizationId` =?
+						)
+						AND (
+						SELECT  `TimeIn` 
+						FROM  `ShiftMaster` 
+						WHERE  `Id` = Shift
+						AND TimeIn <  ?
+						)    ",array($orgid,$date,$orgid,$time));
+						$data['absent']= array_merge($temp,$query->result());
+			}
+			
+	}else if($datafor=='latecomings'){
+	//	echo "SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(TimeIn, 1, 5) as `TimeIn`, SUBSTR(TimeOut, 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`='$date' ".$desg_cond." and  OrganizationId='$orgid' and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) order by `name`";
+        //////// today_late
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? ".$desg_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['lateComings'] = $query->result();
+	}else if($datafor=='earlyleavings'){		
+        ////////today_early
+            $query         = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut` ,'Present' as status,EntryImage,ExitImage,SUBSTR(checkInLoc, 1, 40) as checkInLoc, SUBSTR(CheckOutLoc, 1, 40) as CheckOutLoc,latit_in,longi_in,latit_out,longi_out FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? ".$desg_cond." and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) group by (EmployeeId) order by `name`", array(
+                $date,
+                $orgid
+            ));
+            $data['earlyLeavings'] = $query->result();
+	}		
+			
+			
+			
+        
+        
+        
+        echo json_encode($data, JSON_NUMERIC_CHECK);
+        
+    }
+	public function getChartDataToday(){
+		$orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d');
+        $time = date('H:i:s');
+		$data=array();
+		$data['present'] =0;
+		$data['absent'] =0;
+		$data['late'] =0;
+		$data['early'] =0;
+		//PRESENT COUNT
+		$query= $this->db->query("SELECT count(Distinct(EmployeeId)) as present  FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+		$date,$orgid));
+			if($row =$query->result())
+				$data['present'] = $row[0]->present;
+		
+		//ABSENT COUNT
+		/*
+		$query= $this->db->query("SELECT count(Id) as total FROM `EmployeeMaster` WHERE `OrganizationId`=? and archive=1",
+		array($orgid)
+		);
+			if($row =$query->result())
+				$data['absent'] = $row[0]->total - $data['present'];
+			*/
+			$data['absent']=0;
+		$query  = $this->db->query("SELECT count(Distinct(EmployeeId)) as total FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? 
+and AttendanceStatus in (2,6,7) ",array($date,$orgid));
+            if($row=$query->result())
+				 $data['absent']=$row[0]->total;
+			$query  = $this->db->query("SELECT count(id) as total
+						FROM  `EmployeeMaster` 
+						WHERE  `OrganizationId` =?
+						AND ARCHIVE =1
+						AND Id NOT 
+						IN (
+						SELECT EmployeeId
+						FROM AttendanceMaster
+						WHERE AttendanceDate =  ?
+						AND  `OrganizationId` =?
+						)
+						AND (
+						SELECT  `TimeIn` 
+						FROM  `ShiftMaster` 
+						WHERE  `Id` = Shift
+						AND TimeIn <  ?
+						)",array($orgid,$date,$orgid,$time));
+		if($row=$query->result())
+			$data['absent']+=$row[0]->total;
+						
+		//////// today_late
+		$query = $this->db->query("SELECT count(Distinct(EmployeeId)) as late FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+			$date,
+			$orgid
+		));
+		if($row =$query->result())
+			$data['late']=$row[0]->late;
+			
+			
+        ////////today_early
+		$query = $this->db->query("SELECT count(Distinct(EmployeeId)) as early FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+			$date,
+			$orgid
+		));
+		if($row =$query->result())
+			$data['early']=$row[0]->early;
+		
+		echo json_encode($data);
+			
+	}
+	public function getChartDataYes(){
+		$orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d', strtotime(' -1 day'));
+        $time = date('H:i:s');
+		$data=array();
+		$data['present'] =0;
+		$data['absent'] =0;
+		$data['late'] =0;
+		$data['early'] =0;
+		//PRESENT COUNT
+		$query= $this->db->query("SELECT count(distinct(EmployeeId)) as present  FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+				$date,																																																												
+                $orgid
+            ));
+			if($row =$query->result())
+				$data['present'] = $row[0]->present;
+		
+		//ABSENT COUNT
+		$query= $this->db->query("SELECT count(Id) as total FROM `EmployeeMaster` WHERE `OrganizationId`=? and archive=1",
+		array($orgid)
+		);
+			if($row =$query->result())
+				$data['absent'] = $row[0]->total - $data['present'];
+			
+		//////// today_late
+		$query = $this->db->query("SELECT count(distinct(EmployeeId)) as late FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+			$date,
+			$orgid
+		));
+		if($row =$query->result())
+			$data['late']=$row[0]->late;
+			
+			
+        ////////today_early
+		$query = $this->db->query("SELECT count(distinct(EmployeeId)) as early FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+			$date,
+			$orgid
+		));
+		if($row =$query->result())
+			$data['early']=$row[0]->early;
+		
+		echo json_encode($data);
+			
+	}
+	public function getChartDataCDate(){
+		$orgid = isset($_REQUEST['refno']) ? $_REQUEST['refno'] : 0;
+		$date = isset($_REQUEST['date']) ? $_REQUEST['date'] : '';
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+        $date =date('Y-m-d',strtotime($date));
+        $time = date('H:i:s');
+		$data=array();
+		$data['present'] =0;
+		$data['absent'] =0;
+		$data['late'] =0;
+		$data['early'] =0;
+		//PRESENT COUNT
+		$query= $this->db->query("SELECT count(distinct(EmployeeId)) as present  FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+				$date,																																																												
+                $orgid
+            ));
+			if($row =$query->result())
+				$data['present'] = $row[0]->present;
+		
+		//ABSENT COUNT
+		if($date==date('Y-m-d')){
+		$query= $this->db->query("SELECT count(Id) as total FROM `EmployeeMaster` WHERE `OrganizationId`=? and archive=1",
+		array($orgid)
+		);
+			if($row =$query->result())
+				$data['absent'] = $row[0]->total - $data['present'];
+		}else{
+			$data['absent']=0;
+		$query  = $this->db->query("SELECT count(distinct(EmployeeId)) as total FROM `AttendanceMaster` WHERE `AttendanceDate`=? and  OrganizationId=? 
+and AttendanceStatus in (2,6,7) ",array($date,$orgid));
+            if($row=$query->result())
+				 $data['absent']=$row[0]->total;
+			$query  = $this->db->query("SELECT count(Id) as total
+						FROM  `EmployeeMaster` 
+						WHERE  `OrganizationId` =?
+						AND ARCHIVE =1
+						AND Id NOT 
+						IN (
+						SELECT EmployeeId
+						FROM AttendanceMaster
+						WHERE AttendanceDate =  ?
+						AND  `OrganizationId` =?
+						)
+						AND (
+						SELECT  `TimeIn` 
+						FROM  `ShiftMaster` 
+						WHERE  `Id` = Shift
+						AND TimeIn <  ?
+						)",array($orgid,$date,$orgid,$time));
+		if($row=$query->result())
+			$data['absent']+=$row[0]->total;
+		}
+		//////// today_late
+		$query = $this->db->query("SELECT count(distinct(EmployeeId)) as late FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+			$date,
+			$orgid
+		));
+		if($row =$query->result())
+			$data['late']=$row[0]->late;
+			
+			
+        ////////today_early
+		$query = $this->db->query("SELECT count(Distinct(EmployeeId)) as early FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`=? and  OrganizationId=? and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 )", array(
+			$date,
+			$orgid
+		));
+		if($row =$query->result())
+			$data['early']=$row[0]->early;
+		
+		echo json_encode($data);
+			
+	}
+	function getChartDataLast_7(){		
+		$lim=isset($_REQUEST['limit'])?$_REQUEST['limit']:'0';
+		$orgid=isset($_REQUEST['refno'])?$_REQUEST['refno']:'0';
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+			$end  = date("Y-m-d", strtotime("-1 days"));
+            $start = date("Y-m-d", strtotime('-6 day', strtotime($end)));
+		//$datafor=isset($_REQUEST['datafor'])?$_REQUEST['datafor']:'absent';
+			$res=array();
+			$data=array();
+			$month                = date('m');
+            $year                 = date('Y');
+			$arr=array();
+            $query                = $this->db->query("SELECT count(`EmployeeId`) as A FROM AttendanceMaster  WHERE AttendanceStatus =2 and  (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and  `OrganizationId`=" . $orgid);
+			if($row=$query->result()){
+				$arr['event']        = 'A';				
+				$arr['total']        = $row[0]->A;				
+			}
+			$data[]=$arr;
+            $query                = $this->db->query("SELECT count(distinct EmployeeId,AttendanceDate) as P FROM AttendanceMaster  WHERE AttendanceStatus in (1,4,7,8) and (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and  `OrganizationId`=" . $orgid);
+            if($row=$query->result()){
+				$arr['event']        = 'P';
+				$arr['total']        = $row[0]->P;
+			}$data[]=$arr;
+            $query                = $this->db->query("select count(distinct EmployeeId,AttendanceDate) as LC from AttendanceMaster where (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and `OrganizationId`=" . $orgid . " and time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId) and AttendanceStatus in (1,4,7,8)");
+			if($row=$query->result()){
+				$arr['event']        = 'LC';
+				$arr['total']        = $row[0]->LC;
+			}$data[]=$arr;
+            $query                = $this->db->query("select count(distinct EmployeeId,AttendanceDate) as EL from AttendanceMaster where (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and `OrganizationId`=" . $orgid . " and TimeOut !='00:00:00' and time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and AttendanceStatus in (1,4,7,8)");
+            if($row=$query->result()){
+				$arr['event']        = 'EL';
+				$arr['total']        = $row[0]->EL;
+			}$data[]=$arr;
+		echo json_encode($data);
+	}
+	function getChartDataLast_30(){
+		$lim=isset($_REQUEST['limit'])?$_REQUEST['limit']:'0';
+		$orgid=isset($_REQUEST['refno'])?$_REQUEST['refno']:'0';
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		
+			$end  = date("Y-m-d", strtotime("-1 days"));
+            $start = date("Y-m-d", strtotime('-29 day', strtotime($end)));
+		//$datafor=isset($_REQUEST['datafor'])?$_REQUEST['datafor']:'absent';
+		
+			$res=array();
+			$data=array();
+			$month                = date('m');
+            $year                 = date('Y');
+			$arr=array();
+            $query                = $this->db->query("SELECT count(`EmployeeId`) as A FROM AttendanceMaster  WHERE AttendanceStatus =2 and  (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and EmployeeId in (SELECT Id as A FROM  `EmployeeMaster` WHERE  `OrganizationId`=$orgid AND Is_Delete = 0) and  `OrganizationId`=" . $orgid);
+			if($row=$query->result()){
+				$arr['event']        = 'A';				
+				$arr['total']        = $row[0]->A;				
+			}
+			$data[]=$arr;
+            $query                = $this->db->query("SELECT count(distinct EmployeeId,AttendanceDate) as P FROM AttendanceMaster  WHERE AttendanceStatus in (1,4,7,8) and (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and  `OrganizationId`=" . $orgid);
+            if($row=$query->result()){
+				$arr['event']        = 'P';
+				$arr['total']        = $row[0]->P;
+			}$data[]=$arr;
+            $query                = $this->db->query("select count(distinct EmployeeId,AttendanceDate) as LC from AttendanceMaster where (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and `OrganizationId`=" . $orgid . " and time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId) and AttendanceStatus in (1,4,7,8)");
+			if($row=$query->result()){
+				$arr['event']        = 'LC';
+				$arr['total']        = $row[0]->LC;
+			}$data[]=$arr;
+            $query                = $this->db->query("select count(distinct EmployeeId,AttendanceDate) as EL from AttendanceMaster where (AttendanceDate BETWEEN  '" . $start . "' and '" . $end . "') and `OrganizationId`=" . $orgid . " and TimeOut !='00:00:00' and time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and AttendanceStatus in (1,4,7,8)");
+            if($row=$query->result()){
+				$arr['event']        = 'EL';
+				$arr['total']        = $row[0]->EL;
+			}$data[]=$arr;
+		echo json_encode($data);
+		
+	}
+	function getAttnDataLast(){  //Last 7 or last 30
+		
+		$lim=isset($_REQUEST['limit'])?$_REQUEST['limit']:'0';
+		$orgid=isset($_REQUEST['refno'])?$_REQUEST['refno']:'0';
+		$datafor=isset($_REQUEST['datafor'])?$_REQUEST['datafor']:'';
+		$zone  = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		$end   = date("Y-m-d");
+        $start = date("Y-m-d");
+		$data=array();
+		if($lim=='l7'){ // Last 7 days
+			$end  = date("Y-m-d", strtotime("-1 days"));
+            $start = date("Y-m-d", strtotime('-7 day', strtotime($end)));
+			$end1  = date("Y-m-d", strtotime("-1 days"));
+			$start1 = date("Y-m-d", strtotime('-6 day', strtotime($end)));
+			$start = \DateTime::createFromFormat('Y-m-d', $start);
+            $end   = \DateTime::createFromFormat('Y-m-d', $end);
+		}else if($lim=='l30'){ // Last 30 days
+			$end  = date("Y-m-d", strtotime("-1 days"));
+            $start = date("Y-m-d", strtotime('-30 day', strtotime($end)));
+			$end1  = date("Y-m-d", strtotime("-1 days"));
+            $start1 = date("Y-m-d", strtotime('-29 day', strtotime($end)));
+			$start = \DateTime::createFromFormat('Y-m-d', $start);
+            $end   = \DateTime::createFromFormat('Y-m-d', $end);
+		}
+		$datePeriod = new \DatePeriod($start, new \DateInterval('P1D'), $end->modify('+1day'));
+		///////getting data
+		
+		 	if($datafor=='present'){
+				$res        = array();
+				foreach ($datePeriod as $date) {
+					$dt    = $date->format('Y-m-d');
+					$query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , Min(`TimeIn`) as TimeIn, Max(`TimeOut`) as TimeOut ,AttendanceDate FROM `AttendanceMaster` WHERE  `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) Group by EmployeeId order by DATE(AttendanceDate) desc,name");
+					//(time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and
+					$data['elist'][] = $query->result();
+				}
+			}else if($datafor=='absent'){
+				$res = array();
+				/*foreach ($datePeriod as $date) {
+					$dt    = $date->format('Y-m-d');
+					$q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$dt' and OrganizationId =" . $orgid . " group by AttendanceDate";
+					$query = $this->db->query($q2);
+					foreach ($query->result() as $row) {
+						$date   = $row->AttendanceDate;
+						// '<br/>total: '.$row->total.'  date: '.$row->AttendanceDate .'<br/>';
+						$query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+								FROM `EmployeeMaster` 
+								WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+								 AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+								NOT IN (
+								SELECT `EmployeeId` 
+								FROM `AttendanceMaster` 
+								WHERE `AttendanceDate` 
+								IN (
+								 '" . $row->AttendanceDate . "'
+								)
+								AND AttendanceMaster.OrganizationId =" . $orgid . "
+								AND `AttendanceStatus` not in(2,3,5,6)
+								)
+								ORDER BY EmployeeMaster.Id ");
+						$count  = $query1->num_rows();
+						foreach ($query1->result() as $row) {
+							$data1                   = array();
+							//$data['name']=ucwords(getEmpName($row->Id));
+							$data1['name']           = getEmpName($row->EmployeeId);
+							$data1['AttendanceDate'] = $date;
+							$data1['TimeIn']         = '-';
+							$data1['TimeOut']        = '-';
+							$res[]                  = $data1;
+						}
+					}	
+				}$data['elist'][] =array_reverse($res);*/
+				$query = $this->db->query("select EmployeeId , AttendanceDate from AttendanceMaster where OrganizationId = ? and AttendanceStatus in (2, 6, 7) and `AttendanceDate` between ? and ? and EmployeeID in (SELECT Id from EmployeeMaster where OrganizationId = $orgid AND Is_Delete = 0) order by AttendanceDate", array($orgid , $start1 , $end1));
+				foreach ($query->result() as $row) {
+							$data1                   = array();
+							//$data['name']=ucwords(getEmpName($row->Id));
+							$data1['name']           = getEmpName($row->EmployeeId);
+							$data1['AttendanceDate'] = date("Y-m-d", strtotime($row->AttendanceDate));
+							$data1['TimeIn']         = '-';
+							$data1['TimeOut']        = '-';
+							$res[]                  = $data1;
+						}
+				$data['elist'][] =array_reverse($res);
+			}else if($datafor=='latecomings'){
+				$res        = array();
+				foreach ($datePeriod as $date) {
+					$dt    = $date->format('Y-m-d');
+					$query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , Min(TimeIn) as TimeIn,Max( TimeOut) as TimeOut ,AttendanceDate FROM `AttendanceMaster` WHERE (time(TimeIn) > (select if(TimeInGrace='00:00:00', TimeIn, TimeInGrace) as  TimeIn from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) Group by (EmployeeId) order by DATE(AttendanceDate) desc,name");
+					$res[] = $query->result(); 
+				}
+				$data['elist'] = $res;
+			}else if($datafor=='earlyleavings'){
+				$res        = array();
+				foreach ($datePeriod as $date) {
+					$dt    = $date->format('Y-m-d');
+					$query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , MIN(TimeIn) as TimeIn, MAX(TimeOut) as TimeOut ,AttendanceDate FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and (AttendanceStatus=1 or AttendanceStatus=3 or AttendanceStatus=4 or AttendanceStatus=5 or AttendanceStatus=8 ) Group by (EmployeeId) order by DATE(AttendanceDate) desc,name");
+					$res[] = $query->result();
+				}
+				$data['elist'] = $res;
+			}
+			
+		///////getting data/
+		echo json_encode($data);
+		////////////
+		
+	/*if ($att == 'l7') { //last 7 days attendance
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            foreach ($datePeriod as $date) {
+                $dt              = $date->format('dSM');
+                $query           = $this->db->query("SELECT count(`EmployeeId`) as total,AttendanceDate FROM AttendanceMaster WHERE `AttendanceDate`  ='" . $dt . "' and AttendanceStatus<>1 and `OrganizationId`=" . $orgid);
+                $data['rec'][]   = $query->result();
+				}
+        } else if ($att == 'l7_late') {
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeIn) > (select time(TimeIn) from ShiftMaster where ShiftMaster.Id=shiftId)) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and AttendanceStatus=1 order by DATE(AttendanceDate) desc,name");
+                $res[] = $query->result();
+            }
+            $data['elist'] = $res;
+            
+        } else if ($att == 'l7_early') {
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            $res        = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $query = $this->db->query("SELECT (select CONCAT(FirstName,' ',LastName)  from EmployeeMaster where id= `EmployeeId`) as name , `TimeIn`, `TimeOut` ,AttendanceDate ,'Present' as status,EntryImage,ExitImage FROM `AttendanceMaster` WHERE (time(TimeOut) < (select time(TimeOut) from ShiftMaster where ShiftMaster.Id=shiftId) and TimeOut!='00:00:00' ) and `AttendanceDate`  ='" . $dt . "' and `OrganizationId`=" . $orgid . " and AttendanceStatus=1 order by DATE(AttendanceDate) desc,name");
+                $res[] = $query->result();
+            }
+            $data['elist'] = $res;
+        } else if ($att == 'l7_abs') {
+            $end_week   = date("Y-m-d", strtotime("-1 days"));
+            $start_week = date("Y-m-d", strtotime('-6 day', strtotime($end_week)));
+            $start_week = \DateTime::createFromFormat('Y-m-d', $start_week);
+            $end_week   = \DateTime::createFromFormat('Y-m-d', $end_week);
+            $datePeriod = new \DatePeriod($start_week, new \DateInterval('P1D'), $end_week->modify('+1day'));
+            
+            $res = array();
+            foreach ($datePeriod as $date) {
+                $data1 = array();
+                $dt    = $date->format('Y-m-d');
+                $q2    = "select (select count(EmployeeMaster.Id)-count(AttendanceMaster.Id) from EmployeeMaster where OrganizationId =" . $orgid . ") as total, AttendanceDate from AttendanceMaster where AttendanceDate ='$dt' and OrganizationId =" . $orgid . " group by AttendanceDate";
+                $query = $this->db->query($q2);
+                $d     = array();
+                //$res=array();
+                foreach ($query->result() as $row) {
+                    $date   = $row->AttendanceDate;
+                    // '<br/>total: '.$row->total.'  date: '.$row->AttendanceDate .'<br/>';
+                    $query1 = $this->db->query("SELECT Id as EmployeeId ,FirstName,Shift,Department,Designation, Id ,'" . $row->AttendanceDate . "' as absentdate
+                            FROM `EmployeeMaster` 
+                            WHERE EmployeeMaster.OrganizationId =" . $orgid . "
+                             AND archive=1 and IF(EmployeeMaster.CreatedDate!='0000-00-00 00:00:00', CreatedDate < '" . $row->AttendanceDate . "', 1) and  Id 
+                            NOT IN (
+                            SELECT `EmployeeId` 
+                            FROM `AttendanceMaster` 
+                            WHERE `AttendanceDate` 
+                            IN (
+                             '" . $row->AttendanceDate . "'
+                            )
+                            AND AttendanceMaster.OrganizationId =" . $orgid . "
+                            AND `AttendanceStatus` not in(3,5,6)
+                            )
+                            ORDER BY EmployeeMaster.Id ");
+                    $count  = $query1->num_rows();
+                    foreach ($query1->result() as $row) {
+                        $data                   = array();
+                        //$data['name']=ucwords(getEmpName($row->Id));
+                        $data['name']           = getEmpName($row->EmployeeId);
+                        $data['AttendanceDate'] = $date;
+                        $data['status']         = 'Absent';
+                        $data['TimeIn']         = '-';
+                        $data['TimeOut']        = '-';
+                        $res[]                  = $data;
+                    }
+                }
+                //$res1[]=$query->result();
+            }
+            $this->db->close();
+            $data['elist'] = $res;
+        }*/
+	}
+	
+	public function updatePermission()
+    {
+		
+		$result = array();
+		$count=0; $count1=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+        $mdate = date("Y-m-d H:i:s");
+		
+		$mid   = isset($_REQUEST['userid']) ? $_REQUEST['userid'] : '0';	//USER ID CONTAINS IN ARRAY FIRST VALUE;
+		$orgid = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : '0';	//ORG ID CONTAINS IN ARRAY SECOND VALUE;
+		$res1 = json_decode(isset($_REQUEST['jsondata']) ? $_REQUEST['jsondata'] : '0', true);
+		foreach($res1 as $for1) {
+			$whereCondition= $array= array('RoleId'=>$for1['id'],'OrganizationId'=>$orgid);
+			$this->db->where($whereCondition);
+			$this->db->delete('UserPermission');
+			Trace("Deleted with the roleid = ".$for1['id']);
+			foreach($for1['permissions'] as $res) {
+				Trace("Inserted");
+				$data1 = array(
+					'RoleId'=>$res['rolename'],
+					'ModuleId'=>$res['modulename'],
+					'ViewPermission'=>$res['vsts'],
+					'EditPermission'=>$res['ests'],
+					'DeletePermission'=>$res['dsts'],
+					'AddPermission'=>$res['asts'],
+					'OrganizationId'=>$orgid,
+					//'LastModifiedDate'=>$orgid,
+					'LastModifiedDate'=>$mdate,
+					//'LastModifiedById'=>$mdate,
+					'LastModifiedById'=>$mid,
+					'CreatedDate'=>$mdate,
+					'CreatedById'=>$mid,
+					'OwnerId'=>$mid
+				);
+				$query=$this->db->insert('UserPermission',$data1);
+				if($query){
+				$count++;	
+				}
+			}
+		}
+		if ($count>=1) {
+			//$empid=Utils::getName($did,'EmployeeIncentive','EmployeeId',$this->db);
+			//$empname=Utils::getName($empid,'EmployeeMaster','FirstName',$this->db);
+			$status =true;
+			$successMsg = "User Permission is updated successfully";
+		} else {
+			$status =false;
+			$errorMsg = "Problem while  updating User Permission.";
+		}
+		
+		$result["data"] =$data;
+		$result['status']=$status;
+		$result['successMsg']=$successMsg;
+		$result['errorMsg']=$errorMsg;
+		return $result;
+    }
+    
+	 public function reqForTimeOff(){
+        $orgid  = isset($_REQUEST['orgid']) ? $_REQUEST['orgid'] : 0;
+        $uid    = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $date   = isset($_REQUEST['date']) ? date('y-m-d', strtotime($_REQUEST['date'])) : '';
+        $stime  = isset($_REQUEST['stime']) ? date('H:i:00', strtotime($_REQUEST['stime'])) : '00:01';
+		$stime	=	$stime=='00:00:00'	?	'00:01:00'	:	$stime;
+        $etime  = isset($_REQUEST['etime']) ? date('H:i:00', strtotime($_REQUEST['etime'])) : '00:02';
+		$etime	=	$etime=='00:00:00'	?	'23:59:00'	:	$etime;
+        $reason = isset($_REQUEST['reason']) ? $_REQUEST['reason'] : '';
+        
+        $data           = array();
+        $data['status'] = 'failure';
+        //    echo "INSERT INTO `Timeoff`(`EmployeeId`, `TimeofDate`, `TimeFrom`, `TimeTo`, `Reason`,`ApprovalSts`,`CreatedDate`,`OrganizationId`) VALUES ($uid,'$date','$stime','$etime','$reason',3,'$date',$orgid)";
+        
+        $query = $this->db->query("INSERT INTO `Timeoff`(`EmployeeId`, `TimeofDate`, `TimeFrom`, `TimeTo`, `Reason`,`ApprovalSts`,`CreatedDate`,`OrganizationId`) VALUES (?,?,?,?,?,?,?,?)",
+		array(
+            $uid,
+            $date,
+            $stime,
+            $etime,
+            $reason,
+            3,
+            $date,
+            $orgid
+        ));
+        if ($query)
+            $data['status'] = 'success';
+        
+        echo json_encode($data);
+        
+    }
+	
+	public function Createtimeoff(){
+		$result = array();
+		$count=0;$count1=0;$count2=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+        $month = date("Y-m-d H:i:s");
+		$mdate = date("Y-m-d H:i:s");
+		$mdate1= date('M d, Y h:i A ', strtotime($mdate));
+		$userid = isset($_REQUEST['uid'])?$_REQUEST['uid']:'0';
+		$timeoffdate = isset($_REQUEST['date'])?date('Y-m-d',strtotime($_REQUEST['date'])):'';
+		$timeoffdateformatted = isset($_REQUEST['date'])?date('Y-m-d',strtotime($_REQUEST['date'])):'';
+		$fromtime=isset($_REQUEST['stime'])?date('H:i', strtotime($_REQUEST['stime'])):'';
+		$fromtime1  = date('h:i a', strtotime($fromtime));
+		$totime=isset($_REQUEST['etime'])?date('H:i', strtotime($_REQUEST['etime'])):'';
+		$totime1 = date('h:i a', strtotime($totime));
+		$timeoffreason=isset($_REQUEST['reason'])?$_REQUEST['reason']:'0';
+		$orgid= isset($_REQUEST['orgid'])?$_REQUEST['orgid']:'0';
+		try{
+			
+			$arr = array();
+			$arr[0] = $userid;
+			$arr[1] = $timeoffdate;
+			$arr[2] = $fromtime;
+			$arr[3] = $totime;
+			$arr[4] = $timeoffreason;
+			$arr[5] = $month;
+			$arr[6] = $month;
+			$arr[7] = $orgid;
+			$approvelink="";
+		    $rejectlink="";
+		    
+			$shiftId = getShiftIdByEmpID($userid);
+			$shifttype= getShiftType($shiftId);
+			$checkShiftQuery=0;
+			
+			if($shifttype==1)
+				$checkShiftQuery = $this->db->query("SELECT s.Id FROM ShiftMaster s,EmployeeMaster e WHERE ADDTIME(?, '59') between s.TimeIn and TimeOut and ? between s.TimeIn and TimeOut and e.Id = ? and e.Shift = s.Id",
+			array($fromtime,$totime,$userid));
+			else
+				$checkShiftQuery = $this->db->query("SELECT s.Id FROM ShiftMaster s,EmployeeMaster e WHERE e.Id = ? and e.Shift = s.Id",
+			array($userid));
+			
+			$count2 =  $checkShiftQuery->num_rows();
+			//Trace("------------> check if Timeoff inside Shift -----> ".$checkShiftQuery);
+			if($count2>0){
+			$checkTimeOffQuery = $this->db->query("SELECT * FROM Timeoff WHERE ADDTIME(?, '59') between TimeFrom and TimeTo and TimeofDate = ? and EmployeeId = ? AND ApprovalSts != 5",
+			array($fromtime, $timeoffdate, $userid));			
+			
+			$count1 =  $checkTimeOffQuery->num_rows();
+			//Trace("------------> Time off check if exist -----> ".$checkTimeOffQuery);
+			if($count1==0){				
+			$sql = "INSERT INTO Timeoff (EmployeeId, TimeofDate,TimeFrom,TimeTo,Reason,CreatedDate,ModifiedDate,OrganizationId) VALUES (?,?,?,?,?,?,?,?)";	
+				$query1 = $this->db->query($sql,$arr);
+				$leaveid = $this->db->insert_id();
+				$count =  $this->db->affected_rows();			
+				
+				if ($count == 1) {
+				/*generate mail and alert for task requested*/
+				/* Alerts::generateActionAlerts(36,$leaveid,$orgid,$this->db); */
+						
+				//$empid=Utils::getName($did, 'Timeoff','EmployeeId',$this->db);
+				$empname=getName('EmployeeMaster','FirstName','Id',$userid);
+				$msg="$empname applied for TimeOff  ";
+				$sql = "INSERT INTO ActivityHistoryMaster ( LastModifiedById, Module, ActionPerformed,  OrganizationId) VALUES (?, ?, ?, ?)";
+				$query = $this->db->query($sql,array($userid, "Profiles", $msg, $orgid));
+				
+				
+					$status =true;
+					$hr=0;
+					$successMsg = "Your application for Time off has been sent successfully";;
+					
+				/*	$sql = "select EmployeeMaster.Id from DesignationMaster,EmployeeMaster where DesignationMaster.Id=EmployeeMaster.Designation and DesignationMaster.HrSts=1 and EmployeeMaster.OrganizationId=? and DesignationMaster.OrganizationId=? and  EmployeeMaster.DOL='0000-00-00'";  */  //Comment made by Pratibha
+				
+				$sql = "SELECT EmployeeId FROM UserMaster WHERE OrganizationId = ? and HRSts=1 ";
+					$query = $this->db->query($sql,array( $orgid));					
+					/* if($r=$query->fetch()){
+						$hr=$r->EmployeeId;
+					} */
+					$count=$query->num_rows();
+					foreach($query->result() as $r){
+						$hr=$r->EmployeeId;
+					}
+					$senior = $this->getApprovalLevelEmp($userid, $orgid, 8);
+					if($senior!=0)
+					{
+						$temp1 = explode(",", $senior);
+						for($i=0;$i<count($temp1);$i++)
+						{
+							if($temp1[$i] == $hr){
+								unset($temp1[$i]);
+							}
+						}
+						$senior=implode(',',$temp1);
+						if($hr !=0)
+							$senior.=','.$hr;
+						$temp = explode(",", $senior);
+						for($i=0; $i<count($temp); $i++)
+						{
+							if($temp[$i] != 0){
+								
+								///////// fetching timeoff approval history ///////////
+								
+								$approverhistory="";
+									$sql = "SELECT * FROM TimeoffApproval WHERE OrganizationId = ? AND TimeofId = ? AND ApproverSts<>3 ";
+									$query = $this->db->query($sql,array($orgid, $leaveid));
+									/* $query->execute(array($orgid, $leaveid)); */
+									$count =  $query->num_rows();
+									if($count>=1){
+										$approverhistory="<p><b>Approval History</b></p>
+										<table border='1' style=' border-collapse: collapse;width:70%'>
+										<tr style=' background-color: rgba(107, 58, 137, 0.91);color: rgba(255, 247, 247, 1);'>
+															
+															<th>Approval Status</th>
+															<th>Approver</th>
+															<th>Approval Date</th>
+															<th>Remarks</th>
+										</tr>
+										";
+									}
+									foreach($query->result() as $r){
+										$approvername=$this->getEmployeeName($r->ApproverId);
+										$approvalsts=$r->ApproverSts;
+										if($approvalsts==1){
+											$approvalsts="Rejected";
+										}elseif($approvalsts==2){
+											$approvalsts="Approved";
+										}elseif($approvalsts==3){
+											$approvalsts="Pending";
+										}elseif($approvalsts==4){
+											$approvalsts="Cancel";
+										}elseif($approvalsts==5){
+											$approvalsts="Withdrawn";
+										}
+										$approvaldate="";
+										$approvaldate=date('dd/mm/yyyy',strtotime($r->ApprovalDate));
+										$approvercomment=$r->ApproverComment;
+										$approverhistory.="<tr>
+														
+															<th>$approvalsts</th>
+																<th>$approvername</th>
+															<th>$approvaldate</th>
+															<th>$approvercomment</th>
+														</tr>";
+									}
+									
+									if($count>=1){
+										$approverhistory.="</table>";
+									}
+								
+								$approvelink="https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/$temp[$i]/$orgid/$leaveid/2";
+								$rejectlink="https://ubitech.ubihrm.com/approvalbymail/viewapprovetimeoffapproval/$temp[$i]/$orgid/$leaveid/1";
+								
+								$sql = "INSERT INTO TimeoffApproval ( TimeofId, ApproverId, ApproverSts, CreatedDate , OrganizationId) VALUES (?, ?, ?, ?, ?)";
+								$query = $this->db->query($sql,array($leaveid, $temp[$i], 3, $month, $orgid));
+								/* $query->execute(array($leaveid, $temp[$i], 3, $month, $orgid)); */
+								$empname=getName('EmployeeMaster','FirstName','Id',$userid);
+								$seniorname=getName('EmployeeMaster','FirstName','Id',$temp[$i]);
+								if($i==0)
+								{
+									$senioremail=decode5t(getName('EmployeeMaster','CompanyEmail','Id',$temp[$i]));
+									$title="Timeoff approval";
+									$msg="<table>
+														<tr><td>Requested by: $empname</td></tr>
+														<tr><td>Applied on:  $mdate1</td></tr>
+														<tr><td>Reason for timeoff: $timeoffreason</td></tr>
+														<tr><td>Date: $timeoffdateformatted</td></tr>
+														<tr><td>Duration: from $fromtime1 to $totime1</td></tr>
+														
+														</table>
+														
+															$approverhistory
+														
+														<table>
+														<tr><td><br/><br/>
+														
+																<a href='$approvelink'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+																&nbsp;&nbsp;
+																&nbsp;&nbsp;
+																<a href='$rejectlink'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+																-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+																<br/><br/>
+																</td>															
+																</tr>
+													</table>";
+									Trace($senioremail." ".$msg);
+									/* Utils::sendMail($senioremail,$empname,$title,$msg); */
+									sendEmail_new($senioremail,$title,$msg,"","",$empname);
+								}
+							}
+						}
+					}else{
+						$senior=$this->getSeniorId($userid, $orgid);
+						
+						if($senior != $hr){
+							if($hr !=0)
+								$senior.=','.$hr;
+						}
+						$temp = explode(",", $senior);
+						for($i=0; $i<count($temp); $i++)
+						{
+							if($temp[$i] != 0){
+									///////// fetching timeoff approval history ///////////
+								
+								$approverhistory="";
+									$sql = "SELECT * FROM TimeoffApproval WHERE OrganizationId = ? AND TimeofId = ? AND ApproverSts<>3 ";
+									$query = $this->db->query($sql,array($orgid, $leaveid));
+									/* $query->execute(array($orgid, $leaveid)); */
+									$count =  $query->num_rows();
+									if($count>=1){
+										$approverhistory="<p><b>Approval History</b></p>
+										<table border='1' style=' border-collapse: collapse;width:70%'>
+										<tr style=' background-color: rgba(107, 58, 137, 0.91);color: rgba(255, 247, 247, 1);'>
+															
+															<th>Approval Status</th>
+															<th>Approver</th>
+															<th>Approval Date</th>
+															<th>Remarks</th>
+										</tr>
+										";
+									}
+									foreach($query->result() as $r){
+										$approvername=$this->getEmployeeName($r->ApproverId);
+										$approvalsts=$r->ApproverSts;
+										if($approvalsts==1){
+											$approvalsts="Rejected";
+										}elseif($approvalsts==2){
+											$approvalsts="Approved";
+										}elseif($approvalsts==3){
+											$approvalsts="Pending";
+										}elseif($approvalsts==4){
+											$approvalsts="Cancel";
+										}elseif($approvalsts==5){
+											$approvalsts="Withdrawn";
+										}
+										$approvaldate="";
+										$approvaldate=date('dd/mm/yyyy',strtotime($r->ApprovalDate));
+										$approvercomment=$r->ApproverComment;
+										$approverhistory.="<tr>
+															
+															<th>$approvalsts</th>
+															<th>$approvername</th>
+															<th>$approvaldate</th>
+															<th>$approvercomment</th>
+														</tr>";
+									}
+									
+									if($count>=1){
+										$approverhistory.="</table>";
+									}
+								
+								$sql = "INSERT INTO TimeoffApproval ( TimeofId, ApproverId, ApproverSts, CreatedDate ,   OrganizationId) VALUES (?, ?, ?, ?, ?)";
+								$query = $this->db->query($sql,array($leaveid, $temp[$i], 3, $month, $orgid));
+								/* $query->execute(array($leaveid, $temp[$i], 3, $month, $orgid)); */
+								$empname=getName('EmployeeMaster','FirstName','Id',$userid);
+								$seniorname=getName('EmployeeMaster','FirstName','Id',$temp[$i]);
+								if($i==0){
+								$senioremail=decode5t(getName('EmployeeMaster','CompanyEmail','Id',$temp[$i]));
+								$title="Timeoff request";
+								$msg="<table>
+												<tr><td>Requested by : $empname</td></tr>
+												<tr><td>Reason for leave : $timeoffreason</td></tr>
+												<tr><td>Date: $timeoffdateformatted</td></tr>
+												<tr><td>Duration : from $fromtime1 to $totime1</td></tr>
+												</table>
+												
+												$approverhistory
+												
+												<table>
+												<tr><td><br/><br/>
+														<a href='$approvelink'   style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: green;
+														-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px green; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Approve</a>
+														&nbsp;&nbsp;
+														&nbsp;&nbsp;
+														<a href='$rejectlink'  style='text-decoration:none;padding: 10px 15px; background: #ffffff; color: brown;
+														-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: solid 1px brown; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4); -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);'>Reject</a>
+														<br/><br/>
+														</td>															
+														</tr>	
+											</table>";
+								Trace($senioremail." ".$msg);
+								sendEmail_new($senioremail,$title,$msg,"","",$empname);
+								}
+							}
+						}
+					}
+					
+					
+				} else {
+				   $status =false;
+				   $errorMsg = EMPLOYEELEAVE_MODULE_CREATION_FAILED;
+				}
+			}else{
+				$status =false;
+				$errorMsg = "Timeoff already exist";
+			}
+			}else{
+				$status =false;
+				$errorMsg = "Timeoff should be between shift timing";
+			}
+			
+		
+		}catch(Exception $e) {
+			$errorMsg = 'Message: ' .$e->getMessage();
+		}
+	
+		$result["data"] =$data;
+		$result['status']=$status;
+		$result['successMsg']=$successMsg;
+		$result['errorMsg']=$errorMsg;
+		
+        // default return
+        return $result;
+    }
+	
+			public function getApprovalLevelEmp($empid, $orgid, $processtype)
+	{
+		//processtype 1 for leave, 2 for salary advance, 3 for document request, 4 for resignation, 5 for termination
+		//$orgid = $_SESSION['ubihrm_org_id'];	//ORG ID CONTAINS IN ARRAY SECOND VALUE;
+		//$processtype = 1;
+		$id = "0";
+		$seniorid=0;
+		$designation=0;
+		
+		if($empid!="0" && $empid!="")
+		{
+			$sql = "SELECT ReportingTo, Designation FROM EmployeeMaster WHERE OrganizationId = ? and Id = ? ";
+			$query = $this->db->query($sql,array($orgid, $empid));
+			/* $query->execute(array($orgid, $empid)); */
+			foreach($query->result() as $row)
+			{
+				$seniorid = $row->ReportingTo;
+				$designation = $row->Designation;
+			}
+			
+			if($seniorid!=0 && $designation !=0)
+			{
+				$sql = "SELECT RuleCriteria, Designation,HrStatus FROM ApprovalProcess WHERE OrganizationId = ? and Designation = ?  and ProcessType = ? ";
+				$query = $this->db->query($sql,array($orgid, $designation, $processtype));
+				/* $query->execute(array($orgid, $designation, $processtype)); */
+				if($query->num_rows()>0)
+				{
+					$rule = "";
+					$sts = "";
+					 if($row = $query->result()){
+						$rule = $row[0]->RuleCriteria;
+						$sts = $row[0]->HrStatus; 
+					 }
+					/* foreach($query->result() as $row)
+					{
+						$rule = $row->RuleCriteria;
+						$sts = $row->HrStatus;
+					} */
+					$reportingto = $this->getSeniorId($empid, $orgid);
+					$seniorid = "";
+					
+					$sql = "SELECT Id, Designation FROM EmployeeMaster WHERE OrganizationId = ? and DOL='0000-00-00' and Designation in ( $rule )  and Id in ( $reportingto ) order by FIELD(Designation, $rule)"; /////////
+					///////////sts=0 for all the designation and employee,if sts=1 then hierarchy employee will come///////
+					//if($sts==0)
+					//$sql = "SELECT Id, Designation FROM EmployeeMaster WHERE OrganizationId = ? and DOL='0000-00-00' and Designation in ( $rule )";
+				
+				
+					$query = $this->db->query($sql,array($orgid));
+					/* $query->execute(array($orgid)); */
+					foreach($query->result() as $row)
+					{
+						if($seniorid=="")
+						$seniorid = $row->Id;
+						else
+						$seniorid .= ",".$row->Id;
+					}
+				}
+			}
+		}
+			return $seniorid;
+	}
+	
+			public function getSeniorId($empid, $orgid)
+	{
+		//$orgid = $_SESSION['ubihrm_org_id'];	//ORG ID CONTAINS IN ARRAY SECOND VALUE;
+		$id = "0";
+		
+		$parentid=$empid;
+		if($parentid!="0" && $parentid!="")
+		{
+				$sql1 = "SELECT ReportingTo FROM EmployeeMaster WHERE OrganizationId = ? and Id in ( $parentid ) and  DOL='0000-00-00' ";
+				
+				$query1 = $this->db->query($sql1,array($orgid));
+				/* $query1->execute(array($orgid)); */
+				$parentid="";
+				foreach($query1->result() as $row1)
+				{
+				$id = $row1->ReportingTo;
+					
+				}
+				
+			
+		}
+			return $id;
+	}
+	
+	public function UpdateTimeoffSts()
+    {
+		$result = array();
+		$count=0; $errorMsg=""; $successMsg=""; $status=false;
+		$data = array();
+		try{
+			$uid=isset($_REQUEST['uid'])?$_REQUEST['uid']:'0';
+			$orgid=isset($_REQUEST['orgid'])?$_REQUEST['orgid']:'0';
+			$timeoffid=isset($_REQUEST['timeoffid'])?$_REQUEST['timeoffid']:'0';
+			$val=isset($_REQUEST['timeoffsts'])?$_REQUEST['timeoffsts']:'0';
+			
+			$sql = "UPDATE Timeoff SET ApprovalSts = ? WHERE  Id = ?";
+			$query = $this->db->query($sql,array( 5,$timeoffid));
+			/* $query->execute(array( 5,$timeoffid)); */
+			$count =  $this->db->affected_rows();
+			$sql1="select * from Timeoff where Id = ?";
+			$query1=$this->db->query($sql1,array($timeoffid));
+			/* $query1->execute(array($timeoffid)); */
+			foreach($query1->result() as $row){
+				$timeoffdateformatted=date('Y-m-d',strtotime($row->TimeofDate));
+				$fromtime=$row->TimeFrom;
+				$totime=$row->TimeTo;
+				$timeoffreason=$row->Reason;	
+			}
+			Trace($sql." ".$timeoffid);
+			if($count>=1){
+				$sendmail=$this->getSeniorId($uid,$orgid);
+				$assignedbyemail=decode5t(getName('EmployeeMaster','CompanyEmail','Id',$sendmail));
+				$assignedbyname=$this->getEmployeeName($sendmail);
+				$assignedtoname=$this->getEmployeeName($uid);
+				$fname=getName('EmployeeMaster','FirstName','Id',$uid);
+				$gender=getName('EmployeeMaster','Gender','Id',$uid);
+				$genderverb="";
+				if($gender==1)
+				$genderverb="his";
+				elseif($gender==2)
+				$genderverb="her";
+				$sub="Withdraw timeoff by $assignedtoname";
+				$msg="
+				<table>
+				<tr><td>Dear $assignedbyname,</td></tr>
+				<tr><td></td></tr>
+				<tr><td>$assignedtoname withdrawn $genderverb request for timeoff.</td></tr>
+				<tr><td><b>Details are given below:</b></td></tr>
+				<tr><td>Reason for timeoff: $timeoffreason</td></tr>
+				<tr><td>Date: $timeoffdateformatted</td></tr>
+				<tr><td>Duration: from $fromtime to $totime</td></tr>
+				
+					
+				</table>";
+				
+				$sts=sendEmail_new($assignedbyemail,$sub,$msg,"","",$fname);
+				Trace($sts." ".$assignedbyemail." ".$sub." ".$msg);
+				$status =true;
+				$successMsg="Timeoff application has been successfully withdrawn.";
+			}else {
+			   $status =false;
+			   $errorMsg="Timeoff application has been already withdrawn.";
+			}
+		}catch(Exception $e) {
+			$errorMsg = 'Message: ' .$e->getMessage();
+		}
+		$result["data"] =$data;
+		$result['status']=$status;
+		$result['successMsg']=$successMsg;
+		$result['errorMsg']=$errorMsg;
+		
+		return $result;
+    }
+	
+	
+	///////////created by shashank
+	  
+public function saveImageFromChrome()
+    {
+        $userid  = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : 0;
+        $addr    = isset($_REQUEST['location']) ? $_REQUEST['location'] : '';
+        $aid     = isset($_REQUEST['aid']) ? $_REQUEST['aid'] : 0;
+        $act     = isset($_REQUEST['act']) ? $_REQUEST['act'] : 'TimeIn';
+        $shiftId = isset($_REQUEST['shiftid']) ? $_REQUEST['shiftid'] : 0;
+        $orgid   = isset($_REQUEST['refid']) ? $_REQUEST['refid'] : 0;
+        $latit   = isset($_REQUEST['latit']) ? $_REQUEST['latit'] : '0.0';
+        $longi   = isset($_REQUEST['longi']) ? $_REQUEST['longi'] : '0.0';
+        $data   = isset($_REQUEST['data']) ? $_REQUEST['data'] : '0.0';
+
+        $result  = array();
+       // echo "aid from server:".$aid;
+        $dept=getDepartmentIdByEmpID($userid);
+        $desg=getDesignationIdByEmpID($userid);
+       // $shiftId=getShiftIdByEmpID($userid);
+        $shiftId=getTodayShift($date,$userid);
+        $zone    = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+       $today = date('Y-m-d');
+	   $date	=date('Y-m-d');
+	   $time   = date("H:i");
+	   $stamp   = date('Y-m-d');
+        $count      = 0;
+        $errorMsg   = "";
+        $successMsg = "";
+        $status     = 0;
+        $resCode    = 0;
+        $serversts  = 1;
+        $new_name   = $userid . '_' . date('dmY_His') . ".jpg";
+       
+    if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+        $data = substr($data, strpos($data, ',') + 1);
+        $type = strtolower($type[1]); // jpg, png, gif
+		$types = array('jpg','jpeg','gif','png');
+        if (!in_array($type,$types)) {
+            throw new \Exception('invalid image type');
+        }
+
+        $data = base64_decode($data);
+
+        if ($data === false) {
+            throw new \Exception('base64_decode failed');
+        }
+    } else {
+        throw new \Exception('did not match data URI with image data');
+    }
+
+
+
+
+        
+        //if (move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/" . $new_name))
+        //if(true)
+if (file_put_contents("uploads/" . $new_name, $data))
+            {
+
+               // echo "inside if";
+            $sql = '';
+            
+            //////----------------getting shift info
+            $stype = 0;
+            $sql1  = "SELECT TIMEDIFF(`TimeIn`,`TimeOut`) AS stype FROM ShiftMaster where id=" . $shiftId;
+            try {
+                $result1 = $this->db->query($sql1);
+                if ($row1 = $result1->row()) {
+                    $stype = $row1->stype;
+                }
+            }
+            catch (Exception $e) {
+                Trace('Error_3: ' . $e->getMessage());
+            }
+            //////----------------/gettign shift info
+            
+            if ($aid != 0) //////////////updating path of employee profile picture in database/////////////
+                {
+                if ($stype < 0) //// if shift is end whthin same date
+                    $sql = "UPDATE `AttendanceMaster` SET `ExitImage`='" . IMGURL . $new_name . "',CheckOutLoc='$addr',latit_out='$latit',longi_out='$longi', TimeOut='$time', LastModifiedDate='$stamp',overtime =(SELECT subtime(subtime('$time',timein),
+                (select subtime(timeout,timein) from ShiftMaster where id=$shiftId)) as overTime )
+                WHERE id=$aid and `EmployeeId`=$userid  and date(AttendanceDate) = '$date' "; //and SUBTIME(  `TimeOut` ,  `TimeIn` ) >'00:05:00'";
+                else
+                    $sql = "UPDATE `AttendanceMaster` SET `ExitImage`='" . IMGURL . $new_name . "',CheckOutLoc='$addr',latit_out='$latit',longi_out='$longi', TimeOut='$time', LastModifiedDate='$stamp' ,overtime =(SELECT subtime(subtime('$time',timein),
+                (select subtime(timeout,timein) from ShiftMaster where id=$shiftId)) as overTime )
+                WHERE id=$aid and `EmployeeId`=$userid  ORDER BY `AttendanceDate` DESC LIMIT 1";
+                //and date(AttendanceDate) = DATE_SUB('$date', INTERVAL 1 DAY)
+                //----------push check code
+                try {
+                    $push = "push/";
+                    if (!file_exists($push))
+                        mkdir($push, 0777, true);
+                    $filename = $push . $orgid . ".log";
+                    $fp       = fopen($filename, "a+");
+                    fclose($fp);
+                }
+                catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+                //----------push check code
+            } //LastModifiedDate
+            else if ($aid == 0) {
+                ///-------- code for prevent duplicacy in a same day   code-001
+                $sql = "select * from  AttendanceMaster where EmployeeId=$userid and AttendanceDate= '$today'";
+                
+                try {
+                    $result1 = $this->db->query($sql);
+                    if ($this->db->affected_rows() < 1) { ///////code-001 (ends)
+                        $area = getAreaId($userid);
+                        $sql  = "INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in)
+      VALUES ($userid,'$date',1,'$time',$shiftId,$dept,$desg,$area,$orgid,'$date',$userid,'$stamp',$userid,$userid,'00:00:00','" . IMGURL . $new_name . "','$addr','mobile','$latit','$longi')";
+                    } else
+                        $sql = '';
+                }
+                catch (Exception $e) {
+                    Trace('Error_2: ' . $e->getMessage());
+                    $errorMsg = 'Message: ' . $e->getMessage();
+                    $status   = 0;
+                }
+                
+                
+            }
+            
+            try {
+                $query = $this->db->query($sql);
+				 if ($this->db->affected_rows() > 0) {
+                    //----------push check code
+                    try {
+                        $push = "push/";
+                        if (!file_exists($push))
+                            mkdir($push, 0777, true);
+                        $filename = $push . $orgid . ".log";
+                        $fp       = fopen($filename, "a+");
+                        fclose($fp);
+                    }
+                    catch (Exception $e) {
+                        echo $e->getMessage();
+                    }
+                    //----------push check code
+                    
+                    
+                    $resCode    = 0;
+                    $status     = 1; // update successfully
+                    $successMsg = "Image uploaded successfully.";
+				 } else {
+                    $status = 2; // no changes found
+                    $errorMsg .= "Failed to upload Image/No Check In found today.";
+                }
+				/*echo '---------------------'.$this->db->affected_rows().'--'.$act.'-------------------';
+                if ($this->db->affected_rows() > 0 && $act == 'TimeOut') {
+                    //----------push check code
+                    try {
+                        $push = "push/";
+                        if (!file_exists($push))
+                            mkdir($push, 0777, true);
+                        $filename = $push . $orgid . ".log";
+                        $fp       = fopen($filename, "a+");
+                        fclose($fp);
+                    }
+                    catch (Exception $e) {
+                        echo $e->getMessage();
+                    }
+                    //----------push check code
+                    
+                    
+                    $resCode    = 0;
+                    $status     = 1; // update successfully
+                    $successMsg = "Image uploaded successfully.";
+                    //////////////////----------------mail send if attndnce is marked very first time in org ever
+                    $sql        = "SELECT  `Email`  FROM `Organization` WHERE `Id`=" . $orgid;
+                    $to         = '';
+                    $query1     = $this->db->query($sql);
+                    if ($row = $query1->result()) {
+                        $to = $row[0]->Email;
+                    }
+                    
+                    //////////////////----------------/mail send if attndnce is marked very first time in org ever
+                } else {
+                    $status = 2; // no changes found
+                    $errorMsg .= "Failed to upload Image/No Check In found today.";
+                }*/
+            }
+            catch (Exception $e) {
+                Trace('Error_1: ' . $e->getMessage());
+                $errorMsg = 'Message: ' . $e->getMessage();
+                $status   = 0;
+            }
+        } else {
+            Trace('image not uploaded--');
+            $status   = 3; // error in uploading image
+            $errorMsg = 'Message: error in uploading image';
+        }
+        $result['status']     = $status;
+        $result['successMsg'] = $successMsg;
+        $result['errorMsg']   = $errorMsg;
+        //$result['location']=$addr;
+        
+        echo json_encode($result);
+    }
+	///////////created by shashank/
+	public function checkMandUpdate()
+    {
+        $platform = isset($_REQUEST['platform']) ? $_REQUEST['platform'] : 'Android';
+		
+        if ($platform == 'Android')
+            $query = $this->db->query("SELECT is_mandatory_android as is_update FROM  `PlayStore` WHERE orgid=0 LIMIT 1");
+        else // for ios
+            $query = $this->db->query("SELECT is_mandatory_ios as is_update FROM  `PlayStore` WHERE orgid=0 LIMIT 1");
+        echo json_encode($query->result());
+    }
+	
+	public function getAllShiftPlans(){
+		$orgid=isset($_REQUEST['refno'])?$_REQUEST['refno']:0;
+		$date=isset($_REQUEST['date'])?$_REQUEST['date']:date('Y-m-d');
+		if(!strpos($date, '-'))
+			$date=date('Y-m-d');
+		$result=array();
+		$day=date('l',strtotime($date));
+		$zone   = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		$qry=$this->db->query('select id,CONCAT(FirstName," ",LastName) as Name from EmployeeMaster where OrganizationId=? and Is_Delete=?',array($orgid,0));
+		foreach($qry->result() as $row){
+			$data=array();
+			$data['Name']=$row->Name;
+			$eid=$row->id;
+			$shiftId=getTodayShift($date,$eid);		
+			$data['shiftName']=getShift($shiftId);
+			$data['shiftTime']=getShiftTimes($shiftId);
+			$result[]=$data;
+		}
+		Trace($orgid."==========GetAllShiftPlans============".$date,$orgid);
+		Trace(json_encode($result),$orgid);
+		Trace($orgid."==========GetAllShiftPlans============".$date,$orgid);
+		echo json_encode($result);
+	}
+	public function getTodayInfo(){
+		$empid=isset($_REQUEST['empid'])?$_REQUEST['empid']:0;
+		$orgid=isset($_REQUEST['orgid'])?$_REQUEST['orgid']:0;
+		$date=isset($_REQUEST['date'])?$_REQUEST['date']:date('Y-m-d');
+		$result=array();
+		$zone   = getTimeZone($orgid);
+        date_default_timezone_set($zone);
+		$today=date('Y-m-d');
+		$result['status']='-';
+		$result['timeIn']='-';
+		$result['timeOut']='-';
+		$result['lateBy']='-';
+		$result['earlyBy']='-';
+		$result['timeOffStart']='-';
+		$result['timeOffEnd']='-';
+		$result['shiftName']='-';
+		$result['shiftTime']='-';
+		$result['date']=date('D, dS M,Y',strtotime($date));
+			
+		
+			//if attendance is already marked
+		/*	$qry=$this->db->query("SELECT `AttendanceStatus`, SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut`,`ShiftId` FROM `AttendanceMaster` WHERE AttendanceDate=? and EmployeeId=? group by (EmployeeId)",array($date,$empid));*/
+	
+		try{
+		
+		$qry=$this->db->query("SELECT `AttendanceStatus`, SUBSTR(Min(TimeIn), 1, 5) as `TimeIn`, SUBSTR(Max(TimeOut), 1, 5) as `TimeOut`,`ShiftId` ,TIMEDIFF(time(TimeIn) ,(select TimeIn from ShiftMaster where ShiftMaster.Id=ShiftId limit 1))as lateBy,TIMEDIFF((select TimeOut from ShiftMaster where ShiftMaster.Id=ShiftId limit 1),time(max(TimeOut)))as earlyBy FROM `AttendanceMaster` WHERE AttendanceDate=? and EmployeeId=? group by (EmployeeId)",array($date,$empid));
+		
+			if($row=$qry->result()){
+				$result['status']=getOtherTypeName('AttendanceStatus',$row[0]->AttendanceStatus);
+				$result['timeIn']=$row[0]->TimeIn!='00:00'?$row[0]->TimeIn:'-';
+				$result['timeOut']=$row[0]->TimeOut!='00:00'?$row[0]->TimeOut:'-';
+				$shiftId=$row[0]->ShiftId;	
+				$result['shiftName']=getShift($shiftId);
+				$result['shiftTime']=getShiftTimes($shiftId);
+				if(strlen($result['shiftTime'])>1){ //if shift timings found
+					$result['lateBy']=($row[0]->TimeIn!='00:00' && !is_numeric(strpos($row[0]->lateBy,'-')))?substr($row[0]->lateBy,0,5):'-';
+					$result['earlyBy']=($row[0]->TimeOut!='00:00' && !is_numeric(strpos($row[0]->earlyBy,'-')))?substr($row[0]->earlyBy,0,5):'-';
+				}
+				$qry=$this->db->query("SELECT substr(TimeFrom,1,5) as TimeFrom, substr(TimeTo,1,5) as TimeTo FROM Timeoff WHERE EmployeeId=? and TimeofDate=? and ApprovalSts=? and Is_Delete=? ",array($empid,$date,2,'0'));
+				if($row=$qry->result()){
+						$result['timeOffStart']=$row[0]->TimeFrom;
+						$result['timeOffEnd']=$row[0]->TimeTo;
+				}
+			}
+			
+		else{	// attendance will be marked in future in given shift- detail is below
+			$shiftId=getTodayShift($date,$empid);		
+			$result['shiftName']=getShift($shiftId);
+			$result['shiftTime']=getShiftTimes($shiftId);
+			$qry=$this->db->query("SELECT substr(TimeFrom,1,5) as TimeFrom, substr(TimeTo,1,5) as TimeTo FROM Timeoff WHERE EmployeeId=? and TimeofDate=? and ApprovalSts=? and Is_Delete=? ",array($empid,$date,2,'0'));
+				if($row=$qry->result()){
+						$result['timeOffStart']=$row[0]->TimeFrom;
+						$result['timeOffEnd']=$row[0]->TimeTo;
+				}
+		}
+		}catch(Exception $e){
+			$result['status']='Exception';
+			$res[]=$result;
+			echo json_encode($res);
+			return;
+		}
+		$result['shiftName']=strlen($result['shiftName'])>15?substr($result['shiftName'],0,14):$result['shiftName'];
+		$res[]=$result;
+		echo json_encode($res);
+	}
+	public function getShiftPlaned(){
+		$orgid=isset($_REQUEST['refno'])?$_REQUEST['refno']:0;
+		$result=array();
+		//echo 'SELECT `EmployeeId`,FirstName,LastName ,`SettingType`,`MonthRotation`,`WeekRotation` FROM `ShiftRotationMaster` S ,EmployeeMaster E  WHERE S.OrganizationId=$orgid and S.EmployeeId=E.Id and E.Is_Delete!=1 ';
+		
+		
+		
+		
+		
+		$qry=$this->db->query('SELECT S.Id,`EmployeeId`,E.Shift as  defaultShift,FirstName,LastName ,`SettingType`,`MonthRotation`,`WeekRotation` FROM `ShiftRotationMaster` S ,EmployeeMaster E  WHERE S.OrganizationId=? and S.EmployeeId=E.Id and E.Is_Delete!=1 ',array($orgid));
+		$result=array();
+		foreach($qry->result() as $row ){
+			$data=array();
+				$data['Name']=$row->FirstName.' '.$row->LastName;
+				$data['defaultShift']=getShift($row->defaultShift);
+				$data['defaultShiftTimes']=getShiftTimes($row->defaultShift);
+				$data['Type']=$row->SettingType;
+					if($data['Type']==1){ // for monthly assignement
+						$data['Months']=$row->MonthRotation;
+						$qry1=$this->db->query('SELECT `From_Day` FromDay , `To_Day` ToDay, Name Shift ,CONCAT(SUBSTR(TimeIn,1,5)," - ",SUBSTR(TimeOut,1,5)) as Timings FROM `ShiftMonthlySettings` SS,ShiftMaster S WHERE RotationId=? and S.Id=SS.shiftId',array($row->Id));
+						$data['Detail']=$qry1->result();
+					}else{ // for weekly rotation
+						$data['Days']=$row->WeekRotation;
+						$qry1=$this->db->query('SELECT `EffectiveFrom` , Name Shift ,CONCAT(SUBSTR(TimeIn,1,5)," - ",SUBSTR(TimeOut,1,5)) as Timings FROM `ShiftWeeklySettings` SS,ShiftMaster S WHERE RotationId=? and S.Id=SS.shiftId',array($row->Id));
+						$data['Detail']=$qry1->result();
+					}
+					$qry2=$this->db->query('SELECT  DATE_FORMAT(ScheduleDate, "%D %b,%y") as ShiftDate, Name Shift ,CONCAT(SUBSTR(TimeIn,1,5)," - ",SUBSTR(TimeOut,1,5)) as Timings FROM `ShiftDateSetting` SS,ShiftMaster S WHERE EmployeeId=? and SS.ShiftId=S.Id',array($row->EmployeeId));
+						$data['special']=$qry2->result();
+				$result[]=$data;
+		}
+		$qr=$this->db->query('SELECT Id,Shift as  defaultShift,FirstName,LastName FROM EmployeeMaster  WHERE OrganizationId=? and Is_Delete!=1 and Id not in (select EmployeeId from ShiftRotationMaster where OrganizationId=?)',array($orgid,$orgid));
+		foreach($qr->result() as $row ){
+			$data=array();
+				$data['Name']=$row->FirstName.' '.$row->LastName;
+				$data['defaultShift']=getShift($row->defaultShift);
+				$data['defaultShiftTimes']=getShiftTimes($row->defaultShift);
+				$data['Type']='2'; // empl doesn't have weekly/monthly shift plan but custome date.
+				$data['Months']='';
+				$data['Days']='';
+			$qry2=$this->db->query('SELECT  DATE_FORMAT(ScheduleDate, "%D %b,%y") as ShiftDate, Name Shift ,CONCAT(SUBSTR(TimeIn,1,5)," - ",SUBSTR(TimeOut,1,5)) as Timings FROM `ShiftDateSetting` SS,ShiftMaster S WHERE EmployeeId=? and SS.ShiftId=S.Id',array($row->Id));
+						$data['Detail']=array();
+						$data['special']=$qry2->result();
+				$result[]=$data;
+		}
+		
+		
+		echo json_encode($result); 
+	}
+	
+	
+	
+	
+	
+}
+?>

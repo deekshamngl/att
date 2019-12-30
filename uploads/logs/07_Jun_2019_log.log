@@ -1,0 +1,124 @@
+07-Jun-2019 10:31 : TimeIn AID0UserId4120
+07-Jun-2019 10:31 : User Attendance: 4120 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4120,'2019-06-07',1,'10:31',49,50,854,0,1,10,'2019-06-07',4120,'2019-06-07 10:31:01',4120,4120,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4120_07062019_103101.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1968079','78.1969194','2019-06-07')
+07-Jun-2019 11:00 : Total is less than zero-151.46
+07-Jun-2019 11:02 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:02 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:02 : Total is less than zero-153.4
+07-Jun-2019 11:03 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:03 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:41 : Total is less than zero-33.04
+07-Jun-2019 11:42 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:42 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:46 : Total is less than zero-33.04
+07-Jun-2019 11:46 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:46 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:54 : Total is less than zero-33.04
+07-Jun-2019 11:55 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:55 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:56 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 11:56 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:10 : TimeOut AID1972003UserId4120
+07-Jun-2019 12:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:14 : TimeIn AID0UserId4141
+07-Jun-2019 12:14 : User Attendance: 4141 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4141,'2019-06-07',1,'12:14',48,50,18645,159,0,10,'2019-06-07',4141,'2019-06-07 12:14:33',4141,4141,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4141_07062019_121433.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967498','78.1968853','2019-06-07')
+07-Jun-2019 12:15 : TimeOut AID1972004UserId4141
+07-Jun-2019 12:19 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:19 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:24 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:24 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:37 : TimeIn AID0UserId4252
+07-Jun-2019 12:37 : User Attendance: 4252 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4252,'2019-06-07',1,'12:37',1159,50,862,159,0,10,'2019-06-07',4252,'2019-06-07 12:37:46',4252,4252,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4252_07062019_123746.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967712','78.1968943','2019-06-07')
+07-Jun-2019 12:38 : TimeOut AID1972005UserId4252
+07-Jun-2019 12:38 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:38 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:39 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 12:39 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:05 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:05 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:09 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:15 : TimeIn AID0UserId4253
+07-Jun-2019 13:15 : User Attendance: 4253 INSERT INTO `AttendanceMaster`(`EmployeeId`, `AttendanceDate`, `AttendanceStatus`, `TimeIn`,`ShiftId`,Dept_id,Desg_id,areaId,HourlyRateId, `OrganizationId`,
+      `CreatedDate`, `CreatedById`, `LastModifiedDate`, `LastModifiedById`, `OwnerId`, `Overtime`, `EntryImage`, `checkInLoc`,`device`,latit_in,longi_in,timeindate)
+      VALUES (4253,'2019-06-07',1,'13:15',48,50,861,159,0,10,'2019-06-07',4253,'2019-06-07 13:15:32',4253,4253,'00:00:00','http://192.168.0.200/ubiattendance/uploads/4253_07062019_131532.jpg','Ubitech Road, Kailash Nagar, Mahalgaon, Gwalior, Madhya Pradesh 474011, India','mobile','26.1967999','78.196851','2019-06-07')
+07-Jun-2019 13:15 : TimeOut AID1972008UserId4253
+07-Jun-2019 13:15 : inelse
+07-Jun-2019 13:15 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:16 : inelse
+07-Jun-2019 13:16 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 08:53 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 08:53 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 08:53 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 08:53 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 13:31 : Total is less than zero-31.82
+07-Jun-2019 10:12 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:12 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:13 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 10:14 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 09:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 09:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 09:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 09:20 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:34 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:34 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:49 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:49 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:51 : Total is less than zero-31.82
+07-Jun-2019 15:58 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:58 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:59 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 15:59 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:12 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:12 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:26 : Total is less than zero-34.24
+07-Jun-2019 16:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:29 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:30 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:30 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:47 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 16:47 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:06 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:11 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:11 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:15 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:15 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:23 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:23 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:25 : Total is less than zero-34.24
+07-Jun-2019 17:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:26 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:39 : Total is less than zero-34.24
+07-Jun-2019 17:45 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:45 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:48 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:49 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:49 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:58 : The following From address failed: ubiattendance@ubitechsolutions.com
+07-Jun-2019 17:58 : The following From address failed: ubiattendance@ubitechsolutions.com
